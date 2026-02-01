@@ -1,0 +1,4 @@
+[submodule "libs/zil-script"]
+	path = libs/zil-script
+	url = https://github.com/corepunch/zil-script.git
+

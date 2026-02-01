@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Project Name="adventure" StartupScreen="adventure/App" Width="400" Height="800"> 
+  <ProjectReferenceLibrary>
+    <ProjectReferenceItem Name="applications">applications</ProjectReferenceItem>
+    <ProjectReferenceItem Name="assets">assets</ProjectReferenceItem>
+    <ProjectReferenceItem Name="appwrite">lib/appwrite</ProjectReferenceItem>
+    <ProjectReferenceItem Name="html">lib/html</ProjectReferenceItem>
+    <ProjectReferenceItem Name="routing">lib/routing</ProjectReferenceItem>
+    <ProjectReferenceItem Name="openai">lib/openai</ProjectReferenceItem>
+    <ProjectReferenceItem Name="tailwind">lib/tailwind</ProjectReferenceItem>
+    <ProjectReferenceItem Name="zil">zil</ProjectReferenceItem>
+    <ProjectReferenceItem Name="model">model</ProjectReferenceItem>
+    <ProjectReferenceItem Name="root">root</ProjectReferenceItem>
+    <ProjectReferenceItem Name="config">config</ProjectReferenceItem>
+  </ProjectReferenceLibrary>
+  <FontLibrary Name="fonts" />
+  <MessageLibrary Name="Messages">
+    <SystemMessage Message="KeyDown" Key="q">return</SystemMessage>
+    <SystemMessage Message="WindowClosed">return</SystemMessage>
+    <SystemMessage Message="RequestReload">window:refresh()</SystemMessage>
+  </MessageLibrary>
+</Project>
