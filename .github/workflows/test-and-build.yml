@@ -20,6 +20,7 @@ jobs:
       
       - name: Validate project structure
         run: |
+          set -e
           echo "Checking project files..."
           ls -la
           test -f App.moon && echo "✓ App.moon found"
