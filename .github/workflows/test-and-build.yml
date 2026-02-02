@@ -9,6 +9,8 @@ on:
 jobs:
   run-app:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     steps:
