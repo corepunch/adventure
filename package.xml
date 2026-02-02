@@ -8,7 +8,7 @@
     <ProjectReferenceItem Name="routing">lib/routing</ProjectReferenceItem>
     <ProjectReferenceItem Name="openai">lib/openai</ProjectReferenceItem>
     <ProjectReferenceItem Name="tailwind">lib/tailwind</ProjectReferenceItem>
-    <ProjectReferenceItem Name="zil">lib/zil-script/zil</ProjectReferenceItem>
+    <ProjectReferenceItem Name="zilscript">lib/zilscript/zilscript</ProjectReferenceItem>
     <ProjectReferenceItem Name="model">model</ProjectReferenceItem>
     <ProjectReferenceItem Name="root">root</ProjectReferenceItem>
     <ProjectReferenceItem Name="config">config</ProjectReferenceItem>

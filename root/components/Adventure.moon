@@ -1,15 +1,16 @@
-package.path = package.path..";"..PROJECTDIR.."/zil/?.lua"
-
 ui = require "orca.ui"
 appwrite = require "appwrite.functions"
 json = require "orca.parsers.json"
-server = require 'zil.runtime'
+
+require 'zilscript'
+server = require 'zilscript.runtime'
 
 system = "You are the Dungeon Master in a text-based Dungeons & Dragons adventure. Describe scenes vividly, present choices naturally, and react dynamically to player actions. Keep descriptions immersive but concise."
 user = "Let's begin a new D&D adventure. Describe what my character sees as I awaken in a mysterious forest clearing, and ask me what I want to do next."
 
 files = {
   "zork1/globals.zil",
+	"zork1/clock.zil",
   "zork1/parser.zil",
   "zork1/verbs.zil",
   -- "zork1/actions.zil",
@@ -21,7 +22,7 @@ files = {
 
 env = server.create_game_env()
 
-assert(server.load_bootstrap(env))
+assert(server.init(env))
 assert(server.load_zil_files(files, env, {save_lua: true}))
 
 game = server.create_game(env)
