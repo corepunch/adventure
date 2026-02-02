@@ -23,6 +23,9 @@ jobs:
           set -e
           echo "Checking project files..."
           ls -la
-          test -f App.moon && echo "✓ App.moon found"
-          test -f package.xml && echo "✓ package.xml found"
-          test -f Makefile && echo "✓ Makefile found"
+          test -f App.moon
+          echo "✓ App.moon found"
+          test -f package.xml
+          echo "✓ package.xml found"
+          test -f Makefile
+          echo "✓ Makefile found"
