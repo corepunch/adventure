@@ -17,7 +17,6 @@ jobs:
       - name: Setup environment
         run: |
           echo "Environment setup complete"
-          echo "OPENAI_API_KEY is set: ${{ secrets.OPENAI_API_KEY != '' }}"
       
       - name: Validate project structure
         run: |
