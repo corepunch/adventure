@@ -1,4 +1,5 @@
 .DS_Store
+zil_*
 
 # Compiled Lua sources
 luac.out

@@ -9,6 +9,8 @@
     <ProjectReferenceItem Name="openai">lib/openai</ProjectReferenceItem>
     <ProjectReferenceItem Name="tailwind">lib/tailwind</ProjectReferenceItem>
     <ProjectReferenceItem Name="zilscript">lib/zilscript/zilscript</ProjectReferenceItem>
+    <ProjectReferenceItem Name="zork1">lib/zilscript/zork1</ProjectReferenceItem>
+    <ProjectReferenceItem Name="adventure">lib/zilscript/adventure</ProjectReferenceItem>
     <ProjectReferenceItem Name="model">model</ProjectReferenceItem>
     <ProjectReferenceItem Name="root">root</ProjectReferenceItem>
     <ProjectReferenceItem Name="config">config</ProjectReferenceItem>

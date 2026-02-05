@@ -71,7 +71,6 @@ DarkTheme =
 	"light-4": "#9494BB"
 
 orca = require "orca"
-
 system = require "orca.system"
 system.set_theme(true)
 
