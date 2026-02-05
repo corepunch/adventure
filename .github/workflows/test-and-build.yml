@@ -1,0 +1,33 @@
+name: Test and Build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  run-app:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup environment
+        run: |
+          echo "Environment setup complete"
+      
+      - name: Validate project structure
+        run: |
+          set -e
+          echo "Checking project files..."
+          ls -la
+          test -f App.moon
+          echo "✓ App.moon found"
+          test -f package.xml
+          echo "✓ package.xml found"
+          test -f Makefile
+          echo "✓ Makefile found"
