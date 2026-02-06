@@ -1,6 +1,6 @@
 APP_NAME = orca
-BUILD_DIR = /Users/igor/Developer/ui-framework/build/bin
-DATA_DIR = /Users/igor/Developer/adventure
+BUILD_DIR = ../orca/build/bin
+DATA_DIR = .
 LIB_PATH = $(BUILD_DIR)
 
 # Targets
