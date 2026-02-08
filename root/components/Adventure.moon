@@ -1,5 +1,6 @@
 ui = require "orca.ui"
 appwrite = require "appwrite.functions"
+openai = require "openai"
 json = require "orca.parsers.json"
 
 require 'zilscript'
@@ -31,9 +32,9 @@ class Adventure extends ui.Node2D
 	title: "Adventure"
 	-- apply: => "flex-col w-full gap-2"
 	body: =>
-		-- respose = appwrite.test_openai system, user
+		-- response = appwrite.test_openai system, user
 		-- json = response\json!
-		-- respose = {
+		-- response = {
 		-- 	id: "chatcmpl-CZI3yEnk3yLR8yeySTdqTgJgNcKjI"
 		-- 	object: "chat.completion"
 		-- 	created: 1762526950
@@ -69,22 +70,39 @@ class Adventure extends ui.Node2D
 		-- 	service_tier: "default"
 		-- 	system_fingerprint: "fp_560af6e559"
 		-- }
-		-- desc = json.parse(respose.choices[1].message.content)
+		-- desc = json.parse(response.choices[1].message.content)
 		-- text = string.gsub(desc.scene, "\\n", "\n")
 		-- p class: 'm-2', text
 		-- for choice in *desc.choices
 		-- 	select = -> @addChild p class: 'm-1', choice
 		-- 	ui.Button class: 'm-1 py-1 px-2 text-blue-300 bg-muted hover:bg-primary hover:text-blue-100', onClick: select, choice
+
+		-- response = openai.simple "Translate into russian: App started in Light Mode"
+		-- print(response)
+		-- print(response\json!.output[2].content[1].text)
+
+		-- response = response\json!
+		-- content = json.parse(response.choices[1].message.content)
+		-- print "OpenAI response:", content
+
 		perform = (button) ->
 			@input = "#{button.verb} #{button.object or ''}"
 			print @input
 			@rebuild!
 		action = 'm-1 py-1 px-2 text-blue-300 bg-muted hover:bg-primary hover:text-blue-100'
 		scene = game\resume @input
+
+		-- scene = scene\gsub "\n", "\\n"
+		-- response = openai.simple "Translate into russian, keep it concise and natural for D&D game: #{scene}"
+		-- scene = response\json!.output[2].content[1].text
+
+		-- print(scene)
+
+
 		-- if not ok
 		-- 	p class: 'm-2', res
 		-- 	return
-		img class: "w-full h-full", image: "adventure/assets/images/room-1.jpg", stretch: "UniformToFill", opacity: 0.33
+		img class: "w-full h-full", image: "assets/images/room-1.jpg", stretch: "UniformToFill", opacity: 0.33
 		grid rows: 'auto auto', ->
 			stack class: 'flex-col', ->
 				size = 'xl'
@@ -107,11 +125,11 @@ class Adventure extends ui.Node2D
 
 				for _, t in ipairs game\resume 'room-exits' do
 					dir, room = table.unpack t
-					stack ->
+					stack class: 'flex-row items-center', ->
 						button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
 						p class: 'm-2 text-green-300', room
 
-				stack ->
+				stack class: 'flex-row items-center', ->
 					button class: action, onClick: perform, verb: "inventory", "Inventory"
 					button class: action, onClick: perform, verb: "look", "Look Around"
 
