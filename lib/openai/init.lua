@@ -4,6 +4,8 @@ local json = require "orca.parsers.json"
 local openai = {}
 local openai_key = os.getenv "OPENAI_API_KEY"
 
+assert(openai_key, "OPENAI_API_KEY environment variable is not set")
+
 local room_schema = {
   type = "object",
   properties = {

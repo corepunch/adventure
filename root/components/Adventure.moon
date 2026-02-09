@@ -9,15 +9,16 @@ server = require 'zilscript.runtime'
 system = "You are the Dungeon Master in a text-based Dungeons & Dragons adventure. Describe scenes vividly, present choices naturally, and react dynamically to player actions. Keep descriptions immersive but concise."
 user = "Let's begin a new D&D adventure. Describe what my character sees as I awaken in a mysterious forest clearing, and ask me what I want to do next."
 
+font = "adventure/fonts/Junicode-Ansund"
 files = {
   "zork1/globals.zil",
 	"zork1/clock.zil",
   "zork1/parser.zil",
   "zork1/verbs.zil",
-  -- "zork1/actions.zil",
+  "zork1/actions.zil",
   "zork1/syntax.zil",
-  -- "zork1/dungeon.zil",
-  "adventure/horror.zil",
+  "zork1/dungeon.zil",
+  -- "adventure/horror.zil",
   "zork1/main.zil",
 }
 
@@ -27,6 +28,49 @@ assert(server.init(env))
 assert(server.load_zil_files(files, env, {save_lua: true}))
 
 game = server.create_game(env)
+
+Message = (line, style) -> 
+	p class: "m-2 text-lg #{style}", fontFamily: font, line
+
+class Controls extends ui.StackView
+	new: (@game, @console) => super!
+	apply: => "flex-col w-full h-full"
+
+	body: =>
+		action = 'm-1 py-1 px-2 text-blue-300 bg-muted hover:bg-primary hover:text-blue-100'
+		perform = (button) ->
+			input = "#{button.verb} #{button.object or ''}"
+			input = input\gsub '-', ' ' -- replace dashes with spaces for better parsing
+			@console\addChild Message '> '..input\lower!, "text-amber-200"
+			scene = @game\resume input
+			for line in scene\gmatch "[^\n]+" do
+				if line == '>' then continue
+				@console\addChild Message line
+			-- @rebuild!
+			@rebuild!
+
+		Item = (indent, key, verbs, children) ->
+			stack class: "ml-#{indent}", ->
+				p class: 'm-2 text-green-300', key
+				for _, verb in ipairs verbs do
+					button class: action, onClick: perform, verb: verb\lower!, object: key, verb\lower!
+			for _, t in ipairs children do
+				Item indent + 4, table.unpack t
+
+		for _, t in ipairs @game\resume 'room-items' do
+			Item 0, table.unpack t
+
+		-- for _, t in ipairs @game\resume 'room-exits' do
+		-- 	dir, room = table.unpack t
+		-- 	stack class: 'flex-row items-center', ->
+		-- 		button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
+		-- 		p class: 'm-2 text-green-300', room
+
+		stack class: 'flex-row items-center', ->
+			button class: action, onClick: perform, verb: "inventory", "Inventory"
+			button class: action, onClick: perform, verb: "look", "Look Around"
+
+		p class: 'm-2', @game\resume "inventory"
 
 class Adventure extends ui.Node2D
 	title: "Adventure"
@@ -85,52 +129,38 @@ class Adventure extends ui.Node2D
 		-- content = json.parse(response.choices[1].message.content)
 		-- print "OpenAI response:", content
 
-		perform = (button) ->
-			@input = "#{button.verb} #{button.object or ''}"
-			print @input
-			@rebuild!
-		action = 'm-1 py-1 px-2 text-blue-300 bg-muted hover:bg-primary hover:text-blue-100'
+		console, controls = nil, nil
 		scene = game\resume @input
 
 		-- scene = scene\gsub "\n", "\\n"
 		-- response = openai.simple "Translate into russian, keep it concise and natural for D&D game: #{scene}"
 		-- scene = response\json!.output[2].content[1].text
-
 		-- print(scene)
-
 
 		-- if not ok
 		-- 	p class: 'm-2', res
 		-- 	return
-		img class: "w-full h-full", image: "assets/images/room-1.jpg", stretch: "UniformToFill", opacity: 0.33
+		img class: "w-full h-full", image: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
 		grid rows: 'auto auto', ->
-			stack class: 'flex-col', ->
-				size = 'xl'
+			console = stack class: 'flex-col overflow-y-scroll', ->
 				for line in scene\gmatch "[^\n]+" do
 					if line == '>' then continue
-					p class: "m-2 text-#{size}", fontFamily: "adventure/fonts/Junicode-Ansund", line
-					size = 'lg'
+					Message line
+			console.onScrollHeightChanged = () => @setScrollTop @ScrollHeight
 
-			print_item = (indent, key, verbs, children) ->
-				stack class: "ml-#{indent}", ->
-					p class: 'm-2 text-green-300', key
-					for _, verb in ipairs verbs do
-						button class: action, onClick: perform, verb: verb\lower!, object: key, verb\lower!
-				for _, t in ipairs children do
-					print_item indent + 4, table.unpack t
-						
-			stack class: 'flex-col w-full h-full', ->
-				for _, t in ipairs game\resume 'room-items' do
-					print_item 0, table.unpack t
+			controls = Controls game, console
+			-- controls = stack class: 'flex-col w-full h-full', ->
+				-- for _, t in ipairs game\resume 'room-items' do
+				-- 	Item 0, table.unpack t
 
-				for _, t in ipairs game\resume 'room-exits' do
-					dir, room = table.unpack t
-					stack class: 'flex-row items-center', ->
-						button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
-						p class: 'm-2 text-green-300', room
+				-- -- for _, t in ipairs game\resume 'room-exits' do
+				-- -- 	dir, room = table.unpack t
+				-- -- 	stack class: 'flex-row items-center', ->
+				-- -- 		button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
+				-- -- 		p class: 'm-2 text-green-300', room
 
-				stack class: 'flex-row items-center', ->
-					button class: action, onClick: perform, verb: "inventory", "Inventory"
-					button class: action, onClick: perform, verb: "look", "Look Around"
+				-- stack class: 'flex-row items-center', ->
+				-- 	button class: action, onClick: perform, verb: "inventory", "Inventory"
+				-- 	button class: action, onClick: perform, verb: "look", "Look Around"
 
-				p class: 'm-2', game\resume "inventory"
+				-- p class: 'm-2', game\resume "inventory"
