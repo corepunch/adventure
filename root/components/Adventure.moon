@@ -9,7 +9,7 @@ server = require 'zilscript.runtime'
 system = "You are the Dungeon Master in a text-based Dungeons & Dragons adventure. Describe scenes vividly, present choices naturally, and react dynamically to player actions. Keep descriptions immersive but concise."
 user = "Let's begin a new D&D adventure. Describe what my character sees as I awaken in a mysterious forest clearing, and ask me what I want to do next."
 
-font = "adventure/fonts/Junicode-Ansund"
+font = "adventure/fonts/Times New Roman"
 files = {
   "zork1/globals.zil",
 	"zork1/clock.zil",
@@ -29,12 +29,27 @@ assert(server.load_zil_files(files, env, {save_lua: true}))
 
 game = server.create_game(env)
 
+highlight = (text) ->
+	fmt = "<u>%s</u>"
+	for _, dir in ipairs(env.DESCS)
+		cap = dir\sub(1,1)\upper! .. dir\sub 2
+		text = text\gsub("(%f[%a]#{dir}%f[%A])", (m) -> fmt\format m)
+		text = text\gsub("(%f[%a]#{cap}%f[%A])", (m) -> fmt\format m)
+	for _, dir in ipairs(env.DIRS)
+		cap = dir\sub(1,1)\upper! .. dir\sub 2
+		text = text\gsub("(%f[%a]#{dir}%f[%A])", (m) -> fmt\format m)
+		text = text\gsub("(%f[%a]#{cap}%f[%A])", (m) -> fmt\format m)
+	return text
+
 Message = (line, style) -> 
-	p class: "m-2 text-lg #{style}", fontFamily: font, line
+	if style
+		p class: "m-2 text-lg #{style}", fontFamily: font, line
+	else
+		p class: "m-2 text-lg", fontFamily: font, highlight line
 
 class Controls extends ui.StackView
 	new: (@game, @console) => super!
-	apply: => "flex-col w-full h-full"
+	apply: => "flex-col w-full h-full overflow-y-scroll"
 
 	body: =>
 		action = 'm-1 py-1 px-2 text-blue-300 bg-muted hover:bg-primary hover:text-blue-100'
@@ -60,11 +75,11 @@ class Controls extends ui.StackView
 		for _, t in ipairs @game\resume 'room-items' do
 			Item 0, table.unpack t
 
-		-- for _, t in ipairs @game\resume 'room-exits' do
-		-- 	dir, room = table.unpack t
-		-- 	stack class: 'flex-row items-center', ->
-		-- 		button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
-		-- 		p class: 'm-2 text-green-300', room
+		for _, t in ipairs @game\resume 'room-exits' do
+			dir, room = table.unpack t
+			stack class: 'flex-row items-center', ->
+				button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
+				p class: 'm-2 text-green-300', room
 
 		stack class: 'flex-row items-center', ->
 			button class: action, onClick: perform, verb: "inventory", "Inventory"
@@ -143,24 +158,11 @@ class Adventure extends ui.Node2D
 		img class: "w-full h-full", image: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
 		grid rows: 'auto auto', ->
 			console = stack class: 'flex-col overflow-y-scroll', ->
+				-- ui.TextBlock text: 'Hello, ', fontFamily: font, fontSize: 24, ->
+				-- 	ui.TextRun text: 'Adventurer', fontWeight: 'bold', fontSize: 32, color: 'text-amber-200'
+				-- 	ui.TextRun fontStyle: 'italic', ', welcome to the world of Zork!'
 				for line in scene\gmatch "[^\n]+" do
 					if line == '>' then continue
 					Message line
 			console.onScrollHeightChanged = () => @setScrollTop @ScrollHeight
-
 			controls = Controls game, console
-			-- controls = stack class: 'flex-col w-full h-full', ->
-				-- for _, t in ipairs game\resume 'room-items' do
-				-- 	Item 0, table.unpack t
-
-				-- -- for _, t in ipairs game\resume 'room-exits' do
-				-- -- 	dir, room = table.unpack t
-				-- -- 	stack class: 'flex-row items-center', ->
-				-- -- 		button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
-				-- -- 		p class: 'm-2 text-green-300', room
-
-				-- stack class: 'flex-row items-center', ->
-				-- 	button class: action, onClick: perform, verb: "inventory", "Inventory"
-				-- 	button class: action, onClick: perform, verb: "look", "Look Around"
-
-				-- p class: 'm-2', game\resume "inventory"

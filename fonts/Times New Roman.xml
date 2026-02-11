@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- <FontFamily Name="Junicode-Ansund.otf" Regular="adventure/fonts/Junicode-Ansund-Regular.otf" /> -->
+<FontFamily 
+	Name="Times New Roman.ttf" 
+	Regular="adventure/fonts/Times New Roman.ttf"
+	Bold="adventure/fonts/Times New Roman Bold.ttf"
+	Italic="adventure/fonts/Times New Roman Italic.ttf"
+	BoldItalic="adventure/fonts/Times New Roman Bold Italic.ttf" />
