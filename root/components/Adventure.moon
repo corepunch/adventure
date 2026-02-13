@@ -98,14 +98,13 @@ class ChatInput extends ui.StackView
 	new: (@game, @console) => super!
 	apply: => "flex-row w-full h-full gap-2 bg-slate-600"
 	body: =>
-		submit = (d) -> 
-			@console\addChild Message d.Text, "text-amber-200"
-			scene = @game\resume d.Text
+		submit = (cmd) -> 
+			@console\addChild Message cmd.Text, "text-amber-200"
+			scene = @game\resume cmd.Text
 			for line in scene\gmatch "[^\n]+" do
 				@console\addChild Message line
-			d.Text = ""
-		d = ui.Input class: "bg-slate-500 hover:bg-slate-400 w-full m-2 p-2", placeholderText: "Print Command", onSubmit: submit
-		d.BorderRadius = "16"
+			cmd.Text = ""
+		d = ui.Input class: "bg-slate-500 hover:bg-slate-400 w-full m-2 p-2 rounded-4", placeholderText: "Print command", onSubmit: submit
 		
 class Adventure extends ui.Node2D
 	title: "Adventure"
@@ -164,7 +163,7 @@ class Adventure extends ui.Node2D
 		-- content = json.parse(response.choices[1].message.content)
 		-- print "OpenAI response:", content
 
-		console, controls = nil, nil
+		console, @controls = nil, nil
 		scene = game\resume @input
 
 		-- scene = scene\gsub "\n", "\\n"
@@ -176,7 +175,8 @@ class Adventure extends ui.Node2D
 		-- 	p class: 'm-2', res
 		-- 	return
 		img class: "w-full h-full", image: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
-		grid rows: 'auto 96px', ->
+		grid rows: '64px auto 96px', ->
+			p class: "w-full h-full bg-slate-600 p-2 text-2xl", fontFamily: font, "Hello, Adventurer!"
 			console = stack class: 'flex-col overflow-y-scroll', ->
 				-- ui.TextBlock text: 'Hello, ', fontFamily: font, fontSize: 24, ->
 				-- 	ui.TextRun text: 'Adventurer', fontWeight: 'bold', fontSize: 32, color: 'text-amber-200'
@@ -185,5 +185,5 @@ class Adventure extends ui.Node2D
 					-- if line == '>' then continue
 					Message line
 			console.onScrollHeightChanged = () => @setScrollTop @ScrollHeight
-			controls = ChatInput game, console
+			@controls = ChatInput game, console
 			-- controls = Controls game, console
