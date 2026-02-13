@@ -43,9 +43,16 @@ highlight = (text) ->
 
 Message = (line, style) -> 
 	if style
-		p class: "m-2 text-lg #{style}", fontFamily: font, line
+		-- p class: "m-2 text-lg #{style}", fontFamily: font, line
+		bubble = p class: "mx-4 my-1 p-2 text-lg text-blue-900 bg-blue-300 align-right", fontFamily: font, line
+		bubble.BorderRadius = 12
+		bubble.BorderBottomRightRadius = 0
+		return bubble
 	else
-		p class: "m-2 text-lg", fontFamily: font, highlight line
+		bubble = p class: "mx-4 my-1 p-2 text-lg text-green-900 bg-green-300", fontFamily: font, line
+		bubble.BorderRadius = 12
+		bubble.BorderBottomLeftRadius = 0
+		return bubble
 
 class Controls extends ui.StackView
 	new: (@game, @console) => super!
@@ -56,10 +63,10 @@ class Controls extends ui.StackView
 		perform = (button) ->
 			input = "#{button.verb} #{button.object or ''}"
 			input = input\gsub '-', ' ' -- replace dashes with spaces for better parsing
-			@console\addChild Message '> '..input\lower!, "text-amber-200"
+			@console\addChild Message input\lower!, "text-amber-200"
 			scene = @game\resume input
+			print("Game response:", scene, button)
 			for line in scene\gmatch "[^\n]+" do
-				if line == '>' then continue
 				@console\addChild Message line
 			-- @rebuild!
 			@rebuild!
@@ -87,6 +94,19 @@ class Controls extends ui.StackView
 
 		p class: 'm-2', @game\resume "inventory"
 
+class ChatInput extends ui.StackView
+	new: (@game, @console) => super!
+	apply: => "flex-row w-full h-full gap-2 bg-slate-600"
+	body: =>
+		submit = (d) -> 
+			@console\addChild Message d.Text, "text-amber-200"
+			scene = @game\resume d.Text
+			for line in scene\gmatch "[^\n]+" do
+				@console\addChild Message line
+			d.Text = ""
+		d = ui.Input class: "bg-slate-500 hover:bg-slate-400 w-full m-2 p-2", placeholderText: "Print Command", onSubmit: submit
+		d.BorderRadius = "16"
+		
 class Adventure extends ui.Node2D
 	title: "Adventure"
 	-- apply: => "flex-col w-full gap-2"
@@ -156,13 +176,14 @@ class Adventure extends ui.Node2D
 		-- 	p class: 'm-2', res
 		-- 	return
 		img class: "w-full h-full", image: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
-		grid rows: 'auto auto', ->
+		grid rows: 'auto 96px', ->
 			console = stack class: 'flex-col overflow-y-scroll', ->
 				-- ui.TextBlock text: 'Hello, ', fontFamily: font, fontSize: 24, ->
 				-- 	ui.TextRun text: 'Adventurer', fontWeight: 'bold', fontSize: 32, color: 'text-amber-200'
 				-- 	ui.TextRun fontStyle: 'italic', ', welcome to the world of Zork!'
 				for line in scene\gmatch "[^\n]+" do
-					if line == '>' then continue
+					-- if line == '>' then continue
 					Message line
 			console.onScrollHeightChanged = () => @setScrollTop @ScrollHeight
-			controls = Controls game, console
+			controls = ChatInput game, console
+			-- controls = Controls game, console

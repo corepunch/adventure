@@ -102,6 +102,10 @@ for k, v in pairs {left="Left",center="Center",right="Right"} do
 	style[".text-"..k] = { TextHorizontalAlignment = v }
 end
 
+for k, v in pairs {top="Top",middle="Center",bottom="Bottom"} do
+	style[".text-"..k] = { TextVerticalAlignment = v }
+end
+
 for k, v in pairs {
 	["xs"] =   { 12,  16},
 	["sm"] =   { 14,  20},
