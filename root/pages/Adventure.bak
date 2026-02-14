@@ -1,0 +1,107 @@
+ui = require "orca.ui"
+appwrite = require "appwrite.functions"
+json = require "orca.parsers.json"
+
+require 'zilscript'
+server = require 'zilscript.runtime'
+
+font = "adventure/fonts/Times New Roman"
+files = {
+  "zork1/globals.zil",
+	"zork1/clock.zil",
+  "zork1/parser.zil",
+  "zork1/verbs.zil",
+  "zork1/actions.zil",
+  "zork1/syntax.zil",
+  "zork1/dungeon.zil",
+  -- "adventure/horror.zil",
+  "zork1/main.zil",
+}
+
+env = server.create_game_env()
+
+assert(server.init(env))
+assert(server.load_zil_files(files, env, {save_lua: true}))
+
+game = server.create_game(env)
+
+Message = (line, style) -> 
+	if style
+		bubble = p class: "mx-4 my-1 p-2 text-lg text-blue-900 bg-blue-300 align-right", fontFamily: font, line
+		bubble.BorderRadius = 12
+		bubble.BorderBottomRightRadius = 0
+		return bubble
+	else
+		bubble = p class: "mx-4 my-1 p-2 text-lg text-green-900 bg-green-300", fontFamily: font, line
+		bubble.BorderRadius = 12
+		bubble.BorderBottomLeftRadius = 0
+		return bubble
+
+class Controls extends ui.StackView
+	new: (@game, @console) => super!
+	apply: => "flex-col w-full h-full overflow-y-scroll"
+
+	body: =>
+		action = 'm-1 py-1 px-2 text-blue-300 bg-muted hover:bg-primary hover:text-blue-100'
+		perform = (button) ->
+			input = "#{button.verb} #{button.object or ''}"
+			input = input\gsub '-', ' ' -- replace dashes with spaces for better parsing
+			@console\addChild Message input\lower!, "text-amber-200"
+			scene = @game\resume input
+			print("Game response:", scene, button)
+			for line in scene\gmatch "[^\n]+" do
+				@console\addChild Message line
+			-- @rebuild!
+			@rebuild!
+
+		Item = (indent, key, verbs, children) ->
+			stack class: "ml-#{indent}", ->
+				p class: 'm-2 text-green-300', key
+				for _, verb in ipairs verbs do
+					button class: action, onClick: perform, verb: verb\lower!, object: key, verb\lower!
+			for _, t in ipairs children do
+				Item indent + 4, table.unpack t
+
+		for _, t in ipairs @game\resume 'room-items' do
+			Item 0, table.unpack t
+
+		for _, t in ipairs @game\resume 'room-exits' do
+			dir, room = table.unpack t
+			stack class: 'flex-row items-center', ->
+				button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
+				p class: 'm-2 text-green-300', room
+
+		stack class: 'flex-row items-center', ->
+			button class: action, onClick: perform, verb: "inventory", "Inventory"
+			button class: action, onClick: perform, verb: "look", "Look Around"
+
+		p class: 'm-2', @game\resume "inventory"
+
+class ChatInput extends ui.StackView
+	new: (@game, @console) => super!
+	apply: => "flex-row w-full h-full gap-2 bg-slate-600"
+	body: =>
+		submit = (cmd) -> 
+			@console\addChild Message cmd.Text, "text-amber-200"
+			scene = @game\resume cmd.Text
+			for line in scene\gmatch "[^\n]+" do
+				@console\addChild Message line
+			cmd.Text = ""
+		d = ui.Input class: "bg-slate-500 hover:bg-slate-400 w-full m-2 p-2 rounded-4", placeholderText: "Print command", onSubmit: submit
+		
+class Adventure extends ui.Node2D
+	title: "Adventure"
+	body: =>
+		console, @controls = nil, nil
+		scene = game\resume @input
+		img class: "w-full h-full", image: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
+		grid rows: '64px auto 96px', ->
+			stack class: "w-full h-full bg-slate-600 p-2 text-2xl items-center", ->
+				img class: "inline-block align-middle mr-4 text-green-300", image: "assets/icons/back.svg?width=48&type=mask"
+				p class: "text-green-300 text-xl", "Mysterious Forest Clearing"
+			console = stack "#console", class: 'flex-col overflow-y-scroll py-4', ->
+				for line in scene\gmatch "[^\n]+" do
+					Message line
+			console.onScrollHeightChanged = () => @setScrollTop @ScrollHeight
+			@controls = ChatInput game, console
+			-- controls = Controls game, console

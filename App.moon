@@ -6,7 +6,8 @@ routing = require "routing"
 ui = require "orca.ui"
 loc = require "orca.localization"
 Layout = require "root.RootLayout"
-page = require "root.components"
+-- page = require "root.components"
+page = require "root.pages"
 
 loc.load "assets/localization/en"
 
@@ -23,6 +24,7 @@ class App extends Application
 
 	"/": => Layout page.HomePage
 	"/adventure": => page.Adventure!
+	"/overview": => page.Adventures!
 	"/send-money": => Layout page.SendMoney
 	"/settings": => Layout page.Settings
 	"/tweets": => Layout page.Tweets
@@ -33,6 +35,6 @@ class App extends Application
 
 	onAwake: => 
 		import parse from require "orca.parsers.css"
-		@navigate '/adventure'
+		@navigate '/overview'
 		-- routing.navigate '/sign-out'
 		-- @navigate '/sign-in' unless pcall Account\auth, Account
