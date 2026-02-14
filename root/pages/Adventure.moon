@@ -25,7 +25,7 @@ files = {
 env = server.create_game_env()
 
 assert(server.init(env))
-assert(server.load_zil_files(files, env, {save_lua: true}))
+assert(server.load_zil_files(files, env, {save_lua: false}))
 
 game = server.create_game(env)
 

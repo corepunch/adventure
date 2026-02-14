@@ -1,6 +1,6 @@
 return {
 	Header: require "root.components.Header"
-	-- Footer: require "root.components.Footer"
+	Footer: require "root.components.Footer"
 	-- HomePage: require "root.components.HomePage"
 	-- SendMoney: require "root.components.SendMoney"
 	-- Settings: require "root.components.Settings"
