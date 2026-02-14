@@ -1,14 +1,5 @@
-appwrite = require "appwrite.functions"
+Model = require "appwrite.model"
 query = require "appwrite.query"
-
-class Model
-	list: (...) => appwrite.listCollections ...
-	create: (...) => appwrite.createDocument ...
-	createWithId: (...) => appwrite.createDocumentWithId ...
-	signin: (params) => appwrite.signInAccount params
-	signup: (params) => appwrite.createUserAccount params
-	signout: => appwrite.signOutAccount!
-	getaccount: => appwrite.getAccount!
 
 context = {}
 

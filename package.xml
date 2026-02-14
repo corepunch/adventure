@@ -3,6 +3,10 @@
   <ProjectReferenceLibrary>
     <ProjectReferenceItem Name="applications">applications</ProjectReferenceItem>
     <ProjectReferenceItem Name="assets">assets</ProjectReferenceItem>
+    <ProjectReferenceItem Name="model">model</ProjectReferenceItem>
+    <ProjectReferenceItem Name="root">root</ProjectReferenceItem>
+    <ProjectReferenceItem Name="config">config</ProjectReferenceItem>
+    <!-- External libraries -->
     <ProjectReferenceItem Name="appwrite">lib/appwrite</ProjectReferenceItem>
     <ProjectReferenceItem Name="html">lib/html</ProjectReferenceItem>
     <ProjectReferenceItem Name="routing">lib/routing</ProjectReferenceItem>
@@ -11,9 +15,6 @@
     <ProjectReferenceItem Name="zilscript">lib/zilscript/zilscript</ProjectReferenceItem>
     <ProjectReferenceItem Name="zork1">lib/zilscript/zork1</ProjectReferenceItem>
     <ProjectReferenceItem Name="adventure">lib/zilscript/adventure</ProjectReferenceItem>
-    <ProjectReferenceItem Name="model">model</ProjectReferenceItem>
-    <ProjectReferenceItem Name="root">root</ProjectReferenceItem>
-    <ProjectReferenceItem Name="config">config</ProjectReferenceItem>
   </ProjectReferenceLibrary>
   <FontLibrary Name="fonts" />
   <MessageLibrary Name="Messages">
