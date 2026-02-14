@@ -1,3 +1,6 @@
 [submodule "lib/zilscript"]
 	path = lib/zilscript
 	url = https://github.com/corepunch/zilscript
+[submodule "lib/tailwind"]
+	path = lib/tailwind
+	url = https://github.com/corepunch/orca-tailwind
