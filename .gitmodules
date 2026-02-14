@@ -10,3 +10,6 @@
 [submodule "lib/html"]
 	path = lib/html
 	url = https://github.com/corepunch/orca-html
+[submodule "lib/openai"]
+	path = lib/openai
+	url = https://github.com/corepunch/orca-openai
