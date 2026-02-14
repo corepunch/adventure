@@ -7,3 +7,6 @@
 [submodule "lib/appwrite"]
 	path = lib/appwrite
 	url = https://github.com/corepunch/orca-appwrite
+[submodule "lib/html"]
+	path = lib/html
+	url = https://github.com/corepunch/orca-html
