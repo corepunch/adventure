@@ -4,3 +4,6 @@
 [submodule "lib/tailwind"]
 	path = lib/tailwind
 	url = https://github.com/corepunch/orca-tailwind
+[submodule "lib/appwrite"]
+	path = lib/appwrite
+	url = https://github.com/corepunch/orca-appwrite
