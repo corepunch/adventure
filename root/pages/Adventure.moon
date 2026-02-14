@@ -176,8 +176,11 @@ class Adventure extends ui.Node2D
 		-- 	return
 		img class: "w-full h-full", image: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
 		grid rows: '64px auto 96px', ->
-			p class: "w-full h-full bg-slate-600 p-2 text-2xl", fontFamily: font, "Hello, Adventurer!"
-			console = stack class: 'flex-col overflow-y-scroll', ->
+			stack class: "w-full h-full bg-slate-600 p-2 text-2xl items-center", ->
+				img class: "inline-block align-middle mr-4 text-green-300", image: "assets/icons/back.svg?width=48&type=mask"
+					-- p class: "inline-block align-middle text-green-300", "Dungeons & Dragons"
+				p class: "text-green-300 text-xl", "Mysterious Forest Clearing"
+			console = stack "#console", class: 'flex-col overflow-y-scroll py-4', ->
 				-- ui.TextBlock text: 'Hello, ', fontFamily: font, fontSize: 24, ->
 				-- 	ui.TextRun text: 'Adventurer', fontWeight: 'bold', fontSize: 32, color: 'text-amber-200'
 				-- 	ui.TextRun fontStyle: 'italic', ', welcome to the world of Zork!'

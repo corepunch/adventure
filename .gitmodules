@@ -1,3 +1,18 @@
 [submodule "lib/zilscript"]
 	path = lib/zilscript
 	url = https://github.com/corepunch/zilscript
+[submodule "lib/tailwind"]
+	path = lib/tailwind
+	url = https://github.com/corepunch/orca-tailwind
+[submodule "lib/appwrite"]
+	path = lib/appwrite
+	url = https://github.com/corepunch/orca-appwrite
+[submodule "lib/html"]
+	path = lib/html
+	url = https://github.com/corepunch/orca-html
+[submodule "lib/openai"]
+	path = lib/openai
+	url = https://github.com/corepunch/orca-openai
+[submodule "lib/routing"]
+	path = lib/routing
+	url = https://github.com/corepunch/orca-routing
