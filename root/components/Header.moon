@@ -8,7 +8,7 @@ class Header extends StackView
 	apply: => "w-full h-full bg-muted p-2 text-2xl items-center pt-8"
 	body: =>
 		img class: "inline-block align-middle mr-4 text-muted-foreground", image: "assets/icons/back.svg?width=40&type=mask"
-		p class: "text-muted-foreground text-2xl", "Dungeons & Dragons"
+		p class: "text-muted-foreground text-2xl", @title or "Dungeons & Dragons"
 		-- name = Users\getFullName Users\auth!
 		-- grid ".bg-muted.px-2", Columns: "auto 100px", ->
 		-- 	stack ".align-middle-left.items-center", ->

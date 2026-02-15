@@ -104,7 +104,7 @@ class ChatInput extends ui.StackView
 			for line in scene\gmatch "[^\n]+" do
 				@console\addChild Message line
 			cmd.Text = ""
-		d = ui.Input class: "bg-slate-500 hover:bg-slate-400 w-full m-2 p-2 rounded-4", placeholderText: "Print command", onSubmit: submit
+		d = ui.Input class: "bg-slate-500 hover:bg-slate-400 w-full m-2 p-4 rounded-4", placeholderText: "Print command", onSubmit: submit
 		
 class Adventure extends ui.Node2D
 	title: "Adventure"
