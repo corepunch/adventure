@@ -23,7 +23,7 @@ class App extends Application
 	@stylesheet "assets/globals.css"
 
 	"/": => Layout page.HomePage
-	"/adventure": => page.Adventure!
+	"/adventure/:game": => page.Adventure @params
 	"/overview": => page.Adventures!
 	"/send-money": => Layout page.SendMoney
 	"/settings": => Layout page.Settings
@@ -35,6 +35,7 @@ class App extends Application
 
 	onAwake: => 
 		import parse from require "orca.parsers.css"
-		@navigate '/overview'
+		-- @navigate '/overview'
+		@navigate '/adventure/zork1'
 		-- routing.navigate '/sign-out'
 		-- @navigate '/sign-in' unless pcall Account\auth, Account
