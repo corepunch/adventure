@@ -7,8 +7,8 @@ class Entry extends StackView
 	class: "flex-col w-full p-2 border-muted-foreground"
 	body: =>
 		@BorderBottomWidth = 1
-		p class: "text-amber-200 text-2xl", @title
-		p class: "text-lg", @content
+		p class: "text-foreground text-2xl", @title
+		p class: "text-lg text-muted-foreground", @content
 	onLeftMouseUp: => 
 		@BorderColor = "#ffff00"
 		-- routing.navigate "/adventure"
