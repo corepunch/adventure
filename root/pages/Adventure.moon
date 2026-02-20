@@ -38,19 +38,19 @@ common = {
 Message = (line, style) -> 
 	if style
 		-- p class: "m-2 text-lg #{style}", fontFamily: font, line
-		bubble = p class: "mx-4 my-1 p-2 text-xl text-foreground bg-secondary-500/10 align-right", fontFamily: font, line
+		bubble = p class: "mx-4 my-1 px-4 py-2 text-lg text-neutral-9 bg-neutral-3 align-right", fontFamily: font, line
 		bubble.BorderRadius = 12
 		bubble.BorderBottomRightRadius = 0
 		return bubble
 	else
-		bubble = p class: "p-2 text-xl text-muted-foreground", fontFamily: font, line
+		bubble = p class: "p-2 text-lg text-neutral-8", fontFamily: font, line
 		return bubble
 
 class Controls extends ui.StackView
 	new: (@game, @console) => super!
 	class: "flex-col w-full h-full overflow-y-scroll"
 	body: =>
-		action = 'm-1 py-1 px-2 text-blue-300 bg-muted hover:bg-primary hover:text-blue-100'
+		action = 'm-1 py-1 px-2 text-blue-300 bg-neutral-4 hover:bg-primary hover:text-blue-100'
 		perform = (button) ->
 			input = "#{button.verb} #{button.object or ''}"
 			input = input\gsub '-', ' ' -- replace dashes with spaces for better parsing
@@ -87,7 +87,7 @@ class Controls extends ui.StackView
 
 class ChatInput extends ui.StackView
 	new: (@game, @console) => super!
-	class: "flex-row w-full h-full gap-2 bg-muted"
+	class: "flex-row w-full h-full gap-2 bg-neutral-3"
 	body: =>
 		submit = (cmd) -> 
 			@console\addChild Message cmd.Text, "text-amber-200"
@@ -95,7 +95,7 @@ class ChatInput extends ui.StackView
 			for line in scene\gmatch "[^\n]+" do
 				@console\addChild Message line
 			cmd.Text = ""
-		d = ui.Input class: "text-lg bg-muted-foreground/20 hover:bg-muted-foreground/40 w-full m-2 p-3 rounded-4", placeholderText: "Print command", onSubmit: submit
+		d = ui.Input class: "text-lg bg-neutral-4 hover:bg-neutral-4/95 w-full h-full m-2 px-4 text-middle rounded-4", placeholderText: "Print command", onSubmit: submit
 		
 class Adventure extends ui.Node2D
 	new: (@params) => 
@@ -116,11 +116,14 @@ class Adventure extends ui.Node2D
 		console, @controls = nil, nil
 		scene = @game\resume @input
 		-- img class: "w-full h-full", image: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
-		grid rows: '64px auto 96px', ->
-			stack class: "w-full h-full bg-muted p-2 text-2xl items-center", ->
-				img class: "inline-block align-middle mr-4 text-muted-foreground", image: "assets/icons/back.svg?width=48&type=mask", onLeftMouseUp: => @navigate "/overview"
+		grid rows: "32px 48px auto 64px 24px", ->
+			ui.Node2D class: 'bg-neutral-3 w-full h-full'
+			stack class: "w-full h-full bg-neutral-3 p-2 text-xl gap-2 items-center", ->
+				img class: "inline-block align-middle mr-4 text-neutral-9", image: "assets/icons/back.svg?width=48&type=mask", onLeftMouseUp: => @navigate "/overview"
 					-- p class: "inline-block align-middle text-green-300", "Dungeons & Dragons"
-				p class: "text-muted-foreground text-xl", "Mysterious Forest Clearing"
+				-- p class: "text-neutral-9 text-xl", @config.title
+				ui.Button class: "py-1 px-3 font-bold bg-button hover:bg-button-hover text-dark-1", text: "Button"
+				ui.Button class: "py-1 px-3 font-bold bg-button hover:bg-button-hover text-dark-1", text: "Button"
 			console = stack "#console", class: 'flex-col overflow-y-scroll py-4', ->
 				for line in scene\gmatch "[^\n]+" do
 					-- if line == '>' then continue
@@ -128,3 +131,4 @@ class Adventure extends ui.Node2D
 			console.onScrollHeightChanged = () => @setScrollTop @ScrollHeight
 			@controls = ChatInput @game, console
 			-- controls = Controls @game, console
+			ui.Node2D class: 'bg-neutral-3 w-full h-full'

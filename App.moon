@@ -32,7 +32,7 @@ class App extends Application
 
 	onAwake: => 
 		import parse from require "orca.parsers.css"
-		-- @navigate '/overview'
-		@navigate '/adventure/zork1'
+		@navigate '/overview'
+		-- @navigate '/adventure/zork1'
 		-- routing.navigate '/sign-out'
 		-- @navigate '/sign-in' unless pcall Account\auth, Account
