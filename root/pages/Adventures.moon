@@ -15,25 +15,27 @@ class Entry extends StackView
 		-- routing.navigate "/adventure"
 		@navigate "/adventure/#{@game}"
 
+class TabItem extends ui.TextBlock
+	class: "text-xl text-primary-600 hover:text-secondary-500"
+	onLeftMouseUp: =>
+		@postMessage 'NavigateToPage', 
+			ui.NavigateToPageArguments URL: @url, TransitionType: "none"
+
 class Adventure extends Node2D
 	title: "Select Adventure"
 	class: "flex-col w-full gap-2"
+	body_: =>
+		ui.PageHost ->
+			ui.StackView class: "mt-2 mx-2 gap-2 flex-row", ->
+				for i = 1, 5 do
+					TabItem text: "tab #{i}", url: "/page#{i}"
+			ui.Page marginTop: 40, title: "Page1", path: "/page1", -> p "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+			ui.Page marginTop: 40, title: "Page2", path: "/page2", -> p "The quick brown fox jumps over the lazy dog. This pangram contains every letter of the alphabet."
+			ui.Page marginTop: 40, title: "Page3", path: "/page3", -> p "Software engineering is the systematic application of engineering approaches to software development."
+			ui.Page marginTop: 40, title: "Page4", path: "/page4", -> p "Moonscript is a language that compiles to Lua, combining the power of Lua with a cleaner syntax."
+			ui.Page marginTop: 40, title: "Page5", path: "/page5", -> p "Version control systems like Git help teams collaborate and track changes to codebases efficiently."
+
 	body: =>
-		-- grid rows: "32px auto", ->
-		-- 	stack class: "gap-2 flex-row", ->
-		-- 		tab = "text-xl text-blue-500 hover:text-light-1"
-		-- 		p class: tab, text: "tab 1", onLeftMouseUp: -> 
-		-- 			@pagehost\postMessage 'NavigateToPage', 
-		-- 				ui.NavigateToPageArguments URL: "/page1", TransitionType: "none"
-		-- 		p class: tab, text: "tab 2", onLeftMouseUp: -> 
-		-- 			@pagehost\postMessage 'NavigateToPage', 
-		-- 				ui.NavigateToPageArguments URL: "/page2", TransitionType: "none"
-		-- 	@pagehost = ui.PageHost ->
-		-- 		ui.Page title: "Page1", path: "/page1", -> p "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-		-- 		ui.Page title: "Page2", path: "/page2", -> p "The quick brown fox jumps over the lazy dog. This pangram contains every letter of the alphabet."
-		-- 		ui.Page title: "Page3", path: "/page3", -> p "Software engineering is the systematic application of engineering approaches to software development."
-		-- 		ui.Page title: "Page4", path: "/page4", -> p "Moonscript is a language that compiles to Lua, combining the power of Lua with a cleaner syntax."
-		-- 		ui.Page title: "Page5", path: "/page5", -> p "Version control systems like Git help teams collaborate and track changes to codebases efficiently."
 		keys = {}
 		for k in pairs games do table.insert keys, k
 		table.sort keys

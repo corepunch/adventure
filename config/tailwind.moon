@@ -90,7 +90,7 @@ DarkTheme =
 
 orca = require "orca"
 system = require "orca.system"
-system.set_theme(true)
+system.set_theme "dark"
 
 class Theme
 	extend:
