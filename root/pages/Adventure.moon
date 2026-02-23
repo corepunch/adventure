@@ -38,12 +38,12 @@ common = {
 Message = (line, style) -> 
 	if style
 		-- p class: "m-2 text-lg #{style}", fontFamily: font, line
-		bubble = p class: "mx-4 my-1 px-4 py-2 text-lg text-neutral-9 bg-neutral-3 align-right", fontFamily: font, line
+		bubble = p class: "mx-4 my-1 px-4 py-2 text-xl text-neutral-9 bg-neutral-3 align-right", fontFamily: font, line
 		bubble.BorderRadius = 12
 		bubble.BorderBottomRightRadius = 0
 		return bubble
 	else
-		bubble = p class: "p-2 text-lg text-neutral-8", fontFamily: font, line
+		bubble = p class: "p-2 text-xl text-neutral-8", fontFamily: font, line
 		return bubble
 
 class Controls extends ui.StackView
@@ -118,13 +118,16 @@ class Adventure extends ui.Node2D
 		-- img class: "w-full h-full", image: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
 		grid rows: "32px 48px auto 64px 24px", ->
 			ui.Node2D class: 'bg-neutral-3 w-full h-full'
-			stack class: "w-full h-full bg-neutral-3 p-2 text-xl gap-2 items-center", ->
-				img class: "inline-block align-middle mr-4 text-neutral-9", image: "assets/icons/back.svg?width=48&type=mask", onLeftMouseUp: => @navigate "/overview"
+			stack class: "w-full h-full bg-neutral-3 p-2 gap-2 text-xl items-center", ->
+				img 
+					class: "inline-block align-middle text-neutral-9", 
+					image: "assets/icons/back.svg?width=48&type=mask", 
+					onLeftMouseUp: => @navigate "/"
 					-- p class: "inline-block align-middle text-green-300", "Dungeons & Dragons"
-				-- p class: "text-neutral-9 text-xl", @config.title
-				ui.Button class: "py-1 px-3 font-bold bg-button hover:bg-button-hover text-dark-1", text: "Button"
-				ui.Button class: "py-1 px-3 font-bold bg-button hover:bg-button-hover text-dark-1", text: "Button"
-			console = stack "#console", class: 'flex-col overflow-y-scroll py-4', ->
+				p class: "text-neutral-9 text-xl text-nowrap", @config.title
+				-- ui.Button class: "py-1 px-3 font-bold bg-button hover:bg-button-hover text-dark-1", text: "Button"
+				-- ui.Button class: "py-1 px-3 font-bold bg-button hover:bg-button-hover text-dark-1", text: "Button"
+			console = stack "#console", class: 'flex-col overflow-y-scroll h-full py-4', ->
 				for line in scene\gmatch "[^\n]+" do
 					-- if line == '>' then continue
 					Message line

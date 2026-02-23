@@ -1,24 +1,25 @@
-import Page from require "routing"
+import navigate, Page from require "routing"
 import Header, Footer from require "root.components"
 import Users from require "model"
 import header from require "assets.constants"
+ui = require "orca.ui"
 
 class RootLayout extends Page
 	body: =>
-		grid Rows: "64px auto 56px", ->
+		grid Rows: "32px 48px auto 64px 24px", ->
+			ui.Node2D class: 'bg-neutral-3 w-full h-full'
 			@header!
 			@content!
 			@footer!
+			ui.Node2D class: 'bg-neutral-3 w-full h-full'
 
-	title: => @view.title or "Page Title"
-
-	-- header: => Header!
-	footer: => Footer!
-
-	header: =>
-		routing = require "routing"
-		name = Users\getFullName Users\auth!
-		h0 ".px-2.w-full.h-full", @title!
+	titleString: => @view.title or "Page Title"
+	navigate: (route) => print route --navigate route
+	footer: => Footer @navigate
+	header: => Header title: @titleString!
+		-- routing = require "routing"
+		-- name = Users\getFullName Users\auth!
+		-- h0 ".px-2.w-full.h-full", @title!
 
 		-- grid ".bg-muted.px-2", Columns: "auto 100px", ->
 		-- 	stack ".align-middle-left.items-center", ->

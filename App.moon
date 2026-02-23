@@ -19,9 +19,9 @@ class App extends Application
 	@stylesheet require "tailwind"
 	@stylesheet "assets/globals.css"
 
-	"/": => Layout page.HomePage
+	"/": => Layout page.Adventures
+	"/overview": => Layout page.Adventures
 	"/adventure/:game": => page.Adventure @params
-	"/overview": => page.Adventures!
 	"/send-money": => Layout page.SendMoney
 	"/settings": => Layout page.Settings
 	"/tweets": => Layout page.Tweets
@@ -30,9 +30,9 @@ class App extends Application
 	"/transaction/:transaction": => Layout page.TransactionDetails, @params
 	"/search": => SearchPage!
 
-	onAwake: => 
-		import parse from require "orca.parsers.css"
-		@navigate '/overview'
+	-- onAwake: => 
+	-- 	import parse from require "orca.parsers.css"
+		-- @navigate '/overview'
 		-- @navigate '/adventure/zork1'
 		-- routing.navigate '/sign-out'
 		-- @navigate '/sign-in' unless pcall Account\auth, Account
