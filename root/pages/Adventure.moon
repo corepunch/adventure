@@ -3,6 +3,7 @@ appwrite = require "appwrite.functions"
 openai = require "openai"
 json = require "orca.parsers.json"
 games = require "config.games"
+import Games from require "model"
 
 require 'zilscript'
 server = require 'zilscript.runtime'
@@ -86,11 +87,12 @@ class Controls extends ui.StackView
 		p class: 'm-2', @game\resume "inventory"
 
 class ChatInput extends ui.StackView
-	new: (@game, @console) => super!
+	new: (@game, @console, @gameRecordId) => super!
 	class: "flex-row w-full h-full gap-2 bg-neutral-3"
 	body: =>
 		submit = (cmd) -> 
 			@console\addChild Message cmd.Text, "text-amber-200"
+			Games\addCommand @gameRecordId, cmd.Text
 			scene = @game\resume cmd.Text
 			for line in scene\gmatch "[^\n]+" do
 				@console\addChild Message line
@@ -110,6 +112,7 @@ class Adventure extends ui.Node2D
 		assert(server.load_zil_files(@config.modules, @env), "Failed to load game-specific ZIL files")
 
 		@game = server.create_game(@env)
+		@gameRecordId = Games\create @params.game
 
 	title: "Adventure"
 	body: =>
@@ -132,6 +135,6 @@ class Adventure extends ui.Node2D
 					-- if line == '>' then continue
 					Message line
 			console.onScrollHeightChanged = () => @setScrollTop @ScrollHeight
-			@controls = ChatInput @game, console
+			@controls = ChatInput @game, console, @gameRecordId
 			-- controls = Controls @game, console
 			ui.Node2D class: 'bg-neutral-3 w-full h-full'

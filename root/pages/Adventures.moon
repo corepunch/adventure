@@ -20,7 +20,7 @@ class Entry extends ui.StackView
 -- 		@postMessage 'NavigateToPage', 
 -- 			ui.NavigateToPageArguments URL: @url, TransitionType: "none"
 
-class Adventure extends ui.Node2D
+class Adventures extends ui.Node2D
 	title: "New Adventure"
 	class: "flex-col w-full gap-2"
 	-- body_: =>

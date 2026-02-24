@@ -1,5 +1,6 @@
 Model = require "appwrite.model"
 query = require "appwrite.query"
+json = require "orca.parsers.json"
 
 context = {}
 
@@ -120,10 +121,44 @@ class Transactions extends Model
 
 	formatAmount: (transaction) => string.format('$%.02f', transaction.amount/100)
 
+class Games
+	path: "tmp/games.json"
+	readAll: =>
+		file = io.open @path, "r"
+		unless file then return {}
+		content = file\read "*a"
+		file\close!
+		return json.decode content
+	saveAll: (data) =>
+		os.execute "mkdir -p tmp"
+		file = io.open @path, "w"
+		unless file then return false
+		file\write json.encode data
+		file\close!
+		return true
+	create: (gameId) =>
+		math.randomseed os.time!
+		games = @readAll!
+		id = tostring(os.time!) .. "_" .. tostring(math.random 1000, 9999)
+		created = tostring(os.time!)
+		table.insert games, id: id, gameId: gameId, createdAt: created, commands: {}
+		assert @saveAll games
+		return id
+	addCommand: (id, command) =>
+		games = @readAll!
+		for _, game in pairs games do if game.id == id then
+			game.commands = game.commands or {}
+			table.insert game.commands, command
+			assert @saveAll games
+			return true
+	findAll: => 
+		return @readAll!
+
 return {
 	:Account
 	:Users
 	:Chats
 	:Transactions
 	:Messages
+	:Games
 }
