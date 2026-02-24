@@ -22,6 +22,7 @@ class App extends Application
 	"/": => Layout page.Adventures
 	"/overview": => Layout page.Adventures
 	"/adventure/:game": => page.Adventure @params
+	"/games": => Layout page.OngoingGames
 	"/send-money": => Layout page.SendMoney
 	"/settings": => Layout page.Settings
 	"/tweets": => Layout page.Tweets

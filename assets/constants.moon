@@ -27,6 +27,11 @@ footer =
 			label: "Home"
 		},
 		{
+			imgURL: "assets/icons/save.svg"
+			route: "/games"
+			label: "Games"
+		},
+		{
 			imgURL: "assets/icons/people.svg"
 			route: "/send-money"
 			label: "Send Money"
@@ -46,11 +51,6 @@ footer =
 			route: "/search"
 			label: "Bookmark"
 		},
-		-- {
-		-- 	imgURL: "assets/icons/follow.svg"
-		-- 	route: "/settings"
-		-- 	label: "Posts"
-		-- }
 	}
 
 return {
