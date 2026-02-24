@@ -14,7 +14,7 @@ class RootLayout extends Page
 			ui.Node2D class: 'bg-neutral-3 w-full h-full'
 
 	titleString: => @view.title or "Page Title"
-	navigate: (route) => print route --navigate route
+	navigate: (route) => navigate route
 	footer: => Footer @navigate
 	header: => Header title: @titleString!
 		-- routing = require "routing"

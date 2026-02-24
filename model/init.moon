@@ -2,28 +2,6 @@ Model = require "appwrite.model"
 query = require "appwrite.query"
 json = require "orca.parsers.json"
 
-encode_json = (val) ->
-	t = type val
-	if t == "string"
-		escaped = val\gsub('\\', '\\\\')\gsub('"', '\\"')\gsub('\n', '\\n')\gsub('\r', '\\r')\gsub('\t', '\\t')\gsub('\f', '\\f')
-		return '"' .. escaped .. '"'
-	elseif t == "number" or t == "boolean"
-		return tostring val
-	elseif t == "table"
-		n = #val
-		if n > 0
-			parts = {}
-			for i = 1, n
-				parts[i] = encode_json val[i]
-			return '[' .. table.concat(parts, ',') .. ']'
-		else
-			parts = {}
-			for k, v in pairs val
-				table.insert parts, '"' .. tostring(k) .. '":' .. encode_json(v)
-			return '{' .. table.concat(parts, ',') .. '}'
-	else
-		return 'null'
-
 context = {}
 
 class Account extends Model
@@ -150,33 +128,31 @@ class Games
 		unless file then return {}
 		content = file\read "*a"
 		file\close!
-		ok, data = pcall -> json.decode content
-		if ok and type(data) == "table" then data else {}
+		return json.decode content
 	saveAll: (data) =>
 		os.execute "mkdir -p tmp"
 		file = io.open @path, "w"
 		unless file then return false
-		file\write encode_json data
+		file\write json.encode data
 		file\close!
-		true
+		return true
 	create: (gameId) =>
 		math.randomseed os.time!
 		games = @readAll!
 		id = tostring(os.time!) .. "_" .. tostring(math.random 1000, 9999)
-		games[id] = gameId: gameId, createdAt: os.time!, commands: {}
-		@saveAll games
-		id
+		created = tostring(os.time!)
+		table.insert games, id: id, gameId: gameId, createdAt: created, commands: {}
+		assert @saveAll games
+		return id
 	addCommand: (id, command) =>
 		games = @readAll!
-		unless games[id] then return false
-		table.insert games[id].commands, command
-		@saveAll games
-	findAll: =>
-		games = @readAll!
-		result = {}
-		for id, game in pairs games
-			table.insert result, {id: id, gameId: game.gameId, createdAt: game.createdAt, commands: game.commands or {}}
-		result
+		for _, game in pairs games do if game.id == id then
+			game.commands = game.commands or {}
+			table.insert game.commands, command
+			assert @saveAll games
+			return true
+	findAll: => 
+		return @readAll!
 
 return {
 	:Account
