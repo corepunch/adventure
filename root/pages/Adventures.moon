@@ -3,11 +3,13 @@ games = require "config.games"
 ui = require "orca.ui"
 
 class Entry extends ui.StackView
-	class: "flex-col w-full p-2 border-muted-foreground"
+	class: "flex-row gap-2 p-2"
 	body: =>
 		@BorderBottomWidth = 1
-		p class: "text-neutral-9 text-2xl", @title
-		p class: "text-lg text-neutral-6", @content
+		img class: "w-24 h-24 mt-2", Image: "assets/games/#{@game}"
+		ui.StackView class: "flex-col w-full border-muted-foreground", ->
+			p class: "text-neutral-9 text-lg font-bold text-nowrap text-ellipsis", @title
+			p class: "text-base text-neutral-6", @content
 	onLeftMouseUp: => 
 		-- routing.navigate "/adventure"
 		@navigate "/adventure/#{@game}"
@@ -19,7 +21,7 @@ class Entry extends ui.StackView
 -- 			ui.NavigateToPageArguments URL: @url, TransitionType: "none"
 
 class Adventure extends ui.Node2D
-	title: "Select Adventure"
+	title: "New Adventure"
 	class: "flex-col w-full gap-2"
 	-- body_: =>
 	-- 	ui.PageHost ->
