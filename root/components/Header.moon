@@ -5,6 +5,7 @@ import StackView from require "orca.ui"
 -- import Users from require "model"
 
 class Header extends StackView
+	id: "Header"
 	class: "w-full h-full bg-neutral-3 p-2 text-2xl items-center"
 	body: =>
 		-- img class: "inline-block align-middle mr-4 text-muted-foreground", image: "assets/icons/back.svg?width=40&type=mask"

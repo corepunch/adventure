@@ -3,10 +3,10 @@ games = require "config.games"
 ui = require "orca.ui"
 
 class Entry extends ui.StackView
-	class: "flex-row gap-2 p-2"
+	class: "flex-row gap-2 mx-2 p-2 bg-neutral-3 rounded"
 	body: =>
 		@BorderBottomWidth = 1
-		img class: "w-24 h-24 mt-2", Image: "assets/games/#{@game}"
+		img class: "w-24 h-24", Image: "assets/games/#{@game}"
 		ui.StackView class: "flex-col w-full border-muted-foreground", ->
 			p class: "text-neutral-9 text-lg font-bold text-nowrap text-ellipsis", @title
 			p class: "text-base text-neutral-6", @content
@@ -22,7 +22,7 @@ class Entry extends ui.StackView
 
 class Adventures extends ui.Node2D
 	title: "New Adventure"
-	class: "flex-col w-full gap-2"
+	class: "flex-col w-full gap-2 my-2"
 	-- body_: =>
 	-- 	ui.PageHost ->
 	-- 		ui.StackView class: "mt-2 mx-2 gap-2 flex-row", ->
@@ -38,8 +38,8 @@ class Adventures extends ui.Node2D
 		keys = {}
 		for k in pairs games do table.insert keys, k
 		table.sort keys
-		stack class: "flex-col gap-2", ->
+		stack id: "gamelist", class: "flex-col gap-2", ->
 			-- for key, game in pairs games do
 			for _, key in ipairs keys do
 				game = games[key]
-				Entry game: key, title: game.title, content: game.description
+				Entry id: key, game: key, title: game.title, content: game.description
