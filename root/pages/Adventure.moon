@@ -38,9 +38,9 @@ common = {
 
 Outgoing = (line) ->
 	-- p class: "m-2 text-lg text-neutral-8", fontFamily: font, line
-	bubble = p class: "mx-4 my-1 px-4 py-2 text-xl text-neutral-8 bg-neutral-3", fontFamily: font, line
+	bubble = p class: "mx-4 my-1 px-4 py-2 text-xl text-neutral-8 bg-neutral-3 align-right", fontFamily: font, line
 	bubble.BorderRadius = 12
-	bubble.BorderBottomLeftRadius = 0
+	bubble.BorderBottomRightRadius = 0
 	return bubble
 
 Incoming = (line) ->
