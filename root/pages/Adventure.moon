@@ -36,17 +36,6 @@ common = {
 -- 		text = text\gsub("(%f[%a]#{cap}%f[%A])", (m) -> fmt\format m)
 -- 	return text
 
-Message = (line, style) -> 
-	if style
-		-- p class: "m-2 text-lg #{style}", fontFamily: font, line
-		bubble = p class: "mx-4 my-1 px-4 py-2 text-xl text-neutral-9 bg-neutral-3 align-right", fontFamily: font, line
-		bubble.BorderRadius = 12
-		bubble.BorderBottomRightRadius = 0
-		return bubble
-	else
-		bubble = p class: "p-2 text-xl text-neutral-8", fontFamily: font, line
-		return bubble
-
 Outgoing = (line) ->
 	-- p class: "m-2 text-lg text-neutral-8", fontFamily: font, line
 	bubble = p class: "mx-4 my-1 px-4 py-2 text-xl text-neutral-8 bg-neutral-3", fontFamily: font, line
@@ -55,7 +44,7 @@ Outgoing = (line) ->
 	return bubble
 
 Incoming = (line) ->
-	p class: "p-2 text-xl text-neutral-8", fontFamily: font, line
+	bubble = p class: "p-2 text-xl text-neutral-8", fontFamily: font, line
 	return bubble
 
 class Controls extends ui.StackView
@@ -66,11 +55,11 @@ class Controls extends ui.StackView
 		perform = (button) ->
 			input = "#{button.verb} #{button.object or ''}"
 			input = input\gsub '-', ' ' -- replace dashes with spaces for better parsing
-			@console\addChild Message input\lower!, "text-amber-200"
+			@console\addChild Outgoing input\lower!
 			scene = @game\resume input
 			print("Game response:", scene, button)
 			for line in scene\gmatch "[^\n]+" do
-				@console\addChild Message line
+				@console\addChild Incoming line
 			-- @rebuild!
 			@rebuild!
 
@@ -102,11 +91,11 @@ class ChatInput extends ui.StackView
 	class: "flex-row w-full h-full gap-2 bg-neutral-3"
 	body: =>
 		submit = (cmd) -> 
-			@console\addChild Message cmd.Text, "text-amber-200"
+			@console\addChild Outgoing cmd.Text
 			Games\addCommand @gameRecordId, cmd.Text
 			scene = @game\resume cmd.Text
 			for line in scene\gmatch "[^\n]+" do
-				@console\addChild Message line
+				@console\addChild Incoming line
 			cmd.Text = ""
 		d = ui.Input class: "text-lg text-middle bg-neutral-4 hover:bg-neutral-4/95 w-full h-full m-2 px-4 rounded-4", placeholderText: "Print command", onSubmit: submit
 		
@@ -155,14 +144,14 @@ class Adventure extends ui.Node2D
 				if @history
 					for _, entry in ipairs @history do
 						if entry.cmd
-							Message entry.cmd, "text-amber-200"
+							Outgoing entry.cmd
 						for line in entry.output\gmatch "[^\n]+" do
-							Message line
+							Incoming line
 				else
 					scene = @game\resume @input
 					for line in scene\gmatch "[^\n]+" do
 						-- if line == '>' then continue
-						Message line
+						Incoming line
 			console.onScrollHeightChanged = () => @setScrollTop @ScrollHeight
 			@controls = ChatInput @game, console, @gameRecordId
 			-- controls = Controls @game, console
