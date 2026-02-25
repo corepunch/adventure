@@ -118,17 +118,16 @@ class Adventure extends ui.Node2D
 			assert(record, "Game record not found: " .. @params.record)
 			math.randomseed record.seed
 			@gameRecordId = record.id
-			@game\resume nil
+			@history = {}
+			table.insert @history, {cmd: nil, output: @game\resume nil}
 			for _, cmd in ipairs(record.commands or {}) do
-				@game\resume cmd
-			@input = "look"
+				table.insert @history, {cmd: cmd, output: @game\resume cmd}
 		else
 			@gameRecordId = Games\create @params.game
 
 	title: "Adventure"
 	body: =>
 		console, @controls = nil, nil
-		scene = @game\resume @input
 		-- img class: "w-full h-full", image: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
 		grid rows: "32px 48px auto 64px 24px", ->
 			ui.Node2D class: 'bg-neutral-3 w-full h-full'
@@ -142,9 +141,17 @@ class Adventure extends ui.Node2D
 				-- ui.Button class: "py-1 px-3 font-bold bg-button hover:bg-button-hover text-dark-1", text: "Button"
 				-- ui.Button class: "py-1 px-3 font-bold bg-button hover:bg-button-hover text-dark-1", text: "Button"
 			console = stack "#console", class: 'flex-col overflow-y-scroll h-full py-4', ->
-				for line in scene\gmatch "[^\n]+" do
-					-- if line == '>' then continue
-					Message line
+				if @history
+					for _, entry in ipairs @history do
+						if entry.cmd
+							Message entry.cmd, "text-amber-200"
+						for line in entry.output\gmatch "[^\n]+" do
+							Message line
+				else
+					scene = @game\resume @input
+					for line in scene\gmatch "[^\n]+" do
+						-- if line == '>' then continue
+						Message line
 			console.onScrollHeightChanged = () => @setScrollTop @ScrollHeight
 			@controls = ChatInput @game, console, @gameRecordId
 			-- controls = Controls @game, console
