@@ -112,7 +112,18 @@ class Adventure extends ui.Node2D
 		assert(server.load_zil_files(@config.modules, @env), "Failed to load game-specific ZIL files")
 
 		@game = server.create_game(@env)
-		@gameRecordId = Games\create @params.game
+
+		if @params.record
+			record = Games\find @params.record
+			assert(record, "Game record not found: " .. @params.record)
+			math.randomseed record.seed
+			@gameRecordId = record.id
+			@game\resume nil
+			for _, cmd in ipairs(record.commands or {}) do
+				@game\resume cmd
+			@input = "look"
+		else
+			@gameRecordId = Games\create @params.game
 
 	title: "Adventure"
 	body: =>

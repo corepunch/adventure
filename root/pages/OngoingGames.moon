@@ -10,7 +10,7 @@ class GameEntry extends ui.StackView
 		p class: "text-neutral-9 text-2xl", config.title
 		count = @commands and #@commands or 0
 		p class: "text-lg text-neutral-6", "#{count} commands played"
-	onLeftMouseUp: => @navigate "/adventure/#{@gameId}"
+	onLeftMouseUp: => @navigate "/adventure/#{@gameId}/#{@id}"
 
 class OngoingGames extends ui.Node2D
 	title: "Ongoing Games"
