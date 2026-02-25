@@ -3,14 +3,20 @@ games_config = require "config.games"
 import Games from require "model"
 
 class GameEntry extends ui.StackView
-	class: "flex-col w-full p-2"
+	class: "flex-row w-full p-2 items-center"
 	body: =>
 		@BorderBottomWidth = 1
 		config = games_config[@gameId] or {title: @gameId}
-		p class: "text-neutral-9 text-2xl", config.title
-		count = @commands and #@commands or 0
-		p class: "text-lg text-neutral-6", "#{count} commands played"
-	onLeftMouseUp: => @navigate "/adventure/#{@gameId}/#{@id}"
+		stack class: "flex-col flex-1", onLeftMouseUp: => @navigate "/adventure/#{@gameId}/#{@id}", ->
+			p class: "text-neutral-9 text-2xl", config.title
+			count = @commands and #@commands or 0
+			p class: "text-lg text-neutral-6", "#{count} commands played"
+		img
+			class: "mx-2 text-neutral-6 hover:text-red-400",
+			image: "assets/icons/delete.svg?width=32&type=mask",
+			onLeftMouseUp: =>
+				Games\delete @id
+				@parent\rebuild!
 
 class OngoingGames extends ui.Node2D
 	title: "Ongoing Games"

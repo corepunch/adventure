@@ -156,6 +156,13 @@ class Games
 			table.insert game.commands, command
 			assert @saveAll games
 			return true
+	delete: (id) =>
+		games = @readAll!
+		for i, game in ipairs games do
+			if game.id == id
+				table.remove games, i
+				return @saveAll games
+		return false
 	findAll: => 
 		return @readAll!
 
