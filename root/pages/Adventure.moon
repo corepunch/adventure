@@ -47,6 +47,17 @@ Message = (line, style) ->
 		bubble = p class: "p-2 text-xl text-neutral-8", fontFamily: font, line
 		return bubble
 
+Outgoing = (line) ->
+	-- p class: "m-2 text-lg text-neutral-8", fontFamily: font, line
+	bubble = p class: "mx-4 my-1 px-4 py-2 text-xl text-neutral-8 bg-neutral-3", fontFamily: font, line
+	bubble.BorderRadius = 12
+	bubble.BorderBottomLeftRadius = 0
+	return bubble
+
+Incoming = (line) ->
+	p class: "p-2 text-xl text-neutral-8", fontFamily: font, line
+	return bubble
+
 class Controls extends ui.StackView
 	new: (@game, @console) => super!
 	class: "flex-col w-full h-full overflow-y-scroll"
@@ -97,7 +108,7 @@ class ChatInput extends ui.StackView
 			for line in scene\gmatch "[^\n]+" do
 				@console\addChild Message line
 			cmd.Text = ""
-		d = ui.Input class: "text-lg bg-neutral-4 hover:bg-neutral-4/95 w-full h-full m-2 px-4 text-middle rounded-4", placeholderText: "Print command", onSubmit: submit
+		d = ui.Input class: "text-lg text-middle bg-neutral-4 hover:bg-neutral-4/95 w-full h-full m-2 px-4 rounded-4", placeholderText: "Print command", onSubmit: submit
 		
 class Adventure extends ui.Node2D
 	new: (@params) => 
