@@ -86,9 +86,9 @@ class Controls extends ui.StackView
 
 		p class: 'm-2', @game\resume "inventory"
 
-class ChatInput extends ui.StackView
+class ChatInput extends ui.Node2D
 	new: (@game, @console, @gameRecordId) => super!
-	class: "flex-row w-full h-full gap-2 bg-neutral-3"
+	class: "gap-2 bg-neutral-3"
 	body: =>
 		submit = (cmd) -> 
 			@console\addChild Outgoing cmd.Text
@@ -97,7 +97,7 @@ class ChatInput extends ui.StackView
 			for line in scene\gmatch "[^\n]+" do
 				@console\addChild Incoming line
 			cmd.Text = ""
-		d = ui.Input class: "text-lg text-middle bg-neutral-4 hover:bg-neutral-4/95 w-full h-full m-2 px-4 rounded-4", placeholderText: "Print command", onSubmit: submit
+		d = ui.Input class: "text-lg text-middle bg-neutral-4 hover:bg-neutral-4/95 m-2 rounded-4", placeholderText: "Print command", onSubmit: submit
 		
 class Adventure extends ui.Node2D
 	new: (@params) => 

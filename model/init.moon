@@ -162,6 +162,7 @@ class Games
 			if game.id == id
 				table.remove games, i
 				return @saveAll games
+		print 'Game not found: ' .. id
 		return false
 	findAll: => 
 		return @readAll!

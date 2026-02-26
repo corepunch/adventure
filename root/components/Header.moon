@@ -1,14 +1,15 @@
 routing = require "routing"
 
 -- import header from require "assets.constants"
-import StackView from require "orca.ui"
+ui = require "orca.ui"
 -- import Users from require "model"
 
-class Header extends StackView
-	class: "w-full h-full bg-neutral-3 p-2 text-2xl items-center"
+class Header extends ui.Grid
+	class: "bg-neutral-3 text-2xl p-2"
+	columns: "48px auto"
 	body: =>
-		-- img class: "inline-block align-middle mr-4 text-muted-foreground", image: "assets/icons/back.svg?width=40&type=mask"
-		p class: "text-neutral-9 text-2xl align-middle font-bold text-center w-full", @title or "Dungeons & Dragons"
+		img class: "inline-block align-middle mr-4 text-muted-foreground", image: "assets/icons/follow.svg?width=40&type=mask"		
+		p class: "text-neutral-9 text-2xl font-bold text-center align-middle", @title or "Dungeons & Dragons"
 		-- name = Users\getFullName Users\auth!
 		-- grid ".bg-muted.px-2", Columns: "auto 100px", ->
 		-- 	stack ".align-middle-left.items-center", ->
