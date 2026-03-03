@@ -5,6 +5,7 @@ ui = require "orca.ui"
 -- import Users from require "model"
 
 class Header extends ui.Grid
+	id: "Header"
 	class: "bg-neutral-3 text-2xl p-2"
 	columns: "48px auto"
 	body: =>

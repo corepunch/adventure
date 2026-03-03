@@ -23,7 +23,7 @@ class Entry extends ui.Grid
 
 class Adventures extends ui.Node2D
 	title: "New Adventure"
-	class: "flex-col w-full gap-2"
+	class: "flex-col w-full gap-2 my-2"
 	-- body_: =>
 	-- 	ui.PageHost ->
 	-- 		ui.StackView class: "mt-2 mx-2 gap-2 flex-row", ->
@@ -39,8 +39,8 @@ class Adventures extends ui.Node2D
 		keys = {}
 		for k in pairs games do table.insert keys, k
 		table.sort keys
-		stack class: "flex-col gap-2", ->
+		stack id: "gamelist", class: "flex-col gap-2", ->
 			-- for key, game in pairs games do
 			for _, key in ipairs keys do
 				game = games[key]
-				Entry game: key, title: game.title, content: game.description
+				Entry id: key, game: key, title: game.title, content: game.description
