@@ -134,7 +134,7 @@ class Adventure extends ui.Node2D
 			stack class: "w-full h-full bg-neutral-3 p-2 gap-2 text-xl items-center", ->
 				img 
 					class: "inline-block align-middle text-neutral-9", 
-					image: "assets/icons/back.svg?width=48&type=mask", 
+					image: "assets/icons/back.svg?width=48&type=Mask", 
 					onLeftMouseUp: => @navigate "/"
 					-- p class: "inline-block align-middle text-green-300", "Dungeons & Dragons"
 				p class: "text-neutral-9 text-xl text-nowrap", @config.title

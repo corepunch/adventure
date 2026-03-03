@@ -14,7 +14,7 @@ class GameEntry extends ui.Grid
 			p class: "text-lg text-neutral-6", "#{count} commands played"
 		img
 			class: "align-center align-middle text-neutral-6 hover:text-red-400",
-			image: "assets/icons/delete.svg?width=32&type=mask",
+			image: "assets/icons/delete.svg?width=32&type=Mask",
 			onLeftMouseUp: =>
 				Games\delete @game.id
 				@parent\rebuild!
@@ -25,7 +25,7 @@ class OngoingGames extends ui.Node2D
 	body: =>
 		ongoing = Games\findAll!
 		if #ongoing == 0
-			p class: "text-neutral-6 text-lg p-4 text-center", "No ongoing games. Start a new game from the home screen."
+			p class: "text-neutral-6 p-8 text-lg", "No ongoing games. Start a new game from the home screen."
 		else
 			stack id: "gamelist", class: "flex-col gap-2", ->
 				for game in *ongoing

@@ -12,5 +12,6 @@ class Footer extends StackView
 			selected = routing.get_location! == item.route
 			color = selected and "neutral-7" or "neutral-5"
 			img ".align-middle-center.text-#{color}" 
-				Image: "#{item.imgURL}?width=#{footer.iconSize}&type=mask"
+				Image: "#{item.imgURL}?width=#{footer.iconSize}&type=Mask"
+				Stretch: "None"
 				onLeftMouseUp: -> @callback item.route
