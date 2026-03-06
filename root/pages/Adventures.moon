@@ -2,14 +2,15 @@ routing = require "routing"
 games = require "config.games"
 ui = require "orca.ui"
 
-class Entry extends ui.StackView
-	class: "flex-row gap-2 mx-2 p-2 bg-neutral-3 rounded"
+class Entry extends ui.Grid
+	class: "gap-2 p-2"
+	columns: "96px auto"
 	body: =>
 		@BorderBottomWidth = 1
-		img class: "w-24 h-24", Image: "assets/games/#{@game}"
+		img id: "game-icon", Image: "assets/games/#{@game}"
 		ui.StackView class: "flex-col w-full border-muted-foreground", ->
 			p class: "text-neutral-9 text-lg font-bold text-nowrap text-ellipsis", @title
-			p class: "text-base text-neutral-6", @content
+			p id: 'desc', class: "text-base text-neutral-6", @content
 	onLeftMouseUp: => 
 		-- routing.navigate "/adventure"
 		@navigate "/adventure/#{@game}"

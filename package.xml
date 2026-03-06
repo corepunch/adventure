@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
-<Project Name="adventure" StartupScreen="adventure/App" Width="400" Height="800"> 
-  <ProjectReferenceLibrary>
-    <ProjectReferenceItem Name="applications">applications</ProjectReferenceItem>
-    <ProjectReferenceItem Name="assets">assets</ProjectReferenceItem>
-    <ProjectReferenceItem Name="model">model</ProjectReferenceItem>
-    <ProjectReferenceItem Name="root">root</ProjectReferenceItem>
-    <ProjectReferenceItem Name="config">config</ProjectReferenceItem>
+<Project Name="Chronicle" StartupScreen="Chronicle/App" WindowWidth="400" WindowHeight="800"> 
+  <Project.ProjectReferences>
+    <ProjectReference Name="applications" Path="applications" />
+    <ProjectReference Name="assets" Path="assets" />
+    <ProjectReference Name="model" Path="model" />
+    <ProjectReference Name="root" Path="root" />
+    <ProjectReference Name="config" Path="config" />
     <!-- External libraries -->
-    <ProjectReferenceItem Name="appwrite">lib/appwrite</ProjectReferenceItem>
-    <ProjectReferenceItem Name="html">lib/html</ProjectReferenceItem>
-    <ProjectReferenceItem Name="routing">lib/routing</ProjectReferenceItem>
-    <ProjectReferenceItem Name="openai">lib/openai</ProjectReferenceItem>
-    <ProjectReferenceItem Name="tailwind">lib/tailwind</ProjectReferenceItem>
-    <ProjectReferenceItem Name="zilscript">lib/zilscript/zilscript</ProjectReferenceItem>
-    <ProjectReferenceItem Name="zork1">lib/zilscript/zork1</ProjectReferenceItem>
-    <ProjectReferenceItem Name="adventure">lib/zilscript/adventure</ProjectReferenceItem>
-  </ProjectReferenceLibrary>
+    <ProjectReference Name="appwrite" Path="lib/appwrite" />
+    <ProjectReference Name="html" Path="lib/html" />
+    <ProjectReference Name="routing" Path="lib/routing" />
+    <ProjectReference Name="openai" Path="lib/openai" />
+    <ProjectReference Name="tailwind" Path="lib/tailwind" />
+    <ProjectReference Name="zilscript" Path="lib/zilscript/zilscript" />
+    <ProjectReference Name="zork1" Path="lib/zilscript/zork1" />
+    <ProjectReference Name="adventure" Path="lib/zilscript/adventure" />
+  </Project.ProjectReferences>
+  <Project.SystemMessages>
+    <SystemMessage Message="KeyDown" Key="q" Command="return"/>
+    <SystemMessage Message="WindowClosed" Command="return"/>
+    <SystemMessage Message="RequestReload" Command="window:refresh()"/>
+  </Project.SystemMessages>
   <FontLibrary Name="fonts" />
-  <MessageLibrary Name="Messages">
-    <SystemMessage Message="KeyDown" Key="q">return</SystemMessage>
-    <SystemMessage Message="WindowClosed">return</SystemMessage>
-    <SystemMessage Message="RequestReload">window:refresh()</SystemMessage>
-  </MessageLibrary>
 </Project>

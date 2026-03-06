@@ -21,13 +21,13 @@ class Header extends ui.Node2D
 		grid ".bg-muted.px-2", Columns: "auto auto", ->
 			stack '.w-full.h-full.gap-2.items-center', ->
 				img ".align-middle-left.text-muted-foreground"
-					Image: "assets/icons/back.svg?width=#{header.iconSize}&type=mask"
+					Image: "assets/icons/back.svg?width=#{header.iconSize}&type=Mask"
 					onLeftMouseUp: -> routing.navigate "/send-money"
 				h0 "#title-name.text-muted-foreground", title
 			stack ".align-middle-right.gap-2", ->
 				for item in *header.links
 					img "#control-button.align-middle-center.text-muted-foreground" 
-						Image: "#{item.imgURL}?width=#{header.iconSize}&type=mask"
+						Image: "#{item.imgURL}?width=#{header.iconSize}&type=Mask"
 						onLeftMouseUp: -> routing.navigate item.route
 
 class ChatLayout extends Page

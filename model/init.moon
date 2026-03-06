@@ -137,13 +137,18 @@ class Games
 		file\close!
 		return true
 	create: (gameId) =>
-		math.randomseed os.time!
+		seed = os.time!
+		math.randomseed seed
 		games = @readAll!
 		id = tostring(os.time!) .. "_" .. tostring(math.random 1000, 9999)
 		created = tostring(os.time!)
-		table.insert games, id: id, gameId: gameId, createdAt: created, commands: {}
+		table.insert games, id: id, gameId: gameId, createdAt: created, seed: seed, commands: {}
 		assert @saveAll games
 		return id
+	find: (id) =>
+		for _, game in pairs @readAll! do
+			if game.id == id then return game
+		return nil
 	addCommand: (id, command) =>
 		games = @readAll!
 		for _, game in pairs games do if game.id == id then
@@ -151,6 +156,14 @@ class Games
 			table.insert game.commands, command
 			assert @saveAll games
 			return true
+	delete: (id) =>
+		games = @readAll!
+		for i, game in ipairs games do
+			if game.id == id
+				table.remove games, i
+				return @saveAll games
+		print 'Game not found: ' .. id
+		return false
 	findAll: => 
 		return @readAll!
 

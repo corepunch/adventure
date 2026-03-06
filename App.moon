@@ -16,12 +16,13 @@ class App extends Application
 	@include "applications.users"
 	@include "applications.chat"
 
-	@stylesheet require "tailwind"
-	@stylesheet "assets/globals.css"
+	@stylesheet "tailwind"
+	@stylesheet "assets/globals"
 
 	"/": => Layout page.Adventures
 	"/overview": => Layout page.Adventures
 	"/adventure/:game": => page.Adventure @params
+	"/adventure/:game/:record": => page.Adventure @params
 	"/games": => Layout page.OngoingGames
 	"/send-money": => Layout page.SendMoney
 	"/settings": => Layout page.Settings
@@ -31,9 +32,9 @@ class App extends Application
 	"/transaction/:transaction": => Layout page.TransactionDetails, @params
 	"/search": => SearchPage!
 
-	-- onAwake: => 
+	onAwake: => 
 	-- 	import parse from require "orca.parsers.css"
-		-- @navigate '/overview'
+		@navigate '/games'
 		-- @navigate '/adventure/zork1'
 		-- routing.navigate '/sign-out'
 		-- @navigate '/sign-in' unless pcall Account\auth, Account
