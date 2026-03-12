@@ -13,10 +13,11 @@ class Entry extends ui.Grid
 			p class: "text-neutral-9 text-lg font-bold text-nowrap text-ellipsis", @title
 			p id: 'desc', class: "text-base text-neutral-6", @content
 	onLeftMouseUp: =>
-		if @onClick
-			@onClick @game
-		else
-			@navigate "/adventure/#{@game}"
+		print "Clicked game:", @game
+	-- 	if @onClick
+	-- 		@onClick @game
+	-- 	else
+	-- 		@navigate "/adventure/#{@game}"
 
 -- class TabItem extends ui.TextBlock
 -- 	class: "text-xl text-primary-600 hover:text-secondary-500"
@@ -39,48 +40,47 @@ class Adventures extends ui.Node2D
 	-- 		ui.Page marginTop: 40, title: "Page5", path: "/page5", -> p "Version control systems like Git help teams collaborate and track changes to codebases efficiently."
 
 	handleGameClick: (gameId) =>
+		print "Clicked game:", gameId
 		allGames = Games\findAll!
-		for _, game in ipairs allGames do
-			if game.gameId == gameId
-				@pendingGameId = gameId
-				@pendingExistingGame = game
-				@rebuild!
-				return
-		@navigate "/adventure/#{gameId}"
+		print "All games:", allGames
+		@showModal(@popup!)
+		-- for _, game in ipairs allGames do
+		-- 	if game.gameId == gameId
+		-- 		@pendingGameId = gameId
+		-- 		@pendingExistingGame = game
+		-- 		@rebuild!
+		-- 		return
+		-- @navigate "/adventure/#{gameId}"
+
+	popup: =>
+		gameId = @pendingGameId
+		existing = @pendingExistingGame
+		div class: "bg-muted/80 p-6", ->
+			stack class: "bg-neutral-2 p-6 rounded-4 flex-col gap-4 align-middle", =>
+				p class: "text-neutral-9 text-xl font-bold", "Resume Game?"
+				p class: "text-neutral-6 text-lg", "There was a game running already, do you want to continue it?"
+				stack class: "flex-row gap-4 mt-4 justify-center", ->
+					button 
+						class: "py-2 px-8 bg-primary text-neutral-9 rounded hover:bg-primary/80",
+						onClick: ->
+							@pendingGameId = nil
+							@pendingExistingGame = nil
+							@navigate "/adventure/#{gameId}/#{existing.id}"
+						text: "Yes"
+					button 
+						class: "py-2 px-8 bg-neutral-4 text-neutral-9 rounded hover:bg-neutral-5",
+						onClick: ->
+							@pendingGameId = nil
+							@pendingExistingGame = nil
+							@navigate "/adventure/#{gameId}"
+						text: "No"
 
 	body: =>
-		if @pendingGameId
-			gameId = @pendingGameId
-			existing = @pendingExistingGame
-			stack class: "absolute inset-0 flex items-center justify-center z-50", ->
-				stack class: "absolute inset-0 bg-black/60", onLeftMouseUp: =>
-					@pendingGameId = nil
-					@pendingExistingGame = nil
-					@rebuild!
-				stack class: "bg-neutral-2 p-6 rounded-lg flex-col gap-4 relative", ->
-					p class: "text-neutral-9 text-xl font-bold", "Resume Game?"
-					p class: "text-neutral-6 text-lg", "There was a game running already, do you want to continue it?"
-					stack class: "flex-row gap-4 justify-center", ->
-						button
-							class: "py-2 px-6 bg-primary text-neutral-9 rounded hover:bg-primary/80"
-							onClick: =>
-								@pendingGameId = nil
-								@pendingExistingGame = nil
-								@navigate "/adventure/#{gameId}/#{existing.id}"
-							"Yes"
-						button
-							class: "py-2 px-6 bg-neutral-4 text-neutral-9 rounded hover:bg-neutral-5"
-							onClick: =>
-								@pendingGameId = nil
-								@pendingExistingGame = nil
-								@navigate "/adventure/#{gameId}"
-							"No"
 		keys = {}
 		for k in pairs games do table.insert keys, k
 		table.sort keys
-		self = @
 		stack id: "gamelist", class: "flex-col gap-2", ->
 			-- for key, game in pairs games do
 			for _, key in ipairs keys do
 				game = games[key]
-				Entry id: key, game: key, title: game.title, content: game.description, onClick: (gId) -> self\handleGameClick gId
+				Entry id: key, game: key, title: game.title, content: game.description--, onLeftMouseUp: (gId) -> @handleGameClick gId
