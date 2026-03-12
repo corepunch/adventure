@@ -11,7 +11,7 @@ server = require 'zilscript.runtime'
 system = "You are the Dungeon Master in a text-based Dungeons & Dragons adventure. Describe scenes vividly, present choices naturally, and react dynamically to player actions. Keep descriptions immersive but concise."
 user = "Let's begin a new D&D adventure. Describe what my character sees as I awaken in a mysterious forest clearing, and ask me what I want to do next."
 
-font = "adventure/fonts/Times New Roman"
+font = "chronicle/fonts/Times New Roman"
 common = {
   "zork1/globals.zil",
 	"zork1/clock.zil",

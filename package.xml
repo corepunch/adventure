@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Project Name="Chronicle" StartupScreen="Chronicle/App" WindowWidth="400" WindowHeight="800"> 
+<Project Name="chronicle" StartupScreen="chronicle/App" WindowWidth="400" WindowHeight="800"> 
   <Project.ProjectReferences>
     <ProjectReference Name="applications" Path="applications" />
     <ProjectReference Name="assets" Path="assets" />
