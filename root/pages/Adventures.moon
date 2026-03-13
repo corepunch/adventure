@@ -2,6 +2,7 @@ routing = require "routing"
 games = require "config.games"
 ui = require "orca.ui"
 import Games from require "model"
+import Popup from require "root.components"
 
 class Entry extends ui.Grid
 	class: "gap-2 p-2"
@@ -12,8 +13,8 @@ class Entry extends ui.Grid
 		ui.StackView class: "flex-col w-full border-muted-foreground", ->
 			p class: "text-neutral-9 text-lg font-bold text-nowrap text-ellipsis", @title
 			p id: 'desc', class: "text-base text-neutral-6", @content
-	onLeftMouseUp: =>
-		print "Clicked game:", @game
+	-- onLeftMouseUp: =>
+	-- 	print "Clicked game:", @game
 	-- 	if @onClick
 	-- 		@onClick @game
 	-- 	else
@@ -40,17 +41,16 @@ class Adventures extends ui.Node2D
 	-- 		ui.Page marginTop: 40, title: "Page5", path: "/page5", -> p "Version control systems like Git help teams collaborate and track changes to codebases efficiently."
 
 	handleGameClick: (gameId) =>
-		print "Clicked game:", gameId
 		allGames = Games\findAll!
-		print "All games:", allGames
-		@showModal(@popup!)
-		-- for _, game in ipairs allGames do
-		-- 	if game.gameId == gameId
-		-- 		@pendingGameId = gameId
-		-- 		@pendingExistingGame = game
-		-- 		@rebuild!
-		-- 		return
+		for game in *allGames do
+			if game.gameId == gameId
+				@setModal Popup
+					text: "There was a game running already, do you want to continue it?"
+					onYes: => print 'yes'--@navigate "/adventure/#{gameId}/#{game.id}"
+					onNo: => print 'no' --@navigate "/adventure/#{gameId}"
+				return true
 		-- @navigate "/adventure/#{gameId}"
+		return true
 
 	popup: =>
 		gameId = @pendingGameId
@@ -83,4 +83,4 @@ class Adventures extends ui.Node2D
 			-- for key, game in pairs games do
 			for _, key in ipairs keys do
 				game = games[key]
-				Entry id: key, game: key, title: game.title, content: game.description--, onLeftMouseUp: (gId) -> @handleGameClick gId
+				Entry id: key, game: key, title: game.title, content: game.description, onLeftMouseUp: (button) -> @handleGameClick button.game

@@ -1,6 +1,7 @@
 return {
 	Header: require "root.components.Header"
 	Footer: require "root.components.Footer"
+	Popup: require "root.components.Popup"
 	-- HomePage: require "root.components.HomePage"
 	-- SendMoney: require "root.components.SendMoney"
 	-- Settings: require "root.components.Settings"
