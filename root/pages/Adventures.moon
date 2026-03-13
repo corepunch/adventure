@@ -44,7 +44,7 @@ class Adventures extends ui.Node2D
 		allGames = Games\findAll!
 		for game in *allGames do
 			if game.gameId == gameId
-				@setModal Popup
+				@showModal Popup
 					text: "There was a game running already, do you want to continue it?"
 					onYes: => print 'yes'--@navigate "/adventure/#{gameId}/#{game.id}"
 					onNo: => print 'no' --@navigate "/adventure/#{gameId}"

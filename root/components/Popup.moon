@@ -1,6 +1,6 @@
 ui = require "orca.ui"
 
-class Popup extends ui.Node2D
+class Popup extends ui.Screen
 	class: "bg-muted/80 p-6"
 	body: =>
 		stack class: "bg-neutral-2 p-6 rounded-4 flex-col gap-4 align-middle", ->
