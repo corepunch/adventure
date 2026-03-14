@@ -5,7 +5,7 @@ json = require "orca.parsers.json"
 require 'zilscript'
 server = require 'zilscript.runtime'
 
-font = "adventure/fonts/Times New Roman"
+font = "chronicle/fonts/Times New Roman"
 files = {
   "zork1/globals.zil",
 	"zork1/clock.zil",
