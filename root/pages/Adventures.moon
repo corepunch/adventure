@@ -52,7 +52,7 @@ class Adventures extends ui.Node2D
 				else
 					@navigate "/adventure/#{gameId}"
 				return true
-		-- @navigate "/adventure/#{gameId}"
+		@navigate "/adventure/#{gameId}"
 		return true
 
 	body: =>

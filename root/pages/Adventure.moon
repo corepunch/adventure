@@ -97,7 +97,7 @@ class ChatInput extends ui.Node2D
 			for line in scene\gmatch "[^\n]+" do
 				@console\addChild Incoming line
 			cmd.Text = ""
-		d = ui.Input class: "text-lg text-middle bg-neutral-4 hover:bg-neutral-4/95 m-2 rounded-4", placeholderText: "Print command", onSubmit: submit
+		ui.Input class: "text-lg text-middle bg-neutral-4 hover:bg-neutral-4/95 m-2 p-2 rounded-4", placeholderText: "Print command", onSubmit: submit
 		
 class Adventure extends ui.Node2D
 	new: (@params) => 
