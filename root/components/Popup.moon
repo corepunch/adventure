@@ -9,9 +9,9 @@ class Popup extends ui.Screen
 			grid class: "flex-row gap-4 mt-4 justify-center", Columns: "auto auto", ->
 				button 
 					class: "py-2 text-center bg-primary text-neutral-9 rounded hover:bg-primary/80",
-					onClick: -> @onYes!
+					onClick: -> @DialogResult = 1
 					text: "Yes"
 				button 
 					class: "py-2 text-center bg-neutral-4 text-neutral-9 rounded hover:bg-neutral-5",
-					onClick: -> @onNo!
+					onClick: -> @DialogResult = 0
 					text: "No"

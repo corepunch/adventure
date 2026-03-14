@@ -44,36 +44,13 @@ class Adventures extends ui.Node2D
 		allGames = Games\findAll!
 		for game in *allGames do
 			if game.gameId == gameId
-				@showModal Popup
-					text: "There was a game running already, do you want to continue it?"
-					onYes: => print 'yes'--@navigate "/adventure/#{gameId}/#{game.id}"
-					onNo: => print 'no' --@navigate "/adventure/#{gameId}"
+				if @showModal Popup text: "There was a game running already, do you want to continue it?"
+					@navigate "/adventure/#{gameId}/#{game.id}"
+				else
+					@navigate "/adventure/#{gameId}"
 				return true
 		-- @navigate "/adventure/#{gameId}"
 		return true
-
-	popup: =>
-		gameId = @pendingGameId
-		existing = @pendingExistingGame
-		div class: "bg-muted/80 p-6", ->
-			stack class: "bg-neutral-2 p-6 rounded-4 flex-col gap-4 align-middle", =>
-				p class: "text-neutral-9 text-xl font-bold", "Resume Game?"
-				p class: "text-neutral-6 text-lg", "There was a game running already, do you want to continue it?"
-				stack class: "flex-row gap-4 mt-4 justify-center", ->
-					button 
-						class: "py-2 px-8 bg-primary text-neutral-9 rounded hover:bg-primary/80",
-						onClick: ->
-							@pendingGameId = nil
-							@pendingExistingGame = nil
-							@navigate "/adventure/#{gameId}/#{existing.id}"
-						text: "Yes"
-					button 
-						class: "py-2 px-8 bg-neutral-4 text-neutral-9 rounded hover:bg-neutral-5",
-						onClick: ->
-							@pendingGameId = nil
-							@pendingExistingGame = nil
-							@navigate "/adventure/#{gameId}"
-						text: "No"
 
 	body: =>
 		keys = {}
