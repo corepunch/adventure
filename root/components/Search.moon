@@ -1,4 +1,4 @@
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 
 import Users, Chats from require "model"
 ContactCard = require "root.components.ContactCard"

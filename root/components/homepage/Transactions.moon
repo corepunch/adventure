@@ -1,5 +1,5 @@
 orca = require "orca"
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 routing = require "routing"
 
 import Users, Transactions from require "model"

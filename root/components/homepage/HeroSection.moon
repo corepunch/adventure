@@ -1,4 +1,4 @@
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 
 import Users, Transactions from require "model"
 

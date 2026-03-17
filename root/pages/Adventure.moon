@@ -1,4 +1,4 @@
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 appwrite = require "appwrite.functions"
 openai = require "openai"
 json = require "orca.parsers.json"

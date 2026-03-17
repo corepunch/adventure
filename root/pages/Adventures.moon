@@ -1,6 +1,6 @@
 routing = require "routing"
 games = require "config.games"
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 import Games from require "model"
 import Popup from require "root.components"
 

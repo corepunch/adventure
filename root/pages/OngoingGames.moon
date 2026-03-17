@@ -1,4 +1,4 @@
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 games_config = require "config.games"
 import Games from require "model"
 
@@ -27,6 +27,6 @@ class OngoingGames extends ui.Node2D
 		if #ongoing == 0
 			p class: "text-neutral-6 p-8 text-lg", "No ongoing games. Start a new game from the home screen."
 		else
-			stack id: "gamelist", class: "flex-col gap-2", ->
+			stack id: "gamelist", class: "flex-col gap-2 overflow-y-scroll", ->
 				for game in *ongoing
 					GameEntry id: game.id, game: game

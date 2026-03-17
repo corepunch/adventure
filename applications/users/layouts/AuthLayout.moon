@@ -1,4 +1,4 @@
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 constants = require "assets.constants"
 
 import Page from require "routing"

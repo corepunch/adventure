@@ -1,4 +1,4 @@
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 
 class ErrorMessage extends ui.TextBlock
 	apply: => "mt-16 text-red text-sm"

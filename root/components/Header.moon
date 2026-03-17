@@ -1,7 +1,7 @@
 routing = require "routing"
 
 -- import header from require "assets.constants"
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 -- import Users from require "model"
 
 class Header extends ui.Grid

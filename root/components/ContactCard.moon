@@ -1,4 +1,4 @@
-import StackView from require "orca.ui"
+import StackView from require "orca.UIKit"
 
 class ContactCard extends StackView
 	apply: => "contact-card"

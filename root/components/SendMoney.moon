@@ -1,4 +1,4 @@
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 routing = require "routing"
 
 import Users, Chats from require "model"

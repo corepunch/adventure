@@ -1,4 +1,4 @@
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 
 HeroSection = require "root.components.homepage.HeroSection"
 Transactions = require "root.components.homepage.Transactions"

@@ -1,6 +1,6 @@
 routing = require "routing"
 
-import StackView from require "orca.ui"
+import StackView from require "orca.UIKit"
 import footer from require "assets.constants"
 
 class Footer extends StackView

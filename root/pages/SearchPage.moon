@@ -1,5 +1,5 @@
 RootLayout = require "root.RootLayout"
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 
 import Search from require "root.components"
 import header from require "assets.constants"

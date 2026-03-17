@@ -1,4 +1,4 @@
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 
 class Popup extends ui.Screen
 	class: "bg-dark-1/95 p-6"

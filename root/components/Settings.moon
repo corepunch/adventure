@@ -1,4 +1,4 @@
-ui = require "orca.ui"
+ui = require "orca.UIKit"
 
 class Settings extends ui.Node2D
 	title: "Settings"
