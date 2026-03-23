@@ -69,6 +69,12 @@ jobs:
             WEBGL_EMCC=emcc \
             WEBGL_VERSION="${{ github.sha }}"
 
+      - name: Rename orca.html to index.html
+        run: mv ${{ github.workspace }}/../orca/build/webgl/orca.html ${{ github.workspace }}/../orca/build/webgl/index.html
+
+      - name: Add .nojekyll to disable Jekyll processing
+        run: touch ${{ github.workspace }}/../orca/build/webgl/.nojekyll
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
