@@ -1,3 +1,4 @@
+html = require "html"
 routing = require "routing"
 ui = require "orca.UIKit"
 loc = require "orca.localization"
