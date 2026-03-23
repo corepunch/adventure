@@ -4,11 +4,12 @@ DATA_DIR = .
 LIB_PATH = $(BUILD_DIR)
 
 # Targets
-.PHONY: run clean
+.PHONY: run clean moonc
 
 help:
 	@echo "Available targets:"
 	@echo "  run               - Run the game in GUI mode"
+	@echo "  moonc             - Compile all MoonScript files to Lua"
 	@echo "  clean             - Clean up build artifacts"
 
 run:
@@ -23,6 +24,11 @@ copy-resources:
 	@echo "Copying contents of current directory to $(RESOURCES_DIR)..."
 	@mkdir -p $(RESOURCES_DIR)  # Ensure the target directory exists
 	@cp -r ./* $(RESOURCES_DIR)
+
+moonc:
+	@echo "Compiling MoonScript files to Lua..."
+	find . -name "*.moon" -exec moonc {} \;
+	@echo "Done."
 
 clean:
 	@echo "Cleaning up..."

@@ -1,0 +1,92 @@
+name: Build WebGL and Deploy to Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+# Allow only one concurrent deployment, skipping runs queued between the
+# run in-progress and latest queued. However, do NOT cancel in-progress runs
+# as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      ORCA_DIR: ${{ github.workspace }}/../orca
+    steps:
+      - name: Checkout adventure project
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Lua and MoonScript
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lua5.4 luarocks
+          sudo luarocks install moonscript
+
+      - name: Compile MoonScript to Lua
+        run: |
+          find . -name "*.moon" -exec moonc {} \;
+
+      - name: Install Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 3.1.74
+          actions-cache-folder: emsdk-cache
+
+      - name: Clone Orca engine
+        run: |
+          git clone --depth=1 --recurse-submodules \
+            https://github.com/corepunch/orca.git "$ORCA_DIR"
+
+      - name: Copy adventure project into Orca as 'chronicle'
+        run: |
+          mkdir -p "$ORCA_DIR/chronicle"
+          cp -r "$GITHUB_WORKSPACE/." "$ORCA_DIR/chronicle/"
+
+      - name: Build WASM dependencies (lua5.4, libxml2, liblz4)
+        working-directory: ${{ github.workspace }}/../orca
+        run: emmake make wasm-deps
+
+      - name: Build platform library for WebGL
+        working-directory: ${{ github.workspace }}/../orca
+        run: |
+          mkdir -p build/lib
+          emmake make -C libs/platform OUTDIR=../../build/lib
+
+      - name: Build Orca for WebGL with adventure project
+        working-directory: ${{ github.workspace }}/../orca
+        run: |
+          emmake make webgl \
+            WEBGL_DATA=chronicle \
+            WEBGL_EMCC=emcc \
+            WEBGL_VERSION="${{ github.sha }}"
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ github.workspace }}/../orca/build/webgl
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
