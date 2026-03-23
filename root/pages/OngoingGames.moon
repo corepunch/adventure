@@ -1,6 +1,6 @@
 ui = require "orca.UIKit"
 games_config = require "config.games"
-import Games from require "model"
+import Games from require "model.games"
 
 class GameEntry extends ui.Grid
 	class: "w-full p-2"
