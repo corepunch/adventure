@@ -1,7 +1,7 @@
 ui = require "orca.UIKit"
 games_config = require "config.games"
-import Games from require "model.games"
-
+import Games from require "model"
+ 
 class GameEntry extends ui.Grid
 	class: "w-full p-2"
 	columns: "auto 48px"

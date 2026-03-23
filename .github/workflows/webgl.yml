@@ -35,6 +35,12 @@ jobs:
         run: |
           find . -name "*.moon" -exec moonc {} \;
 
+      - name: Install Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 3.1.74
+          actions-cache-folder: emsdk-cache
+
       - name: Clone Orca engine
         run: |
           git clone --depth=1 --recurse-submodules \
@@ -43,13 +49,7 @@ jobs:
       - name: Copy adventure project into Orca as 'chronicle'
         run: |
           mkdir -p "$ORCA_DIR/chronicle"
-          rsync -a --exclude='.git' "$GITHUB_WORKSPACE/" "$ORCA_DIR/chronicle/"
-
-      - name: Install Emscripten
-        uses: mymindstorm/setup-emsdk@v14
-        with:
-          version: 3.1.74
-          actions-cache-folder: emsdk-cache
+          cp -r "$GITHUB_WORKSPACE/." "$ORCA_DIR/chronicle/"
 
       - name: Build WASM dependencies (lua5.4, libxml2, liblz4)
         working-directory: ${{ github.workspace }}/../orca

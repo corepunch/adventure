@@ -1,31 +1,28 @@
 ui = require "orca.UIKit"
+appwrite = require "appwrite.functions"
+openai = require "openai"
+json = require "orca.parsers.json"
 games = require "config.games"
-import Games from require "model.games"
+import Games from require "model"
 
 require 'zilscript'
 server = require 'zilscript.runtime'
 
-font = "chronicle/fonts/Times New Roman"
+system = "You are the Dungeon Master in a text-based Dungeons & Dragons adventure. Describe scenes vividly, present choices naturally, and react dynamically to player actions. Keep descriptions immersive but concise."
+user = "Let's begin a new D&D adventure. Describe what my character sees as I awaken in a mysterious forest clearing, and ask me what I want to do next."
 
--- Common ZIL files shared across all games (loaded before game-specific files)
+font = "chronicle/fonts/Times New Roman"
 common = {
   "zork1/globals.zil",
-  "zork1/clock.zil",
+	"zork1/clock.zil",
   "zork1/parser.zil",
   "zork1/verbs.zil",
+  "zork1/main.zil",
   "zork1/syntax.zil",
+  -- "zork1/actions.zil",
+  -- "zork1/dungeon.zil",
+  -- "adventure/horror.zil",
 }
-
--- Pre-initialize all game environments at module level so that ZIL compilation
--- runs during Orca's loading screen, not after it (which would cause a black
--- screen freeze before the first frame is shown).
-game_envs = {}
-for gameId, config in pairs games
-  env = server.create_game_env()
-  assert server.init(env), "Failed to initialize environment for " .. gameId
-  assert server.load_zil_files(common, env, {save_lua: false}), "Failed to load common ZIL files for " .. gameId
-  assert server.load_zil_files(config.modules, env, {save_lua: false}), "Failed to load modules for " .. gameId
-  game_envs[gameId] = env
 
 -- highlight = (text) ->
 -- 	fmt = "<u>%s</u>"
@@ -106,13 +103,15 @@ class Adventure extends ui.Node2D
 	new: (@params) => 
 		super!
 
-		@config = games[@params.game]
+		@env = server.create_game_env()
+		@config = games[@params.game]	
+
 		assert(@config, "Game not found: " .. @params.game)
+		assert(server.init(@env), "Failed to initialize game environment")
+		assert(server.load_zil_files(common, @env), "Failed to load common ZIL files")
+		assert(server.load_zil_files(@config.modules, @env), "Failed to load game-specific ZIL files")
 
-		env = game_envs[@params.game]
-		assert(env, "Game environment not found: " .. @params.game)
-
-		@game = server.create_game(env)
+		@game = server.create_game(@env)
 
 		if @params.record
 			record = Games\find @params.record
