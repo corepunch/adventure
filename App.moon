@@ -1,6 +1,7 @@
 routing = require "routing"
 ui = require "orca.UIKit"
 loc = require "orca.localization"
+require "html"
 Layout = require "root.RootLayout"
 page = require "root.pages"
 
