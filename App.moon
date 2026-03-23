@@ -20,4 +20,4 @@ class App extends Application
 	"/games": => Layout page.OngoingGames
 
 	onAwake: =>
-		@navigate '/adventure/zork1'
+		@navigate '/overview'--'/adventure/zork1'
