@@ -1,7 +1,7 @@
 routing = require "routing"
 games = require "config.games"
 ui = require "orca.UIKit"
-import Games from require "model"
+import Games from require "model.games"
 import Popup from require "root.components"
 
 class Entry extends ui.Grid

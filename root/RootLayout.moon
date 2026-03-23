@@ -1,6 +1,5 @@
 import navigate, Page from require "routing"
 import Header, Footer from require "root.components"
-import Users from require "model"
 import header from require "assets.constants"
 ui = require "orca.UIKit"
 
