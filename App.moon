@@ -16,7 +16,6 @@ class App extends Application
 	@include "applications.users"
 	@include "applications.chat"
 
-	@stylesheet "tailwind"
 	@stylesheet "assets/globals"
 
 	"/": => Layout page.Adventures

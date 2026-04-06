@@ -13,7 +13,6 @@ ProjectReferences = {
   { Name="html", Path="lib/html" },
   { Name="routing", Path="lib/routing" },
   { Name="openai", Path="lib/openai" },
-  { Name="tailwind", Path="lib/tailwind" },
   { Name="zilscript", Path="lib/zilscript/zilscript" },
   { Name="zork1", Path="lib/zilscript/zork1" },
   { Name="adventure", Path="lib/zilscript/adventure" }
