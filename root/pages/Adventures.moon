@@ -13,7 +13,7 @@ class Entry extends ui.Grid
 		ui.StackView class: "flex-col w-full border-muted-foreground", ->
 			p class: "text-neutral-9 text-lg font-bold text-nowrap text-ellipsis", @title
 			p id: 'desc', class: "text-base text-neutral-6", @content
-	-- onLeftMouseUp: =>
+	-- "onMouse.LeftMouseUp": =>
 	-- 	print "Clicked game:", @game
 	-- 	if @onClick
 	-- 		@onClick @game
@@ -22,7 +22,7 @@ class Entry extends ui.Grid
 
 -- class TabItem extends ui.TextBlock
 -- 	class: "text-xl text-primary-600 hover:text-secondary-500"
--- 	onLeftMouseUp: =>
+-- 	"onMouse.LeftMouseUp": =>
 -- 		@postMessage 'NavigateToPage', 
 -- 			ui.NavigateToPageArguments URL: @url, TransitionType: "none"
 
@@ -63,4 +63,4 @@ class Adventures extends ui.Node2D
 			-- for key, game in pairs games do
 			for _, key in ipairs keys do
 				game = games[key]
-				Entry id: key, game: key, title: game.title, content: game.description, onLeftMouseUp: (button) -> @handleGameClick button.game
+				Entry id: key, game: key, title: game.title, content: game.description, "onMouse.LeftMouseUp": (button) -> @handleGameClick button.game
