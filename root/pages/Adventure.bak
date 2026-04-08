@@ -102,6 +102,6 @@ class Adventure extends ui.Node2D
 			console = stack "#console", class: 'flex-col overflow-y-scroll py-4', ->
 				for line in scene\gmatch "[^\n]+" do
 					Message line
-			console.onScrollHeightChanged = () => @setScrollTop @ScrollHeight
+			console.onScrollHeightChanged = () => @SetScrollTop @ScrollHeight
 			@controls = ChatInput game, console
 			-- controls = Controls game, console

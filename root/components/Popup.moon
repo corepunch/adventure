@@ -3,7 +3,7 @@ ui = require "orca.UIKit"
 class Popup extends ui.Screen
 	class: "bg-dark-1/95 p-6"
 	body: =>
-		stack class: "bg-neutral-3 p-6 rounded-4 flex-col gap-4 align-middle", "onMouse.LeftMouseUp": (-> true), ->
+		stack class: "bg-neutral-3 p-6 rounded-4 flex-col gap-4 align-middle", "onNode.LeftMouseUp": (-> true), ->
 			p class: "text-neutral-9 text-xl text-center font-bold", "Resume Game?"
 			p class: "text-neutral-6 text-lg", @text or "This is a popup message. You can set the text and actions when showing the popup."
 			grid class: "flex-row gap-4 mt-2 justify-center", Columns: "auto auto", ->
@@ -16,6 +16,6 @@ class Popup extends ui.Screen
 					onClick: -> @DialogResult = 1
 					text: "Yes"
 
-	"onMouse.LeftMouseUp": (event) =>
+	"onNode.LeftMouseUp": (event) =>
 		@DialogResult = 0
 		return true

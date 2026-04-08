@@ -12,4 +12,4 @@ class SendMoney extends ui.StackView
 		for chat in *Chats\findAll Users\auth!
 			ContactCard "#card",
 				user: Chats\getPartner chat, Users\auth!
-				"onMouse.LeftMouseUp": -> routing.navigate "/chat/#{chat["$id"]}"
+				"onNode.LeftMouseUp": -> routing.navigate "/chat/#{chat["$id"]}"

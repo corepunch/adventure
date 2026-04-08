@@ -8,14 +8,14 @@ class GameEntry extends ui.Grid
 	body: =>
 		@BorderBottomWidth = 1
 		config = games_config[@game.gameId] or {title: @game.gameId}
-		stack class: "flex-col flex-1", "onMouse.LeftMouseUp": ( => @navigate "/adventure/#{@game.gameId}/#{@game.id}"), ->
+		stack class: "flex-col flex-1", "onNode.LeftMouseUp": ( => @navigate "/adventure/#{@game.gameId}/#{@game.id}"), ->
 			p class: "text-neutral-9 text-2xl", config.title
 			count = @game.commands and #@game.commands or 0
 			p class: "text-lg text-neutral-6", "#{count} commands played"
 		img
 			class: "align-center align-middle text-neutral-6 hover:text-red-400",
 			image: "assets/icons/delete.svg?width=32&type=Mask",
-			"onMouse.LeftMouseUp": =>
+			"onNode.LeftMouseUp": =>
 				Games\delete @game.id
 				@parent\rebuild!
 

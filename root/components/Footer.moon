@@ -14,4 +14,4 @@ class Footer extends StackView
 			img ".align-middle-center.text-#{color}" 
 				Image: "#{item.imgURL}?width=#{footer.iconSize}&type=Mask"
 				Stretch: "None"
-				"onMouse.LeftMouseUp": -> @callback item.route
+				"onNode.LeftMouseUp": -> @callback item.route

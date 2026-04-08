@@ -15,4 +15,4 @@ class SearchPage extends RootLayout
 				onChar: (search) -> @contentView\performSearch search
 			img ".align-middle-right.text-muted-foreground"
 				Image: "assets/icons/logout.svg?width=#{header.iconSize}&type=Mask"
-				"onMouse.LeftMouseUp": -> routing.go_back!
+				"onNode.LeftMouseUp": -> routing.go_back!

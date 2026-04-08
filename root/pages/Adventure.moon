@@ -135,7 +135,7 @@ class Adventure extends ui.Node2D
 				img 
 					class: "inline-block align-middle text-neutral-9", 
 					image: "assets/icons/back.svg?width=48&type=Mask", 
-					"onMouse.LeftMouseUp": => @navigate "/"
+					"onNode.LeftMouseUp": => @navigate "/"
 					-- p class: "inline-block align-middle text-green-300", "Dungeons & Dragons"
 				p class: "text-neutral-9 text-xl text-nowrap", @config.title
 				-- ui.Button class: "py-1 px-3 font-bold bg-button hover:bg-button-hover text-dark-1", text: "Button"
@@ -152,7 +152,7 @@ class Adventure extends ui.Node2D
 					for line in scene\gmatch "[^\n]+" do
 						-- if line == '>' then continue
 						Incoming line
-			console.onScrollHeightChanged = () => @setScrollTop @ScrollHeight
+			console.onScrollHeightChanged = () => @SetScrollTop @ScrollHeight
 			@controls = ChatInput @game, console, @gameRecordId
 			-- controls = Controls @game, console
 			ui.Node2D class: 'bg-neutral-3 w-full h-full'

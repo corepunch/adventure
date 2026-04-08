@@ -14,7 +14,7 @@ class MessagesView extends ui.StackView
 		for msg in *Messages\findAll @chat
 			@bubble msg
 
-	onScrollHeightChanged: () => @setScrollTop @ScrollHeight
+	onScrollHeightChanged: () => @SetScrollTop @ScrollHeight
 
 	bubbleClass: (msg) =>
 		sender = msg.sender["$id"]
