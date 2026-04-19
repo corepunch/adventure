@@ -67,7 +67,7 @@ class Controls extends ui.StackView
 			stack class: "ml-#{indent}", ->
 				p class: 'm-2 text-green-300', key
 				for _, verb in ipairs verbs do
-					button class: action, onClick: perform, verb: verb\lower!, object: key, verb\lower!
+					button class: action, Click: perform, verb: verb\lower!, object: key, verb\lower!
 			for _, t in ipairs children do
 				Item indent + 4, table.unpack t
 
@@ -77,16 +77,16 @@ class Controls extends ui.StackView
 		for _, t in ipairs @game\resume 'room-exits' do
 			dir, room = table.unpack t
 			stack class: 'flex-row items-center', ->
-				button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
+				button class: action, Click: perform, verb: "walk", object: dir\lower!, dir\lower!
 				p class: 'm-2 text-green-300', room
 
 		stack class: 'flex-row items-center', ->
-			button class: action, onClick: perform, verb: "inventory", "Inventory"
-			button class: action, onClick: perform, verb: "look", "Look Around"
+			button class: action, Click: perform, verb: "inventory", "Inventory"
+			button class: action, Click: perform, verb: "look", "Look Around"
 
 		p class: 'm-2', @game\resume "inventory"
 
-class ChatInput extends ui.Node2D
+class ChatInput extends div
 	new: (@game, @console, @gameRecordId) => super!
 	class: "gap-2 bg-neutral-3"
 	body: =>
@@ -97,9 +97,9 @@ class ChatInput extends ui.Node2D
 			for line in scene\gmatch "[^\n]+" do
 				@console\addChild Incoming line
 			cmd.Text = ""
-		ui.Input class: "text-lg text-middle bg-neutral-4 hover:bg-neutral-4/95 m-2 p-2 rounded-4", placeholderText: "Print command", onSubmit: submit
+		ui.Input class: "text-lg text-middle bg-neutral-4 hover:bg-neutral-4/95 m-2 p-2 rounded-4", placeholderText: "Print command", Submit: submit
 		
-class Adventure extends ui.Node2D
+class Adventure extends div
 	new: (@params) => 
 		super!
 
@@ -130,12 +130,12 @@ class Adventure extends ui.Node2D
 		console, @controls = nil, nil
 		-- img class: "w-full h-full", Source: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
 		grid Rows: "32px 48px auto 64px 24px", ->
-			ui.Node2D class: 'bg-neutral-3 w-full h-full'
+			div class: 'bg-neutral-3 w-full h-full'
 			stack class: "w-full h-full bg-neutral-3 p-2 gap-2 text-xl items-center", ->
 				img 
 					class: "inline-block align-middle text-neutral-9", 
 					Source: "assets/icons/back.svg?width=48&type=Mask", 
-					LeftMouseUp: => @navigate "/"
+					LeftButtonUp: => @navigate "/"
 					-- p class: "inline-block align-middle text-green-300", "Dungeons & Dragons"
 				p class: "text-neutral-9 text-xl text-nowrap", @config.title
 				-- ui.Button class: "py-1 px-3 font-bold bg-button hover:bg-button-hover text-dark-1", text: "Button"
@@ -155,4 +155,4 @@ class Adventure extends ui.Node2D
 			console.onScrollHeightChanged = () => @SetScrollTop @ScrollHeight
 			@controls = ChatInput @game, console, @gameRecordId
 			-- controls = Controls @game, console
-			ui.Node2D class: 'bg-neutral-3 w-full h-full'
+			div class: 'bg-neutral-3 w-full h-full'

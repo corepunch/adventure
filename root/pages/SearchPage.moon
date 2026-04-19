@@ -12,7 +12,7 @@ class SearchPage extends RootLayout
 			ui.Input ".align-middle.input",
 				Name: "Search"
 				PlaceholderText: "Search users"
-				onChar: (search) -> @contentView\performSearch search
+				Char: (search) -> @contentView\performSearch search
 			img ".align-middle-right.text-muted-foreground"
 				Source: "assets/icons/logout.svg?width=#{header.iconSize}&type=Mask"
-				LeftMouseUp: -> routing.go_back!
+				LeftButtonUp: -> routing.go_back!

@@ -14,8 +14,8 @@ class Footer extends StackView
 			img ".align-middle-center.text-#{color}" 
 				Source: "#{item.imgURL}?width=#{footer.iconSize}&type=Mask"
 				Stretch: "None"
-				LeftMouseUp: -> @callback item.route
-				-- LeftMouseUp: @Button_Click
+				LeftButtonUp: -> @callback item.route
+				-- LeftButtonUp: @Button_Click
 
 	-- Button_Click: (sender, event) =>
 	-- 	-- Handle button click event here

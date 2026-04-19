@@ -22,13 +22,13 @@ class Header extends ui.Node2D
 			stack '.w-full.h-full.gap-2.items-center', ->
 				img ".align-middle-left.text-muted-foreground"
 					Source: "assets/icons/back.svg?width=#{header.iconSize}&type=Mask"
-					LeftMouseUp: -> routing.navigate "/send-money"
+					LeftButtonUp: -> routing.navigate "/send-money"
 				h0 "#title-name.text-muted-foreground", title
 			stack ".align-middle-right.gap-2", ->
 				for item in *header.links
 					img "#control-button.align-middle-center.text-muted-foreground" 
 						Source: "#{item.imgURL}?width=#{header.iconSize}&type=Mask"
-						LeftMouseUp: -> routing.navigate item.route
+						LeftButtonUp: -> routing.navigate item.route
 
 class ChatLayout extends Page
 	new: (@params, ...) =>
@@ -59,4 +59,4 @@ class ChatLayout extends Page
 			ui.Input "#msg-input.m-8.h-full.input"
 				name: "message"
 				placeholderText: ". . ."
-				onChange: sendMessage
+				Change: sendMessage

@@ -58,7 +58,7 @@ class Controls extends ui.StackView
 			stack class: "ml-#{indent}", ->
 				p class: 'm-2 text-green-300', key
 				for _, verb in ipairs verbs do
-					button class: action, onClick: perform, verb: verb\lower!, object: key, verb\lower!
+					button class: action, Click: perform, verb: verb\lower!, object: key, verb\lower!
 			for _, t in ipairs children do
 				Item indent + 4, table.unpack t
 
@@ -68,12 +68,12 @@ class Controls extends ui.StackView
 		for _, t in ipairs @game\resume 'room-exits' do
 			dir, room = table.unpack t
 			stack class: 'flex-row items-center', ->
-				button class: action, onClick: perform, verb: "walk", object: dir\lower!, dir\lower!
+				button class: action, Click: perform, verb: "walk", object: dir\lower!, dir\lower!
 				p class: 'm-2 text-green-300', room
 
 		stack class: 'flex-row items-center', ->
-			button class: action, onClick: perform, verb: "inventory", "Inventory"
-			button class: action, onClick: perform, verb: "look", "Look Around"
+			button class: action, Click: perform, verb: "inventory", "Inventory"
+			button class: action, Click: perform, verb: "look", "Look Around"
 
 		p class: 'm-2', @game\resume "inventory"
 
@@ -87,7 +87,7 @@ class ChatInput extends ui.StackView
 			for line in scene\gmatch "[^\n]+" do
 				@console\addChild Message line
 			cmd.Text = ""
-		d = ui.Input class: "bg-slate-500 hover:bg-slate-400 w-full m-2 p-2 rounded-4", placeholderText: "Print command", onSubmit: submit
+		d = ui.Input class: "bg-slate-500 hover:bg-slate-400 w-full m-2 p-2 rounded-4", placeholderText: "Print command", Submit: submit
 		
 class Adventure extends ui.Node2D
 	title: "Adventure"

@@ -17,12 +17,12 @@ class Header extends ui.Grid
 		-- 		if routing.has_history!
 		-- 			img ".align-middle-left.text-muted-foreground"
 		-- 				Source: "assets/icons/back.svg?width=#{header.iconSize}&type=Mask"
-		-- 				LeftMouseUp: -> routing.go_back!
+		-- 				LeftButtonUp: -> routing.go_back!
 		-- 		else
 		-- 			h5 ".py-2.text-muted-foreground", name
 		-- 	stack ".align-middle-right.gap-2", ->
 		-- 		for item in *header.links
 		-- 			img ".align-middle-center.text-muted-foreground" 
 		-- 				Source: "#{item.imgURL}?width=#{header.iconSize}&type=Mask"
-		-- 				LeftMouseUp: -> routing.navigate item.route
+		-- 				LeftButtonUp: -> routing.navigate item.route
 
