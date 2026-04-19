@@ -24,7 +24,7 @@ actions = {
 class TweetAction extends ui.StackView
 	apply: => "gap-1"
 	body: =>
-		img Image: "assets/icons/#{@action}.svg?width=18&type=Mask"
+		img Source: "assets/icons/#{@action}.svg?width=18&type=Mask"
 		h7 "%d"\format @counter
 
 class Tweets extends ui.StackView

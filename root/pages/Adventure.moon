@@ -125,17 +125,17 @@ class Adventure extends ui.Node2D
 		else
 			@gameRecordId = Games\create @params.game
 
-	title: "Adventure"
+	title: "Adventure"		
 	body: =>
 		console, @controls = nil, nil
-		-- img class: "w-full h-full", image: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
-		grid rows: "32px 48px auto 64px 24px", ->
+		-- img class: "w-full h-full", Source: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
+		grid Rows: "32px 48px auto 64px 24px", ->
 			ui.Node2D class: 'bg-neutral-3 w-full h-full'
 			stack class: "w-full h-full bg-neutral-3 p-2 gap-2 text-xl items-center", ->
 				img 
 					class: "inline-block align-middle text-neutral-9", 
-					image: "assets/icons/back.svg?width=48&type=Mask", 
-					"onNode.LeftMouseUp": => @navigate "/"
+					Source: "assets/icons/back.svg?width=48&type=Mask", 
+					LeftMouseUp: => @navigate "/"
 					-- p class: "inline-block align-middle text-green-300", "Dungeons & Dragons"
 				p class: "text-neutral-9 text-xl text-nowrap", @config.title
 				-- ui.Button class: "py-1 px-3 font-bold bg-button hover:bg-button-hover text-dark-1", text: "Button"

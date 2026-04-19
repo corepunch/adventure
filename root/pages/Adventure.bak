@@ -94,10 +94,10 @@ class Adventure extends ui.Node2D
 	body: =>
 		console, @controls = nil, nil
 		scene = game\resume @input
-		img class: "w-full h-full", image: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
-		grid rows: '64px auto 96px', ->
+		img class: "w-full h-full", Source: "assets/images/room-1", stretch: "UniformToFill", opacity: 0.33
+		grid Rows: '64px auto 96px', ->
 			stack class: "w-full h-full bg-slate-600 p-2 text-2xl items-center", ->
-				img class: "inline-block align-middle mr-4 text-green-300", image: "assets/icons/back.svg?width=48&type=Mask"
+				img class: "inline-block align-middle mr-4 text-green-300", Source: "assets/icons/back.svg?width=48&type=Mask"
 				p class: "text-green-300 text-xl", "Mysterious Forest Clearing"
 			console = stack "#console", class: 'flex-col overflow-y-scroll py-4', ->
 				for line in scene\gmatch "[^\n]+" do

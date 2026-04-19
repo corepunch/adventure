@@ -4,18 +4,18 @@ import Games from require "model"
  
 class GameEntry extends ui.Grid
 	class: "w-full p-2"
-	columns: "auto 48px"
+	Columns: "auto 48px"
 	body: =>
-		@BorderBottomWidth = 1
+		@BorderWidthBottom = 1
 		config = games_config[@game.gameId] or {title: @game.gameId}
-		stack class: "flex-col flex-1", "onNode.LeftMouseUp": ( => @navigate "/adventure/#{@game.gameId}/#{@game.id}"), ->
+		stack class: "flex-col flex-1", LeftMouseUp: ( => @navigate "/adventure/#{@game.gameId}/#{@game.id}"), ->
 			p class: "text-neutral-9 text-2xl", config.title
 			count = @game.commands and #@game.commands or 0
 			p class: "text-lg text-neutral-6", "#{count} commands played"
 		img
 			class: "align-center align-middle text-neutral-6 hover:text-red-400",
-			image: "assets/icons/delete.svg?width=32&type=Mask",
-			"onNode.LeftMouseUp": =>
+			Source: "assets/icons/delete.svg?width=32&type=Mask",
+			LeftMouseUp: =>
 				Games\delete @game.id
 				@parent\rebuild!
 

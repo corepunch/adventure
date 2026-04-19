@@ -1,12 +1,9 @@
 html = require "html"
 routing = require "routing"
 ui = require "orca.UIKit"
-loc = require "orca.localization"
 Layout = require "root.RootLayout"
 -- page = require "root.components"
 page = require "root.pages"
-
-loc.load "assets/localization/en"
 
 import Account from require "model"
 import Application from require "routing"
@@ -16,7 +13,7 @@ class App extends Application
 	@include "applications.users"
 	@include "applications.chat"
 
-	@stylesheet "assets/globals"
+	StyleSheet: "assets/globals"
 
 	"/": => Layout page.Adventures
 	"/overview": => Layout page.Adventures
@@ -31,10 +28,10 @@ class App extends Application
 	"/transaction/:transaction": => Layout page.TransactionDetails, @params
 	"/search": => SearchPage!
 
-	onAwake: => 
-	-- 	import parse from require "orca.parsers.css"
-		@navigate '/overview'
+	Awake: => 
+		-- 	import parse from require "orca.parsers.css"
+		-- @navigate '/overview'
 		-- @navigate '/games'
-		-- @navigate '/adventure/zork1'
+		@navigate '/adventure/zork1'
 		-- routing.navigate '/sign-out'
 		-- @navigate '/sign-in' unless pcall Account\auth, Account

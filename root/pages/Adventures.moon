@@ -6,14 +6,14 @@ import Popup from require "root.components"
 
 class Entry extends ui.Grid
 	class: "gap-2 p-2"
-	columns: "96px auto"
+	Columns: "96px auto"
 	body: =>
-		@BorderBottomWidth = 1
-		img id: "game-icon", Image: "assets/games/#{@game}"
+		@BorderWidthBottom = 1
+		img id: "game-icon", Source: "assets/games/#{@game}"
 		ui.StackView class: "flex-col w-full border-muted-foreground", ->
 			p class: "text-neutral-9 text-lg font-bold text-nowrap text-ellipsis", @title
 			p id: 'desc', class: "text-base text-neutral-6", @content
-	-- "onNode.LeftMouseUp": =>
+	-- LeftMouseUp: =>
 	-- 	print "Clicked game:", @game
 	-- 	if @onClick
 	-- 		@onClick @game
@@ -22,7 +22,7 @@ class Entry extends ui.Grid
 
 -- class TabItem extends ui.TextBlock
 -- 	class: "text-xl text-primary-600 hover:text-secondary-500"
--- 	"onNode.LeftMouseUp": =>
+-- 	LeftMouseUp: =>
 -- 		@postMessage 'NavigateToPage', 
 -- 			ui.NavigateToPageArguments URL: @url, TransitionType: "none"
 
@@ -56,6 +56,7 @@ class Adventures extends ui.Node2D
 		return true
 
 	body: =>
+		print("Rendering Adventures page")
 		keys = {}
 		for k in pairs games do table.insert keys, k
 		table.sort keys
@@ -63,4 +64,4 @@ class Adventures extends ui.Node2D
 			-- for key, game in pairs games do
 			for _, key in ipairs keys do
 				game = games[key]
-				Entry id: key, game: key, title: game.title, content: game.description, "onNode.LeftMouseUp": (button) -> @handleGameClick button.game
+				Entry id: key, game: key, title: game.title, content: game.description, LeftMouseUp: (button) -> @handleGameClick button.game

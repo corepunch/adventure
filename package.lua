@@ -1,4 +1,5 @@
 Name="chronicle"
+-- StartupScreen="root/components/Popup"
 StartupScreen="chronicle/App"
 WindowWidth=400
 WindowHeight=800
@@ -22,6 +23,4 @@ SystemMessages = {
   { Message="WindowClosed", Command="return" },
   { Message="RequestReload", Command="window:refresh()" }
 }
-FontLibrary = {
-  { Name="fonts", IsExternal=true }
-}
+FontLibrary = { Name="fonts", IsExternal=true }
