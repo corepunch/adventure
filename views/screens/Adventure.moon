@@ -109,5 +109,5 @@ class Adventure extends require "orca.core.widget"
 				for line in scene\gmatch "[^\n]+" do
 					Incoming line
 
-		console_view.onScrollHeightChanged = () => @SetScrollTop @ScrollHeight
+		console_view.onScrollHeightChanged = () -> console_view\SetScrollTop console_view.ScrollHeight
 		console_view

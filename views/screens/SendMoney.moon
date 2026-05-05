@@ -7,7 +7,8 @@ class SendMoney extends require "orca.core.widget"
 	title: "Send Money"
 
 	content: =>
-		chats = pcall(-> Chats\findAll Users\auth!) and Chats\findAll Users\auth! or {}
+		ok, chats = pcall -> Chats\findAll Users\auth!
+		chats = ok and chats or {}
 
 		StackView class: "bg-background flex-col h-full p-4 gap-4 overflow-y-scroll", =>
 			TextBlock class: "text-xl font-bold text-foreground", "Contacts"

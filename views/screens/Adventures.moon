@@ -4,19 +4,6 @@ games_config = require "config.games"
 import Games from require "model"
 import navigate from require "chronicle/views/helpers"
 
-class Entry extends require "orca.core.widget"
-	content: =>
-		StackView {
-			class: "bg-surface rounded-3 p-3 flex-row items-center gap-3"
-			LeftButtonUp: -> navigate "/adventure", { game: @game }
-		}, =>
-			ImageView
-				class: "align-middle-center"
-				Source: "assets/games/#{@game}"
-			StackView class: "flex-col flex-1 gap-1", =>
-				TextBlock class: "text-base font-bold text-foreground text-nowrap text-ellipsis", @title
-				TextBlock class: "text-sm text-foreground-muted", @content
-
 class Adventures extends require "orca.core.widget"
 	title: "New Adventure"
 
