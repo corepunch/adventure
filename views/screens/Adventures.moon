@@ -12,18 +12,19 @@ class Adventures extends require "orca.core.widget"
 		for k in pairs games_config do table.insert keys, k
 		table.sort keys
 
+		-- Load saved games once and build a gameId -> record_id map to avoid
+		-- repeated file I/O inside the loop.
+		ongoing = Games\findAll!
+		record_map = {}
+		for g in *ongoing do
+			record_map[g.gameId] = record_map[g.gameId] or g.id
+
 		StackView class: "bg-background flex-col gap-3 p-4 overflow-y-scroll h-full", =>
 			TextBlock class: "text-xl font-bold text-foreground", "Choose an Adventure"
 			for _, key in ipairs keys do
 				game = games_config[key]
-				ongoing = Games\findAll!
-				has_record = false
-				record_id = nil
-				for g in *ongoing do
-					if g.gameId == key
-						has_record = true
-						record_id = g.id
-						break
+				has_record = record_map[key] ~= nil
+				record_id = record_map[key]
 
 				StackView {
 					class: "bg-surface rounded-3 p-4 flex-col gap-2"

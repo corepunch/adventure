@@ -1,4 +1,3 @@
-renderer = require "orca.renderer"
 Application = require "orca.core.application"
 
 import Account from require "model"
