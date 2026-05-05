@@ -1,37 +1,49 @@
-html = require "html"
-routing = require "routing"
-ui = require "orca.UIKit"
-Layout = require "root.RootLayout"
--- page = require "root.components"
-page = require "root.pages"
+renderer = require "orca.renderer"
+Application = require "orca.core.application"
 
 import Account from require "model"
-import Application from require "routing"
-import SearchPage from require "root.pages"
+
+AUTH_ROUTES = { ["/sign-in"]: true, ["/sign-up"]: true }
 
 class App extends Application
-	@include "applications.users"
-	@include "applications.chat"
+	layout: require "chronicle/views/layout"
+	views_prefix: "chronicle/views/screens"
 
-	StyleSheet: "assets/globals"
+	@include_helpers {
+		app_title: => "Chronicle"
+		current_route: => @current_route or "/"
+	}
 
-	"/": => Layout page.Adventures
-	"/overview": => Layout page.Adventures
-	"/adventure/:game": => page.Adventure @params
-	"/adventure/:game/:record": => page.Adventure @params
-	"/games": => Layout page.OngoingGames
-	"/send-money": => Layout page.SendMoney
-	"/settings": => Layout page.Settings
-	"/tweets": => Layout page.Tweets
-	"/new-tweet": => Layout page.NewTweet
-	"/user/:user": => Layout page.ContactDetails, @params
-	"/transaction/:transaction": => Layout page.TransactionDetails, @params
-	"/search": => SearchPage!
+	dispatch: (req) =>
+		route = if type(req) == "table" then req.path or req.url or req.route else req
 
-	Awake: => 
-		-- 	import parse from require "orca.parsers.css"
-		-- @navigate '/overview'
-		-- @navigate '/games'
-		@navigate '/adventure/zork1'
-		-- routing.navigate '/sign-out'
-		-- @navigate '/sign-in' unless pcall Account\auth, Account
+		if route == "/sign-out"
+			pcall Account.signout, Account
+			route = "/sign-in"
+			req   = "/sign-in"
+
+		unless AUTH_ROUTES[route]
+			ok = pcall Account.auth, Account
+			unless ok
+				route = "/sign-in"
+				req   = "/sign-in"
+
+		@current_route = route or "/"
+		App.__parent.dispatch self, req
+
+	navigate: (route) =>
+		@activate_route route
+
+	[Adventures:    "/"            ]: => render: true
+	[OngoingGames:  "/games"       ]: => render: true
+	[Adventure:     "/adventure"   ]: => render: true
+	[SendMoney:     "/send-money"  ]: => render: true
+	[Settings:      "/settings"    ]: => render: true
+	[Tweets:        "/tweets"      ]: => render: true
+	[NewTweet:      "/new-tweet"   ]: => render: true
+	[Search:        "/search"      ]: => render: true
+	[UserProfile:   "/user"        ]: => render: true
+	[Transaction:   "/transaction" ]: => render: true
+	[Chat:          "/chat"        ]: => render: true
+	[SignIn:        "/sign-in"     ]: => render: true
+	[SignUp:        "/sign-up"     ]: => render: true
