@@ -1,6 +1,8 @@
 local LightTheme = {
 	["background"] = "#FFFFFF",
 	["foreground"] = "#0B0F1A",
+	["surface"] = "#FFFFFF",
+	["surface-alt"] = "#F3F4F6",
 	["card"] = "#FFFFFF",
 	["card-foreground"] = "#0B0F1A",
 	["primary"] = "#345EC7",
@@ -9,6 +11,10 @@ local LightTheme = {
 	["secondary-foreground"] = "#0B0F1A",
 	["muted"] = "#E3E8F0",
 	["muted-foreground"] = "#6B7280",
+	["accent"] = "#345EC7",
+	["accent-foreground"] = "#FFFFFF",
+	["accent-subtle"] = "#E0F2FE",
+	["header-bg"] = "#345EC7",
 	["destructive"] = "#D63939",
 	["destructive-foreground"] = "#FFFFFF",
 	["border"] = "#E3E8F0",
@@ -47,6 +53,8 @@ local LightTheme = {
 local DarkTheme = {
 	["background"] = "#050813",
 	["foreground"] = "#F8FAFC",
+	["surface"] = "#1C263A",
+	["surface-alt"] = "#334155",
 	["card"] = "#050813",
 	["card-foreground"] = "#F8FAFC",
 	["primary"] = "#4782F5",
@@ -55,6 +63,10 @@ local DarkTheme = {
 	["secondary-foreground"] = "#F8FAFC",
 	["muted"] = "#1C263A",
 	["muted-foreground"] = "#92A1C3",
+	["accent"] = "#4782F5",
+	["accent-foreground"] = "#FFFFFF",
+	["accent-subtle"] = "#E0F2FE",
+	["header-bg"] = "#1C263A",
 	["destructive"] = "#5A1313",
 	["destructive-foreground"] = "#F8FAFC",
 	["border"] = "#1C263A",
@@ -90,14 +102,8 @@ local DarkTheme = {
 	["button-hover"] = "#77AADD",
 }
 
--- orca = require "orca",
--- system = require "orca.system",
--- system.set_theme "dark",
+local system = require "orca.system"
 
--- class Theme
--- 	extend:
--- 		colors: if system.get_theme() then DarkTheme else LightTheme
-
-_ENV.extend = {
-	colors = DarkTheme
+extend = {
+	colors = system.get_theme() and DarkTheme or LightTheme,
 }
