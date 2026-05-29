@@ -14,7 +14,7 @@ class SignIn extends require "orca.core.widget"
 
 		StackView class: "bg-background flex-col p-8 gap-4 h-full justify-center", =>
 			TextBlock class: "text-3xl font-bold text-foreground", "Welcome back"
-			TextBlock class: "text-sm text-foreground-muted", "Sign in to your account"
+			TextBlock class: "text-sm text-muted-foreground", "Sign in to your account"
 
 			email_input = Input
 				class: "bg-surface px-4 py-3 rounded text-foreground"
@@ -35,6 +35,6 @@ class SignIn extends require "orca.core.widget"
 			}, "Sign In"
 
 			Button {
-				class: "text-accent py-2"
+				class: "text-accent py-2 py-3"
 				Click: -> navigate "/sign-up"
 			}, "No account? Create one"

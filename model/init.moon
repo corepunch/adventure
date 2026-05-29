@@ -1,8 +1,49 @@
 Model = require "appwrite.model"
 query = require "appwrite.query"
 json = require "orca.parsers.json"
+games_config = require "config.games"
 
 context = {}
+
+class Game
+	new: (attrs={}) =>
+		for k, v in pairs attrs
+			@[k] = v
+
+	url_params: (req, ...) =>
+		params = { game: @id }
+		"Adventure", nil, params, ...
+
+	cover_source: =>
+		"assets/games/#{@id}"
+
+	@from_config: (id, config) =>
+		Game {
+			id: id
+			title: config.title
+			description: config.description
+			modules: config.modules
+		}
+
+class SavedGame extends Game
+	url_params: (req, ...) =>
+		params = { game: @game_id, saved_game: @id }
+		"Adventure", nil, params, ...
+
+	command_count: =>
+		@commands and #@commands or 0
+
+	@from_record: (record, config) =>
+		SavedGame {
+			id: record.id
+			game_id: record.gameId
+			title: config and config.title or record.gameId
+			description: config and config.description or ""
+			modules: config and config.modules or {}
+			commands: record.commands or {}
+			seed: record.seed
+			createdAt: record.createdAt
+		}
 
 class Account extends Model
 	cached: nil
@@ -123,6 +164,42 @@ class Transactions extends Model
 
 class Games
 	path: "tmp/games.json"
+	catalog: =>
+		keys = {}
+		for k in pairs games_config do table.insert keys, k
+		table.sort keys
+
+		games = {}
+		for key in *keys do
+			table.insert games, Game\from_config key, games_config[key]
+		games
+
+	definition: (gameId) =>
+		config = games_config[gameId]
+		return nil unless config
+		Game\from_config gameId, config
+
+	view: (gameId) =>
+		saved = @saved gameId
+		return saved if saved
+		@definition gameId
+
+	saved: (gameId) =>
+		for record in *@readAll!
+			if record.gameId == gameId
+				return SavedGame\from_record record, games_config[gameId]
+		nil
+
+	find_by_game_id: (gameId) =>
+		@saved gameId
+
+	ongoing: =>
+		saved = {}
+		for record in *@readAll!
+			config = games_config[record.gameId]
+			table.insert saved, SavedGame\from_record record, config
+		saved
+
 	readAll: =>
 		file = io.open @path, "r"
 		unless file then return {}
@@ -168,6 +245,8 @@ class Games
 		return @readAll!
 
 return {
+	:Game
+	:SavedGame
 	:Account
 	:Users
 	:Chats

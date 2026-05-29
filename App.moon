@@ -13,7 +13,7 @@ class App extends Application
 		current_route: => @current_route or "/"
 	}
 
-	dispatch: (req) =>
+	_dispatch: (req) =>
 		route = if type(req) == "table" then req.path or req.url or req.route else req
 
 		if route == "/sign-out"
@@ -33,16 +33,8 @@ class App extends Application
 	navigate: (route) =>
 		@activate_route route
 
-	[Adventures:    "/"            ]: => render: true
-	[OngoingGames:  "/games"       ]: => render: true
-	[Adventure:     "/adventure"   ]: => render: true
-	[SendMoney:     "/send-money"  ]: => render: true
-	[Settings:      "/settings"    ]: => render: true
-	[Tweets:        "/tweets"      ]: => render: true
-	[NewTweet:      "/new-tweet"   ]: => render: true
-	[Search:        "/search"      ]: => render: true
-	[UserProfile:   "/user"        ]: => render: true
-	[Transaction:   "/transaction" ]: => render: true
-	[Chat:          "/chat"        ]: => render: true
-	[SignIn:        "/sign-in"     ]: => render: true
-	[SignUp:        "/sign-up"     ]: => render: true
+	[Adventures:    "/"          ]: => render: true
+	[OngoingGames:  "/games"     ]: => render: true
+	[Adventure:     "/adventure" ]: => render: true
+	[SignIn:        "/sign-in"   ]: => render: true
+	[SignUp:        "/sign-up"   ]: => render: true

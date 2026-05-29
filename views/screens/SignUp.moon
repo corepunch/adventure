@@ -16,7 +16,7 @@ class SignUp extends require "orca.core.widget"
 
 		StackView class: "bg-background flex-col p-8 gap-4 h-full justify-center", =>
 			TextBlock class: "text-3xl font-bold text-foreground", "Create an account"
-			TextBlock class: "text-sm text-foreground-muted", "Enter your details below"
+			TextBlock class: "text-sm text-muted-foreground", "Enter your details below"
 
 			name_input = Input
 				class: "bg-surface px-4 py-3 rounded text-foreground"

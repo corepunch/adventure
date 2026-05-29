@@ -1,7 +1,6 @@
-import StackView, TextBlock, ImageView, Input from require "orca.UIKit"
+import StackView, TextBlock from require "orca.UIKit"
 Application = require "orca.core.application"
 
-games_config = require "config.games"
 import Games from require "model"
 import navigate from require "chronicle/views/helpers"
 
@@ -23,22 +22,25 @@ class Adventure extends require "orca.core.widget"
 	title: "Adventure"
 
 	content: =>
+		@title = "Adventure"
+		@chrome = nil
+
 		app    = Application.current false
 		data   = app and app.nav_data
 		game_id   = data and data.game
-		record_id = data and data.record
-		config = game_id and games_config[game_id]
+		requested_saved_game_id = data and data.saved_game
+		config = game_id and Games\definition game_id
 
 		unless config
 			return StackView class: "bg-background flex-col p-4 gap-4 h-full justify-center", =>
-				TextBlock class: "text-foreground-muted align-middle-center", "No game selected"
+				TextBlock class: "text-muted-foreground align-middle-center", "No game selected"
 				StackView {
 					class: "bg-surface rounded-3 px-4 py-3 items-center"
 					LeftButtonUp: -> navigate "/"
 				}, =>
 					TextBlock class: "text-foreground text-base font-bold", "Back to games"
 
-		@content_for "no_chrome", true
+		@title = config.title
 
 		env = server.create_game_env!
 		assert server.init env
@@ -47,19 +49,21 @@ class Adventure extends require "orca.core.widget"
 		game = server.create_game env
 
 		history = nil
-		game_record_id = nil
-
-		if record_id
-			record = Games\find record_id
-			if record
-				math.randomseed record.seed
-				game_record_id = record.id
-				history = {}
-				table.insert history, { cmd: nil, output: game\resume nil }
-				for _, cmd in ipairs record.commands or {} do
-					table.insert history, { cmd: cmd, output: game\resume cmd }
+		saved_game_id = nil
+		saved_game = if requested_saved_game_id
+			Games\find requested_saved_game_id
 		else
-			game_record_id = Games\create game_id
+			Games\find_by_game_id game_id
+
+		if saved_game
+			math.randomseed saved_game.seed
+			saved_game_id = saved_game.id
+			history = {}
+			table.insert history, { cmd: nil, output: game\resume nil }
+			for _, cmd in ipairs saved_game.commands or {} do
+				table.insert history, { cmd: cmd, output: game\resume cmd }
+		else
+			saved_game_id = Games\create game_id
 
 		console_view = nil
 
@@ -77,25 +81,17 @@ class Adventure extends require "orca.core.widget"
 			return if text == "" or not game
 			sender.Text = ""
 			console_view\addChild Outgoing text
-			Games\addCommand game_record_id, text
+			Games\addCommand saved_game_id, text
 			scene = game\resume text
 			for line in scene\gmatch "[^\n]+" do
 				console_view\addChild Incoming line
 
-		-- Override layout footer with custom adventure chrome
-		@content_for "footer", StackView class: "bg-header-bg flex-row px-4 py-2 gap-2 items-center", =>
-			ImageView {
-				class: "text-foreground-muted"
-				Source: "assets/icons/back.svg?width=24&type=mask"
-				LeftButtonUp: -> navigate "/"
-			}
-			Input
-				class: "bg-surface flex-1 px-4 py-2 rounded text-foreground"
-				PlaceholderText: "Enter command..."
-				Name: "command"
-				Submit: submit_cmd
-
-		@content_for "title", config.title
+		@chrome = {
+			placeholder: "Enter command..."
+			name: "command"
+			on_back: -> navigate "/"
+			on_submit: submit_cmd
+		}
 
 		console_view = StackView class: "bg-background flex-col overflow-y-scroll h-full py-4", =>
 			if history
