@@ -25,16 +25,16 @@ class Game
 			modules: config.modules
 		}
 
-class SavedGame extends Game
+class Session extends Game
 	url_params: (req, ...) =>
-		params = { game: @game_id, saved_game: @id }
+		params = { game: @game_id, session: @id }
 		"Adventure", nil, params, ...
 
 	command_count: =>
 		@commands and #@commands or 0
 
 	@from_record: (record, config) =>
-		SavedGame {
+		Session {
 			id: record.id
 			game_id: record.gameId
 			title: config and config.title or record.gameId
@@ -163,7 +163,6 @@ class Transactions extends Model
 	formatAmount: (transaction) => string.format('$%.02f', transaction.amount/100)
 
 class Games
-	path: "tmp/games.json"
 	catalog: =>
 		keys = {}
 		for k in pairs games_config do table.insert keys, k
@@ -179,33 +178,26 @@ class Games
 		return nil unless config
 		Game\from_config gameId, config
 
-	view: (gameId) =>
-		saved = @saved gameId
-		return saved if saved
-		@definition gameId
+class Sessions
+	path: "tmp/sessions.json"
+	legacy_path: "tmp/games.json"
 
-	saved: (gameId) =>
-		for record in *@readAll!
-			if record.gameId == gameId
-				return SavedGame\from_record record, games_config[gameId]
-		nil
-
-	find_by_game_id: (gameId) =>
-		@saved gameId
-
-	ongoing: =>
-		saved = {}
-		for record in *@readAll!
-			config = games_config[record.gameId]
-			table.insert saved, SavedGame\from_record record, config
-		saved
+	catalog: =>
+		{}
 
 	readAll: =>
-		file = io.open @path, "r"
-		unless file then return {}
-		content = file\read "*a"
-		file\close!
-		return json.decode content
+		read_file = (path) ->
+			file = io.open path, "r"
+			unless file then return nil
+			content = file\read "*a"
+			file\close!
+			json.decode content
+
+		data = read_file @path
+		if data then return data
+		data = read_file @legacy_path
+		data or {}
+
 	saveAll: (data) =>
 		os.execute "mkdir -p tmp"
 		file = io.open @path, "w"
@@ -213,44 +205,63 @@ class Games
 		file\write json.encode data
 		file\close!
 		return true
+
 	create: (gameId) =>
 		seed = os.time!
 		math.randomseed seed
-		games = @readAll!
+		sessions = @readAll!
 		id = tostring(os.time!) .. "_" .. tostring(math.random 1000, 9999)
 		created = tostring(os.time!)
-		table.insert games, id: id, gameId: gameId, createdAt: created, seed: seed, commands: {}
-		assert @saveAll games
+		table.insert sessions, id: id, gameId: gameId, createdAt: created, seed: seed, commands: {}
+		assert @saveAll sessions
 		return id
+
 	find: (id) =>
-		for _, game in pairs @readAll! do
-			if game.id == id then return game
+		for _, session in pairs @readAll! do
+			if session.id == id then return session
 		return nil
+
+	find_by_game_id: (gameId) =>
+		for record in *@readAll!
+			if record.gameId == gameId
+				return Session\from_record record, games_config[gameId]
+		nil
+
+	ongoing: =>
+		sessions = {}
+		for record in *@readAll!
+			config = games_config[record.gameId]
+			table.insert sessions, Session\from_record record, config
+		sessions
+
 	addCommand: (id, command) =>
-		games = @readAll!
-		for _, game in pairs games do if game.id == id then
-			game.commands = game.commands or {}
-			table.insert game.commands, command
-			assert @saveAll games
+		sessions = @readAll!
+		for _, session in pairs sessions do if session.id == id
+			session.commands = session.commands or {}
+			table.insert session.commands, command
+			assert @saveAll sessions
 			return true
+
 	delete: (id) =>
-		games = @readAll!
-		for i, game in ipairs games do
-			if game.id == id
-				table.remove games, i
-				return @saveAll games
-		print 'Game not found: ' .. id
+		sessions = @readAll!
+		for i, session in ipairs sessions do
+			if session.id == id
+				table.remove sessions, i
+				return @saveAll sessions
+		print 'Session not found: ' .. id
 		return false
+
 	findAll: => 
 		return @readAll!
 
 return {
 	:Game
-	:SavedGame
+	:Session
 	:Account
 	:Users
 	:Chats
 	:Transactions
 	:Messages
 	:Games
+	:Sessions
 }

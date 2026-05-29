@@ -1,7 +1,7 @@
 import StackView, TextBlock from require "orca.UIKit"
 Application = require "orca.core.application"
 
-import Games from require "model"
+import Games, Sessions from require "model"
 import navigate from require "chronicle/views/helpers"
 
 require "zilscript"
@@ -28,7 +28,7 @@ class Adventure extends require "orca.core.widget"
 		app    = Application.current false
 		data   = app and app.nav_data
 		game_id   = data and data.game
-		requested_saved_game_id = data and data.saved_game
+		requested_session_id = data and data.session
 		config = game_id and Games\definition game_id
 
 		unless config
@@ -49,21 +49,21 @@ class Adventure extends require "orca.core.widget"
 		game = server.create_game env
 
 		history = nil
-		saved_game_id = nil
-		saved_game = if requested_saved_game_id
-			Games\find requested_saved_game_id
+		session_id = nil
+		session = if requested_session_id
+			Sessions\find requested_session_id
 		else
-			Games\find_by_game_id game_id
+			Sessions\find_by_game_id game_id
 
-		if saved_game
-			math.randomseed saved_game.seed
-			saved_game_id = saved_game.id
+		if session
+			math.randomseed session.seed
+			session_id = session.id
 			history = {}
 			table.insert history, { cmd: nil, output: game\resume nil }
-			for _, cmd in ipairs saved_game.commands or {} do
+			for _, cmd in ipairs session.commands or {} do
 				table.insert history, { cmd: cmd, output: game\resume cmd }
 		else
-			saved_game_id = Games\create game_id
+			session_id = Sessions\create game_id
 
 		console_view = nil
 
@@ -81,7 +81,7 @@ class Adventure extends require "orca.core.widget"
 			return if text == "" or not game
 			sender.Text = ""
 			console_view\addChild Outgoing text
-			Games\addCommand saved_game_id, text
+			Sessions\addCommand session_id, text
 			scene = game\resume text
 			for line in scene\gmatch "[^\n]+" do
 				console_view\addChild Incoming line

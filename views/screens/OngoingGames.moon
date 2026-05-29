@@ -1,14 +1,13 @@
 import StackView, TextBlock, ImageView from require "orca.UIKit"
 
-import Games from require "model"
+import Sessions from require "model"
 import navigate from require "chronicle/views/helpers"
 
 class OngoingGames extends require "orca.core.widget"
 	title: "Ongoing Games"
 
 	content: =>
-		ongoing = Games\ongoing!
-		url_for = @url_for
+		ongoing = Sessions\ongoing!
 
 		StackView class: "bg-background flex-col h-full p-4 gap-4 overflow-y-scroll", =>
 			TextBlock class: "text-xl font-bold text-foreground", "Saved Games"
@@ -23,7 +22,7 @@ class OngoingGames extends require "orca.core.widget"
 					}, =>
 						StackView {
 							class: "flex-col flex-1 gap-1"
-							LeftButtonUp: -> navigate url_for game
+							LeftButtonUp: -> navigate @url_for game
 						}, =>
 							TextBlock class: "text-base font-bold text-foreground", game.title
 							TextBlock class: "text-sm text-muted-foreground",
@@ -32,6 +31,6 @@ class OngoingGames extends require "orca.core.widget"
 							class: "text-muted-foreground hover:text-destructive"
 							Source: "assets/icons/delete.svg?width=28&type=mask"
 							LeftButtonUp: ->
-								Games\delete game.id
+								Sessions\delete game.id
 								navigate "/games"
 						}

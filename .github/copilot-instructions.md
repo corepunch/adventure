@@ -19,6 +19,14 @@
 - Prefer direct MoonScript expressions over unnecessary locals when the value is used once.
 - Example: `for game in *Games\catalog! do` is better than assigning `games = Games\catalog!` first.
 - If a boolean check is just testing for nil, use the object itself directly instead of a separate `has_*` variable.
+- Do not bind helpers like `url_for` into a local unless the closure truly loses access to the widget context.
+- Inside nested UI callbacks, `@url_for` can usually read the outer widget `self` directly, so prefer that over `url_for = @url_for`.
+- Do not create one-line helper functions when the call can be written inline in the callback.
+- Example: prefer `navigate @url_for saved_game or game` over `launch_game = (game, saved_game=nil) -> navigate ...`.
+- Split catalog and session data into separate models.
+- `Games` should only expose the adventure catalog and definitions.
+- `Sessions` should own saved-run state, lookup by game id, lookup by session id, command history, and persistence.
+- A screen should load `session = Sessions\find_by_game_id game.id` when it wants to resume or continue a game.
 
 ## Model Naming
 
