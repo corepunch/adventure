@@ -13,6 +13,8 @@
 - `views/layout.moon` for shared chrome.
 - `views/screens/` for screen widgets.
 - `views/popups/` for reusable modal widgets.
+- Keep popup files as widgets, not factory functions. `core.showPopup` should receive the popup widget class and instantiate it, so the popup stays a normal ORCA widget.
+- `core.showPopup` should not mount a popup class directly; it should turn the widget class into a widget object first, then add that object to the screen.
 - `config/` for environment and Tailwind tokens.
 - `assets/` for icons, game art, and static resources.
 - Keep `root/` legacy Banking leftovers out of new work.
