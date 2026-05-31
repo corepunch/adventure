@@ -8,7 +8,7 @@ NAV_ITEMS = {
 
 make_header = (title) ->
 	StackView class: "bg-header-background px-5 py-3 justify-center", =>
-		TextBlock class: "text-2xl font-bold align-center text-accent-foreground", title
+		TextBlock class: "text-2xl font-bold align-center text-nowrap text-ellipsis text-accent-foreground", title
 
 make_footer = (active_route, navigate) ->
 	UniformGrid class: "bg-footer-background p-2", =>
@@ -43,6 +43,7 @@ class Default extends Widget
 		inner        = @content_for "inner"
 		no_chrome    = @content_for "no_chrome"
 		title_slot   = @content_for "title"
+		header_slot  = @content_for "header"
 		navigate     = @navigate
 		route_val    = @current_route
 		active_route = if type(route_val) == "function" then route_val! else route_val or "/"
@@ -68,7 +69,7 @@ class Default extends Widget
 		Screen ->
 			Grid Rows: "32px 52px 1fr 72px 24px", =>
 				Node2D class: "bg-header-background"
-				make_header title
+				@addChild (header_slot or make_header title)
 				@addChild (inner or make_placeholder!)
 				@addChild footer
 				Node2D class: "bg-footer-background"
