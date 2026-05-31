@@ -49,7 +49,8 @@ class Adventure extends require "orca.core.widget"
 				LeftButtonUp: -> navigate "/"
 			}
 			TextBlock {
-				class: "w-full h-full align-middle-left text-2xl font-bold text-left text-nowrap text-ellipsis text-accent-foreground pr-5"
+				class: "w-full h-full align-middle-left text-base font-bold text-left text-nowrap text-ellipsis text-accent-foreground pr-5"
+				fontFamily: font
 			}, config.title
 
 		env = server.create_game_env!
@@ -78,10 +79,10 @@ class Adventure extends require "orca.core.widget"
 		console_view = nil
 
 		Outgoing = (line) ->
-			TextBlock class: "mx-4 my-1 px-4 py-2 text-xl text-foreground bg-surface align-right rounded-3", fontFamily: font, line
+			TextBlock class: "mx-4 my-1 px-4 py-2 text-base text-foreground bg-surface align-right rounded-3", fontFamily: font, line
 
 		Incoming = (line) ->
-			TextBlock class: "p-2 text-xl text-foreground", fontFamily: font, line
+			TextBlock class: "p-2 text-base text-foreground", fontFamily: font, line
 
 		command_input = nil
 
@@ -131,7 +132,8 @@ class Adventure extends require "orca.core.widget"
 
 		@content_for "footer", StackView class: "bg-footer-background px-4 py-2 items-center", =>
 			command_input = Input
-				class: "bg-surface w-full h-12 px-4 py-2 rounded text-foreground placeholder-muted-foreground text-nowrap text-clip overflow-x-hidden"
+				class: "bg-surface w-full h-12 px-4 py-2 rounded text-base text-foreground placeholder-muted-foreground text-nowrap text-clip overflow-x-hidden"
+				fontFamily: font
 				PlaceholderText: "Enter command..."
 				Name: "command"
 				KeyDown: command_key_down
