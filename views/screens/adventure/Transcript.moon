@@ -18,7 +18,6 @@ class AdventureTranscript
 		return unless entry and @console_view
 		@console_view\addChild @outgoing entry.cmd if entry.cmd
 		@add_output entry.output
-		@scroll_to_bottom!
 
 	scroll_to_bottom: =>
 		@console_view\SetScrollTop @console_view.ScrollHeight if @console_view
@@ -40,7 +39,7 @@ class AdventureTranscript
 					render_incoming line
 
 		console_view = @console_view
-		console_view.onScrollHeightChanged = -> console_view\SetScrollTop console_view.ScrollHeight
+		console_view.onScrollHeightChanged = -> @SetScrollTop @ScrollHeight
 
 		Node2D class: "bg-background h-full", =>
 			ImageView {
