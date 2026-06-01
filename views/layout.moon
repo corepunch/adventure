@@ -7,23 +7,24 @@ NAV_ITEMS = {
 }
 
 make_header = (title) ->
-	StackView class: "bg-header-background px-5 py-3 justify-center", =>
+	StackView class: "bg-header-background px-5 py-3 justify-center", ->
 		TextBlock class: "text-2xl font-bold align-center text-nowrap text-ellipsis text-accent-foreground", title
 
 make_footer = (active_route, navigate) ->
-	UniformGrid class: "bg-footer-background p-2", =>
+	UniformGrid class: "bg-footer-background p-2", ->
 		for item in *NAV_ITEMS
 			selected = active_route == item.route
 			color  = selected and "accent" or "muted-foreground"
 			weight = selected and "bold"   or "normal"
-			cell = StackView class: "w-full h-full flex-col items-center justify-center gap-1", LeftButtonUp: -> navigate item.route
-			cell\addChild ImageView
-				class: "align-middle-center text-#{color}"
-				Source: "#{item.icon}?width=48&type=mask"
-			cell\addChild TextBlock class: "text-xs text-#{color} font-#{weight}", item.label
+			StackView {
+				class: "w-full h-full flex-col items-center justify-center gap-1"
+				LeftButtonUp: -> navigate item.route
+			}, ->
+				ImageView class: "align-middle-center text-#{color}", Source: "#{item.icon}?width=48&type=mask"
+				TextBlock class: "text-xs text-#{color} font-#{weight}", item.label
 
 make_chrome_footer = (chrome) ->
-	StackView class: "bg-footer-background flex-row px-4 py-2 gap-2 items-center", =>
+	StackView class: "bg-footer-background flex-row px-4 py-2 gap-2 items-center", ->
 		ImageView
 			class: "text-muted-foreground"
 			Source: "assets/icons/back.svg?width=24&type=mask"
@@ -35,7 +36,7 @@ make_chrome_footer = (chrome) ->
 			Submit: chrome.on_submit
 
 make_placeholder = ->
-	StackView class: "bg-background p-6 gap-2", =>
+	StackView class: "bg-background p-6 gap-2", ->
 		TextBlock class: "text-base text-muted-foreground", "No content for this route"
 
 class Default extends Widget

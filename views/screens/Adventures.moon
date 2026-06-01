@@ -14,15 +14,12 @@ class Adventures extends require "orca.core.widget"
 					class: "bg-surface rounded-lg p-2 gap-2 items-center"
 					Columns: "64px auto"
 					LeftButtonUp: ->
-						-- if session
 						ok = @showModal Popup
 							title: "Continue saved game?"
 							text: "There was a game running already. Do you want to continue it?"
 							yes_label: "Yes"
 							no_label: "No"
-						return unless ok == 1
-						print('navigating to', @url_for session or game)
-						navigate @url_for session or game
+						navigate @url_for session or game if ok == 1
 				}, ->
 					ImageView class: "rounded-2", Source: game\cover_source!
 					StackView class: "flex-col flex-1 gap-1", ->

@@ -20,11 +20,16 @@
 - Keep `root/` legacy Banking leftovers out of new work.
 - Prefer direct MoonScript expressions over unnecessary locals when the value is used once.
 - Example: `for game in *Games\catalog! do` is better than assigning `games = Games\catalog!` first.
+- Strive for the shortest code possible while keeping intent obvious.
+- Recent `views/screens/adventure/Transcript.moon` changes are the style reference: use small closure factories and return a tiny method table when a full class only stores local state.
+- Prefer returning the UI node directly from leaf components. Add `render` only when the component needs to expose behavior alongside rendering.
 - If a boolean check is just testing for nil, use the object itself directly instead of a separate `has_*` variable.
 - Do not bind helpers like `url_for` into a local unless the closure truly loses access to the widget context.
 - Inside nested UI callbacks, `@url_for` can usually read the outer widget `self` directly, so prefer that over `url_for = @url_for`.
 - Do not create one-line helper functions when the call can be written inline in the callback.
 - Example: prefer `navigate @url_for saved_game or game` over `launch_game = (game, saved_game=nil) -> navigate ...`.
+- When you find a useful local pattern, expand these Copilot instructions so the lesson is available to future work.
+- After changing MoonScript, run `moonc` to verify the code compiles before calling the work done.
 - Split catalog and session data into separate models.
 - `Games` should only expose the adventure catalog and definitions.
 - `Sessions` should own saved-run state, lookup by game id, lookup by session id, command history, and persistence.
