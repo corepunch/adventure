@@ -1,6 +1,6 @@
-import Node2D, StackView, TextBlock from require "orca.UIKit"
+import Node2D, StackView, TextBlock, ImageView from require "orca.UIKit"
 
-AdventureTranscript = (session, font) ->
+AdventureTranscript = (session, font, background_source) ->
 	console_view = nil
 
 	outgoing = (line) ->
@@ -27,6 +27,13 @@ AdventureTranscript = (session, font) ->
 					incoming line
 
 		Node2D class: "bg-background h-full", =>
+			ImageView {
+				class: "w-full h-full"
+				Source: background_source
+				Stretch: "UniformToFill"
+				Opacity: 0.75
+				IgnoreHitTest: true
+			}
 			@addChild console_view
 
 	{ :append, :render }
