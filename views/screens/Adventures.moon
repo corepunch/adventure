@@ -32,17 +32,17 @@ class Adventures extends require "orca.core.widget"
 						navigate @url_for session or game if ok == 1
 				}, ->
 					ImageView {
-						class: "game-cover"
+						class: "cover"
 						BorderRadius: core.CornerRadius 8
 						Source: game\cover_source!
 					}
 					StackView {
-						class: "game-copy"
+						class: "copy"
 						Direction: "Vertical"
 						HorizontalAlignment: "Stretch"
 						Spacing: 4
 					}, ->
-						TextBlock { class: "game-title", FontWeight: "Bold" }, game.title
-						TextBlock class: "game-description", game.description
+						TextBlock { class: "title", FontWeight: "Bold" }, game.title
+						TextBlock class: "description", game.description
 						if session
-							TextBlock class: "game-badge", "Continue saved game"
+							TextBlock class: "badge", "Continue saved game"

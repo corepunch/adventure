@@ -13,7 +13,7 @@ NAV_ITEMS = {
 make_header = (title) ->
 	StackView { class: "app-header", JustifyContent: "Center" }, ->
 		TextBlock {
-			class: "app-header-title"
+			class: "title"
 			FontWeight: "Bold"
 			HorizontalAlignment: "Center"
 			TextWrapping: "NoWrap"
@@ -23,11 +23,11 @@ make_footer = (active_route, navigate) ->
 	UniformGrid class: "app-footer", ->
 		for item in *NAV_ITEMS
 			selected = active_route == item.route
-			icon_class = selected and "app-tab-icon-active" or "app-tab-icon"
-			label_class = selected and "app-tab-label-active" or "app-tab-label"
+			icon_class = selected and "icon selected" or "icon"
+			label_class = selected and "label selected" or "label"
 			weight = selected and "Bold" or "Normal"
 			StackView {
-				class: "app-tab-button"
+				class: "tab"
 				HorizontalAlignment: "Stretch"
 				VerticalAlignment: "Stretch"
 				Direction: "Vertical"
@@ -57,11 +57,11 @@ make_chrome_footer = (chrome) ->
 		AlignItems: "Center"
 	}, ->
 		ImageView
-			class: "chrome-icon"
+			class: "icon"
 			Source: "assets/icons/back.svg?width=24&type=mask"
 			LeftButtonUp: chrome.on_back
 		Input
-			class: "chrome-input"
+			class: "input"
 			HorizontalAlignment: "Stretch"
 			BorderRadius: core.CornerRadius 8
 			PlaceholderText: chrome.placeholder or "Enter command..."
@@ -70,7 +70,7 @@ make_chrome_footer = (chrome) ->
 
 make_placeholder = ->
 	StackView { class: "empty-route", Padding: core.Thickness 24, Spacing: 8 }, ->
-		TextBlock { class: "muted-copy", FontSize: 16, LineHeight: 24 }, "No content for this route"
+		TextBlock { class: "copy", FontSize: 16, LineHeight: 24 }, "No content for this route"
 
 class Default extends Widget
 	content: =>

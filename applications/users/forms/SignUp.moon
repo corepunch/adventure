@@ -15,14 +15,14 @@ class SignUp extends ui.Form
 	apply: => "legacy-auth-form"
 
 	body: =>
-		p ".legacy-form-title", "Create a new account"
-		p ".legacy-form-description", "To use mobile banking enter you details"
+		p ".title", "Create a new account"
+		p ".description", "To use mobile banking enter you details"
 		for item in *fields 
-			ui.Label ".legacy-form-label", for: item.attribute, item.label
-			ui.Input "##{item.attribute}.legacy-form-input"
+			ui.Label ".label", for: item.attribute, item.label
+			ui.Input "##{item.attribute}.input"
 				Name: item.attribute
 				PlaceholderText: item.label
-		ui.Button ".legacy-primary-button", Type: "Submit", "Sign up"
+		ui.Button ".primary", Type: "Submit", "Sign up"
 		ErrorMessage error: @error if @error
 
 	Submit: =>

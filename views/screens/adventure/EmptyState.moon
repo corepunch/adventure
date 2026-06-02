@@ -11,18 +11,18 @@ AdventureEmptyState = ->
 		JustifyContent: "Center"
 	}, =>
 		TextBlock {
-			class: "muted-copy"
+			class: "message"
 			HorizontalAlignment: "Center"
 			VerticalAlignment: "Center"
 		}, "No game selected"
 		StackView {
-			class: "secondary-button"
+			class: "button"
 			AlignItems: "Center"
 			BorderRadius: core.CornerRadius 12
 			LeftButtonUp: -> navigate "/"
 		}, =>
 			TextBlock {
-				class: "secondary-button-label"
+				class: "label"
 				FontSize: 16
 				LineHeight: 24
 				FontWeight: "Bold"

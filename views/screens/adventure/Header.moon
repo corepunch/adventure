@@ -8,7 +8,7 @@ AdventureHeader = (title, on_back) ->
 		ClipChildren: true
 	}, =>
 		ImageView {
-			class: "adventure-back-icon"
+			class: "back-icon"
 			HorizontalAlignment: "Center"
 			VerticalAlignment: "Center"
 			Source: "assets/icons/back.svg?width=32&type=mask"
@@ -18,7 +18,7 @@ AdventureHeader = (title, on_back) ->
 				true
 		}
 		TextBlock {
-			class: "adventure-title"
+			class: "title"
 			HorizontalAlignment: "Left"
 			VerticalAlignment: "Center"
 			FontSize: 18

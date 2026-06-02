@@ -20,23 +20,23 @@ class SignIn extends require "orca.core.widget"
 			VerticalAlignment: "Stretch"
 			JustifyContent: "Center"
 		}, =>
-			TextBlock { class: "auth-title", FontWeight: "Bold" }, "Welcome back"
-			TextBlock class: "screen-subtitle", "Sign in to your account"
+			TextBlock { class: "title", FontWeight: "Bold" }, "Welcome back"
+			TextBlock class: "subtitle", "Sign in to your account"
 
 			email_input = Input
-				class: "form-input"
+				class: "input"
 				BorderRadius: core.CornerRadius 8
 				PlaceholderText: "Email"
 				Name: "email"
 
 			password_input = Input
-				class: "form-input"
+				class: "input"
 				BorderRadius: core.CornerRadius 8
 				PlaceholderText: "Password"
 				Name: "password"
 
 			Button {
-				class: "primary-button"
+				class: "primary"
 				BorderRadius: core.CornerRadius 8
 				FontWeight: "Bold"
 				Click: ->
@@ -46,6 +46,6 @@ class SignIn extends require "orca.core.widget"
 			}, "Sign In"
 
 			Button {
-				class: "link-button"
+				class: "link"
 				Click: -> navigate "/sign-up"
 			}, "No account? Create one"

@@ -10,38 +10,38 @@ class Popup extends require "orca.core.widget"
 		no_label = @args.no_label or "No"
 
 		StackView {
-			class: "popup-overlay"
+			class: "popup"
 			HorizontalAlignment: "Stretch"
 			AlignItems: "Center"
 			JustifyContent: "Center"
 		}, ->
 			StackView {
-				class: "popup-panel"
+				class: "panel"
 				HorizontalAlignment: "Stretch"
 				Spacing: 16
 				BorderRadius: core.CornerRadius 16
 				LeftButtonUp: -> true
 			}, ->
 				TextBlock {
-					class: "popup-title"
+					class: "title"
 					FontWeight: "Bold"
 					TextHorizontalAlignment: "Center"
 				}, title
-				TextBlock class: "popup-text", text
+				TextBlock class: "text", text
 				StackView {
-					class: "popup-actions"
+					class: "actions"
 					Direction: "Horizontal"
 					Spacing: 12
 					JustifyContent: "Center"
 				}, ->
 					TextBlock {
-						class: "popup-button-secondary"
+						class: "button secondary"
 						BorderRadius: core.CornerRadius 12
 						FontWeight: "Bold"
 						LeftButtonUp: -> @on_result 0
 					}, no_label
 					TextBlock {
-						class: "popup-button-primary"
+						class: "button primary"
 						BorderRadius: core.CornerRadius 12
 						FontWeight: "Bold"
 						LeftButtonUp: -> @on_result 1

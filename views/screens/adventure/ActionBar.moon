@@ -8,7 +8,7 @@ AdventureActionBar = (session, font, on_action) ->
 		for action in *session.actions! do
 			command = action.command
 			TextBlock {
-				class: "action-chip"
+				class: "chip"
 				BorderRadius: core.CornerRadius 12
 				FontSize: 16
 				LineHeight: 24

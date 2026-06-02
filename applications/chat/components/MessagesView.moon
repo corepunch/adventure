@@ -5,7 +5,7 @@ import Users, Chats, Messages from require "model"
 
 class MessagesView extends ui.StackView
 	new: (@params) => 
-		super ".messages-view",
+		super ".messages",
 			ClipChildren: true
 			Direction: "Vertical"
 			Padding: core.Thickness 16
@@ -25,12 +25,12 @@ class MessagesView extends ui.StackView
 
 	bubbleClass: (msg) =>
 		sender = msg.sender["$id"]
-		margin = ".message-bubble-spaced"
-		margin = ".message-bubble-tight" if @last.sender and @last.sender["$id"] == sender
-		color = ".message-bubble-incoming"
-		color = ".message-bubble-outgoing" if @user["$id"] == sender
+		margin = ".spaced"
+		margin = ".tight" if @last.sender and @last.sender["$id"] == sender
+		color = ".incoming"
+		color = ".outgoing" if @user["$id"] == sender
 		@last = msg
-		return ".message-bubble#{margin}#{color}"
+		return ".bubble#{margin}#{color}"
 
 	bubble: (msg) => p (@bubbleClass msg), msg.body
 

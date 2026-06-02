@@ -47,7 +47,7 @@ AdventureCommandBar = (font, on_submit) ->
 		AlignItems: "Center"
 	}, ->
 		Input
-			class: "command-input"
+			class: "input"
 			HorizontalAlignment: "Stretch"
 			BorderRadius: core.CornerRadius 8
 			FontSize: 16
