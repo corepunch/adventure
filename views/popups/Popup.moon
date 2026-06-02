@@ -1,4 +1,5 @@
 import StackView, TextBlock from require "orca.UIKit"
+core = require "orca.core"
 
 class Popup extends require "orca.core.widget"
 	new: (@args, ...) => super...
@@ -8,19 +9,40 @@ class Popup extends require "orca.core.widget"
 		yes_label = @args.yes_label or "Yes"
 		no_label = @args.no_label or "No"
 
-		StackView class: "fixed items-center justify-center p-4 w-full", ->
+		StackView {
+			class: "popup-overlay"
+			HorizontalAlignment: "Stretch"
+			AlignItems: "Center"
+			JustifyContent: "Center"
+		}, ->
 			StackView {
-				class: "bg-surface rounded-4 p-6 gap-4 w-full"
+				class: "popup-panel"
+				HorizontalAlignment: "Stretch"
+				Spacing: 16
+				BorderRadius: core.CornerRadius 16
 				LeftButtonUp: -> true
 			}, ->
-				TextBlock class: "text-xl font-bold text-foreground text-center", title
-				TextBlock class: "text-sm text-muted-foreground", text
-				StackView class: "flex-row gap-3 justify-center", ->
+				TextBlock {
+					class: "popup-title"
+					FontWeight: "Bold"
+					TextHorizontalAlignment: "Center"
+				}, title
+				TextBlock class: "popup-text", text
+				StackView {
+					class: "popup-actions"
+					Direction: "Horizontal"
+					Spacing: 12
+					JustifyContent: "Center"
+				}, ->
 					TextBlock {
-						class: "bg-muted rounded-3 px-8 py-3 text-foreground font-bold"
+						class: "popup-button-secondary"
+						BorderRadius: core.CornerRadius 12
+						FontWeight: "Bold"
 						LeftButtonUp: -> @on_result 0
 					}, no_label
 					TextBlock {
-						class: "bg-primary rounded-3 px-8 py-3 text-primary-foreground font-bold"
+						class: "popup-button-primary"
+						BorderRadius: core.CornerRadius 12
+						FontWeight: "Bold"
 						LeftButtonUp: -> @on_result 1
 					}, yes_label

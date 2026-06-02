@@ -18,15 +18,15 @@ class Header extends ui.Node2D
 		chat = Chats\find @params.chat
 		partner = Chats\getPartner chat, Users\auth!
 		title = Users\getFullName partner
-		grid ".bg-muted.px-2", Columns: "auto auto", ->
-			stack '.w-full.h-full.gap-2.items-center', ->
-				img ".align-middle-left.text-muted-foreground"
+		grid ".chat-header", Columns: "auto auto", ->
+			stack ".chat-header-main", ->
+				img ".chat-header-back"
 					Source: "assets/icons/back.svg?width=#{header.iconSize}&type=Mask"
 					LeftButtonUp: -> routing.navigate "/send-money"
-				h0 "#title-name.text-muted-foreground", title
-			stack ".align-middle-right.gap-2", ->
+				h0 "#title-name.chat-header-title", title
+			stack ".chat-header-actions", ->
 				for item in *header.links
-					img "#control-button.align-middle-center.text-muted-foreground" 
+					img "#control-button.chat-header-action"
 						Source: "#{item.imgURL}?width=#{header.iconSize}&type=Mask"
 						LeftButtonUp: -> routing.navigate item.route
 
@@ -55,8 +55,8 @@ class ChatLayout extends Page
 			Input.Text = ""
 			Messages\create chat: @params.chat, body: text
 
-		div ".bg-muted", ->
-			ui.Input "#msg-input.m-8.h-full.input"
+		div ".chat-composer", ->
+			ui.Input "#msg-input.chat-message-input"
 				name: "message"
 				placeholderText: ". . ."
 				Change: sendMessage

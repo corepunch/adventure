@@ -1,10 +1,17 @@
 ui = require "orca.UIKit"
+core = require "orca.core"
 
 import Users, Chats, Messages from require "model"
 
 class MessagesView extends ui.StackView
 	new: (@params) => 
-		super ".flex-col.p-4.overflow-y-scroll.h-full.w-full", ClipChildren: "true"
+		super ".messages-view",
+			ClipChildren: true
+			Direction: "Vertical"
+			Padding: core.Thickness 16
+			OverflowY: "Scroll"
+			VerticalAlignment: "Stretch"
+			HorizontalAlignment: "Stretch"
 		@setTimer 2000
 
 	body: =>
@@ -18,12 +25,12 @@ class MessagesView extends ui.StackView
 
 	bubbleClass: (msg) =>
 		sender = msg.sender["$id"]
-		margin = ".mt-2"
-		margin = ".mt-1" if @last.sender and @last.sender["$id"] == sender
-		color = ".align-left.bg-sky-700.mr-8"
-		color = ".align-right.bg-orange-700.ml-8" if @user["$id"] == sender
+		margin = ".message-bubble-spaced"
+		margin = ".message-bubble-tight" if @last.sender and @last.sender["$id"] == sender
+		color = ".message-bubble-incoming"
+		color = ".message-bubble-outgoing" if @user["$id"] == sender
 		@last = msg
-		return ".p-2.rounded#{margin}#{color}"
+		return ".message-bubble#{margin}#{color}"
 
 	bubble: (msg) => p (@bubbleClass msg), msg.body
 

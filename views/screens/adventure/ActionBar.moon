@@ -1,4 +1,5 @@
 import StackView, TextBlock from require "orca.UIKit"
+core = require "orca.core"
 
 AdventureActionBar = (session, font, on_action) ->
 	view = nil
@@ -7,7 +8,11 @@ AdventureActionBar = (session, font, on_action) ->
 		for action in *session.actions! do
 			command = action.command
 			TextBlock {
-				class: "bg-surface rounded-3 px-4 py-2 text-base text-foreground text-nowrap"
+				class: "action-chip"
+				BorderRadius: core.CornerRadius 12
+				FontSize: 16
+				LineHeight: 24
+				TextWrapping: "NoWrap"
 				FontFamily: font
 				LeftButtonUp: ->
 					on_action command
@@ -15,7 +20,15 @@ AdventureActionBar = (session, font, on_action) ->
 					true
 			}, action.label
 
-	view = StackView class: "bg-footer-background px-2 py-2 flex-row gap-2 items-center overflow-x-scroll", ->
+	view = StackView {
+		class: "action-bar"
+		Direction: "Horizontal"
+		Spacing: 8
+		AlignItems: "Center"
+		Padding: core.Thickness 8
+		OverflowX: "Scroll"
+		ClipChildren: true
+	}, ->
 		render_buttons!
 
 	view

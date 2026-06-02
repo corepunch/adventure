@@ -12,23 +12,22 @@ fields = {
 }
 
 class SignUp extends ui.Form
-	apply: => "form"
+	apply: => "legacy-auth-form"
 
 	body: =>
-		p ".card-title", "Create a new account"
-		p ".card-description", "To use mobile banking enter you details"
+		p ".legacy-form-title", "Create a new account"
+		p ".legacy-form-description", "To use mobile banking enter you details"
 		for item in *fields 
-			ui.Label ".label", for: item.attribute, item.label
-			ui.Input "##{item.attribute}.mb-4.input"
+			ui.Label ".legacy-form-label", for: item.attribute, item.label
+			ui.Input "##{item.attribute}.legacy-form-input"
 				Name: item.attribute
 				PlaceholderText: item.label
-		ui.Button ".btn.btn-default.text-xl.w-full", Type: "Submit", "Sign up"
+		ui.Button ".legacy-primary-button", Type: "Submit", "Sign up"
 		ErrorMessage error: @error if @error
 
 	Submit: =>
-		parms = @populateInputs!
+		params = @populateInputs!
 		Account\signup params
 		Account\signin params
 		Users\create params.userId, name: params.name
 		routing.navigate "/"
-

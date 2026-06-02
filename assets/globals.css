@@ -1,29 +1,370 @@
 body {
-	@apply bg-background text-foreground;
+	background-color: #FFFFFF;
+	color: #0B0F1A;
 }
 
-.btn {
-	@apply rounded text-center p-2 ring-0 focus:ring-2 ring-offset-2 ring-ring;
-	&-default { @apply bg-primary text-primary-foreground hover:bg-primary/90; }
-	&-destructive { @apply bg-destructive text-destructive-foreground hover:bg-destructive/90; }
-	&-outline { @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground; }
-	&-secondary { @apply bg-secondary text-secondary-foreground hover:bg-secondary/80; }
-	&-ghost { @apply hover:bg-accent hover:text-accent-foreground; }
-	&-link { @apply text-foreground no-underline underline-offset-4 hover:underline; }
+.app-header,
+.app-footer,
+.app-status-bar,
+.chrome-footer,
+.command-bar,
+.action-bar {
+	background-color: #C5CDDC;
 }
 
-.label { @apply text-sm align-left; }
-.card-title { @apply text-xl font-bold; }
-.card-description { @apply text-sm text-muted-foreground mb-4; }
-
-.contact-card { 
-	@apply w-full mx-2 p-1 rounded gap-2 bg-background text-foreground hover:bg-accent hover:text-accent-foreground;
-	&-image { @apply w-10 h-10 align-middle bg-neutral-200 rounded; }
-	&-title { @apply text-lg; }
-	&-description { @apply text-base text-muted-foreground; }
+.app-header,
+.app-status-bar,
+.adventure-header {
+	background-color: #345EC7;
 }
 
-.input { 
-	@apply ring-0 placeholder-muted-foreground focus:ring-2 ring-offset-2 border-input border ring-ring p-2 rounded w-full; 
+.app-home-indicator {
+	background-color: #C5CDDC;
 }
-.form { @apply align-middle-center gap-1 items-center px-6; }
+
+.app-header {
+	padding-left: 20;
+	padding-right: 20;
+	padding-top: 12;
+	padding-bottom: 12;
+}
+
+.app-header-title,
+.adventure-title,
+.adventure-back-icon {
+	color: #FFFFFF;
+}
+
+.app-header-title {
+	font-size: 24;
+	line-height: 32;
+	text-overflow: Ellipsis;
+}
+
+.app-footer {
+	padding: 8;
+}
+
+.app-tab-icon,
+.app-tab-label,
+.chrome-icon,
+.delete-button,
+.muted-copy,
+.screen-subtitle,
+.game-description,
+.popup-text {
+	color: #6B7280;
+}
+
+.app-tab-icon-active,
+.app-tab-label-active,
+.game-badge,
+.link-button {
+	color: #345EC7;
+}
+
+.chrome-footer {
+	padding-left: 16;
+	padding-right: 16;
+	padding-top: 8;
+	padding-bottom: 8;
+}
+
+.chrome-input,
+.form-input,
+.command-input {
+	background-color: #FFFFFF;
+	color: #0B0F1A;
+	padding-left: 16;
+	padding-right: 16;
+	padding-top: 10;
+	padding-bottom: 10;
+}
+
+.screen,
+.adventures-list,
+.saved-games-screen,
+.auth-screen,
+.adventure-empty,
+.transcript-shell,
+.empty-route {
+	background-color: #FFFFFF;
+	color: #0B0F1A;
+}
+
+.adventures-list {
+	padding-top: 12;
+	padding-bottom: 12;
+}
+
+.saved-games-screen,
+.adventure-empty {
+	padding: 16;
+}
+
+.auth-screen {
+	padding: 32;
+}
+
+.game-card,
+.saved-game-row,
+.popup-panel,
+.secondary-button,
+.action-chip {
+	background-color: #FFFFFF;
+	color: #0B0F1A;
+	border-color: #E3E8F0;
+	border-width: 1;
+}
+
+.game-card {
+	padding: 8;
+}
+
+.game-title,
+.saved-game-title,
+.screen-title,
+.auth-title,
+.popup-title,
+.secondary-button-label,
+.primary-button,
+.popup-button-primary,
+.popup-button-secondary {
+	color: #0B0F1A;
+}
+
+.game-title,
+.saved-game-title {
+	font-size: 16;
+	line-height: 24;
+}
+
+.game-description,
+.screen-subtitle,
+.popup-text {
+	font-size: 14;
+	line-height: 20;
+}
+
+.game-badge {
+	font-size: 12;
+	line-height: 16;
+}
+
+.screen-title,
+.popup-title {
+	font-size: 20;
+	line-height: 28;
+}
+
+.auth-title {
+	font-size: 30;
+	line-height: 36;
+}
+
+.saved-game-row {
+	padding: 12;
+}
+
+.delete-button:hover {
+	color: #D63939;
+}
+
+.primary-button,
+.popup-button-primary {
+	background-color: #345EC7;
+	color: #FFFFFF;
+}
+
+.secondary-button,
+.popup-button-secondary {
+	background-color: #E3E8F0;
+}
+
+.primary-button,
+.link-button,
+.secondary-button,
+.popup-button-primary,
+.popup-button-secondary {
+	padding-left: 16;
+	padding-right: 16;
+	padding-top: 10;
+	padding-bottom: 10;
+}
+
+.link-button {
+	background-color: transparent;
+}
+
+.adventure-header {
+	color: #FFFFFF;
+}
+
+.command-input {
+	height: 48;
+	text-overflow: Clip;
+}
+
+.command-bar {
+	padding-left: 16;
+	padding-right: 16;
+	padding-top: 8;
+	padding-bottom: 8;
+}
+
+.action-chip {
+	padding-left: 16;
+	padding-right: 16;
+	padding-top: 8;
+	padding-bottom: 8;
+}
+
+.transcript-log {
+	padding-top: 16;
+	padding-bottom: 16;
+}
+
+.transcript-outgoing {
+	background-color: #E3E8F0;
+	color: #0B0F1A;
+	margin-left: 16;
+	margin-right: 16;
+	margin-top: 4;
+	margin-bottom: 4;
+	padding-left: 16;
+	padding-right: 16;
+	padding-top: 8;
+	padding-bottom: 8;
+	font-size: 16;
+	line-height: 24;
+}
+
+.transcript-incoming {
+	color: #0B0F1A;
+	padding: 8;
+	font-size: 16;
+	line-height: 24;
+}
+
+.popup-overlay {
+	padding: 16;
+}
+
+.popup-panel {
+	padding: 24;
+}
+
+.popup-actions {
+	margin-top: 4;
+}
+
+.popup-button-primary,
+.popup-button-secondary {
+	padding-left: 32;
+	padding-right: 32;
+}
+
+.error-message {
+	color: #D63939;
+	margin-top: 64;
+	font-size: 14;
+	line-height: 20;
+}
+
+.legacy-auth-header {
+	background-color: #0B0F1A;
+	color: #FFB620;
+	padding: 8;
+	font-size: 12;
+	line-height: 16;
+}
+
+.legacy-auth-form {
+	padding-left: 24;
+	padding-right: 24;
+}
+
+.legacy-form-title {
+	color: #0B0F1A;
+	font-size: 20;
+	line-height: 28;
+}
+
+.legacy-form-description,
+.legacy-form-label,
+.legacy-small-link {
+	color: #6B7280;
+	font-size: 14;
+	line-height: 20;
+}
+
+.legacy-form-input,
+.chat-message-input {
+	background-color: #FFFFFF;
+	color: #0B0F1A;
+	border-color: #E3E8F0;
+	border-width: 1;
+	padding: 8;
+}
+
+.legacy-primary-button {
+	background-color: #345EC7;
+	color: #FFFFFF;
+	padding: 10;
+	font-size: 20;
+	line-height: 28;
+}
+
+.legacy-link-button,
+.legacy-small-link {
+	color: #345EC7;
+	background-color: transparent;
+}
+
+.legacy-link-button {
+	margin-top: 16;
+}
+
+.legacy-link-list {
+	margin-top: 8;
+}
+
+.chat-header,
+.chat-composer,
+.messages-view {
+	background-color: #E3E8F0;
+}
+
+.chat-header {
+	padding-left: 8;
+	padding-right: 8;
+}
+
+.chat-header-back,
+.chat-header-title,
+.chat-header-action {
+	color: #6B7280;
+}
+
+.message-bubble {
+	color: #FFFFFF;
+	padding: 8;
+}
+
+.message-bubble-spaced {
+	margin-top: 8;
+}
+
+.message-bubble-tight {
+	margin-top: 4;
+}
+
+.message-bubble-incoming {
+	background-color: #0369A1;
+	margin-right: 32;
+}
+
+.message-bubble-outgoing {
+	background-color: #C2410C;
+	margin-left: 32;
+}

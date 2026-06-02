@@ -1,13 +1,19 @@
 import Node2D, StackView, TextBlock, ImageView from require "orca.UIKit"
+core = require "orca.core"
 
 AdventureTranscript = (session, font, background_source) ->
 	console_view = nil
 
 	outgoing = (line) ->
-		TextBlock class: "mx-4 my-1 px-4 py-2 text-base text-foreground bg-muted align-right rounded-3", FontFamily: font, line
+		TextBlock {
+			class: "transcript-outgoing"
+			HorizontalAlignment: "Right"
+			BorderRadius: core.CornerRadius 12
+			FontFamily: font
+		}, line
 
 	incoming = (line) ->
-		TextBlock class: "p-2 text-base text-foreground", FontFamily: font, line
+		TextBlock { class: "transcript-incoming", FontFamily: font }, line
 
 	append = (entry) ->
 		return unless entry and console_view
@@ -17,7 +23,11 @@ AdventureTranscript = (session, font, background_source) ->
 
 	render = ->
 		console_view = StackView {
-			class: "flex-col overflow-y-scroll h-full py-4"
+			class: "transcript-log"
+			Direction: "Vertical"
+			OverflowY: "Scroll"
+			ClipChildren: true
+			VerticalAlignment: "Stretch"
 			onScrollHeightChanged: => @SetScrollTop @ScrollHeight
 		}, ->
 			for _, entry in ipairs session.entries! do
@@ -26,9 +36,11 @@ AdventureTranscript = (session, font, background_source) ->
 				for line in entry.output\gmatch "[^\n]+" do
 					incoming line
 
-		Node2D class: "bg-background h-full", =>
+		Node2D { class: "transcript-shell", VerticalAlignment: "Stretch" }, =>
 			ImageView {
-				class: "w-full h-full"
+				class: "transcript-background"
+				HorizontalAlignment: "Stretch"
+				VerticalAlignment: "Stretch"
 				Source: background_source
 				Stretch: "UniformToFill"
 				Opacity: 0.75

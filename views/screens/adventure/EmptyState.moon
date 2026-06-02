@@ -1,13 +1,31 @@
 import StackView, TextBlock from require "orca.UIKit"
+core = require "orca.core"
 import navigate from require "chronicle/views/helpers"
 
 AdventureEmptyState = ->
-	StackView class: "bg-background flex-col p-4 gap-4 h-full justify-center", =>
-		TextBlock class: "text-muted-foreground align-middle-center", "No game selected"
+	StackView {
+		class: "adventure-empty"
+		Direction: "Vertical"
+		Spacing: 16
+		VerticalAlignment: "Stretch"
+		JustifyContent: "Center"
+	}, =>
+		TextBlock {
+			class: "muted-copy"
+			HorizontalAlignment: "Center"
+			VerticalAlignment: "Center"
+		}, "No game selected"
 		StackView {
-			class: "bg-surface rounded-3 px-4 py-3 items-center"
+			class: "secondary-button"
+			AlignItems: "Center"
+			BorderRadius: core.CornerRadius 12
 			LeftButtonUp: -> navigate "/"
 		}, =>
-			TextBlock class: "text-foreground text-base font-bold", "Back to games"
+			TextBlock {
+				class: "secondary-button-label"
+				FontSize: 16
+				LineHeight: 24
+				FontWeight: "Bold"
+			}, "Back to games"
 
 return AdventureEmptyState
