@@ -6,14 +6,14 @@ AdventureTranscript = (session, font, background_source) ->
 
 	outgoing = (line) ->
 		TextBlock {
-			class: "transcript-outgoing"
+			class: "outgoing"
 			HorizontalAlignment: "Right"
 			BorderRadius: core.CornerRadius 12
 			FontFamily: font
 		}, line
 
 	incoming = (line) ->
-		TextBlock { class: "transcript-incoming", FontFamily: font }, line
+		TextBlock { class: "incoming", FontFamily: font }, line
 
 	append = (entry) ->
 		return unless entry and console_view
@@ -23,7 +23,7 @@ AdventureTranscript = (session, font, background_source) ->
 
 	render = ->
 		console_view = StackView {
-			class: "transcript-log"
+			class: "log"
 			Direction: "Vertical"
 			OverflowY: "Scroll"
 			ClipChildren: true
@@ -36,9 +36,9 @@ AdventureTranscript = (session, font, background_source) ->
 				for line in entry.output\gmatch "[^\n]+" do
 					incoming line
 
-		Node2D { class: "transcript-shell", VerticalAlignment: "Stretch" }, =>
+		Node2D { class: "transcript", VerticalAlignment: "Stretch" }, =>
 			ImageView {
-				class: "transcript-background"
+				class: "background"
 				HorizontalAlignment: "Stretch"
 				VerticalAlignment: "Stretch"
 				Source: background_source

@@ -86,7 +86,7 @@ body {
 .saved-games-screen,
 .auth-screen,
 .adventure-empty,
-.transcript-shell,
+.transcript,
 .empty-route {
 	background-color: #FFFFFF;
 	color: #0B0F1A;
@@ -219,12 +219,12 @@ body {
 	padding-bottom: 8;
 }
 
-.transcript-log {
+.transcript .log {
 	padding-top: 16;
 	padding-bottom: 16;
 }
 
-.transcript-outgoing {
+.transcript .outgoing {
 	background-color: #E3E8F0;
 	color: #0B0F1A;
 	margin-left: 16;
@@ -239,7 +239,7 @@ body {
 	line-height: 24;
 }
 
-.transcript-incoming {
+.transcript .incoming {
 	color: #0B0F1A;
 	padding: 8;
 	font-size: 16;
