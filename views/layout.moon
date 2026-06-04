@@ -1,9 +1,9 @@
 import Screen, Grid, UniformGrid, StackView, TextBlock, ImageView, Input, Node2D from require "orca.UIKit"
 core = require "orca.core"
-filesystem = require "orca.filesystem"
+UIKit = require "orca.UIKit"
 Widget = require "orca.core.widget"
 
-stylesheet = filesystem.loadObjectFromCss "assets/globals.css"
+stylesheet = UIKit.loadObjectFromCss "assets/globals.css"
 
 NAV_ITEMS = {
 	{ route: "/",           icon: "assets/icons/home.svg",     label: "Home"   }
