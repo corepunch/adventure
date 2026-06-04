@@ -1,4 +1,4 @@
-import StackView, TextBlock from require "orca.UIKit"
+import StackView, TextBlock, Button from require "orca.UIKit"
 
 class Popup extends require "orca.core.widget"
 	new: (@args, ...) => super...
@@ -9,20 +9,9 @@ class Popup extends require "orca.core.widget"
 		no_label = @args.no_label or "No"
 
 		StackView class: "popup", ->
-			StackView {
-				class: "panel"
-				LeftButtonUp: -> true
-			}, ->
-				TextBlock {
-					class: "title"
-				}, title
+			StackView class: "panel", LeftButtonUp: (-> true), ->
+				TextBlock class: "title", title
 				TextBlock class: "text", text
 				StackView class: "actions", ->
-					TextBlock {
-						class: "button secondary"
-						LeftButtonUp: -> @on_result 0
-					}, no_label
-					TextBlock {
-						class: "button primary"
-						LeftButtonUp: -> @on_result 1
-					}, yes_label
+					Button class: "secondary", Click: (-> @on_result 0), no_label
+					Button class: "primary", Click: (-> @on_result 1), yes_label

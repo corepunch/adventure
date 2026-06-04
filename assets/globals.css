@@ -1,12 +1,12 @@
 body {
-	background-color: #FFFFFF;
-	color: #0B0F1A;
+	background-color: var(--background);
+	color: var(--foreground);
 }
 
 .app-status-bar,
 .app-header,
 .adventure-header {
-	background-color: #345EC7;
+	background-color: var(--accent);
 }
 
 .app-home-indicator,
@@ -14,7 +14,7 @@ body {
 .chrome-footer,
 .command-bar,
 .action-bar {
-	background-color: #C5CDDC;
+	background-color: var(--accent-background);
 }
 
 .adventures-list,
@@ -23,8 +23,8 @@ body {
 .adventure-empty,
 .transcript,
 .empty-route {
-	background-color: #FFFFFF;
-	color: #0B0F1A;
+	background-color: var(--background);
+	color: var(--foreground);
 }
 
 .app-header {
@@ -34,8 +34,8 @@ body {
 	padding-bottom: 12;
 }
 
-.app-header > .title {
-	color: #FFFFFF;
+.app-header .title {
+	color: var(--accent-foreground);
 	font-size: 24;
 	line-height: 32;
 	text-overflow: Ellipsis;
@@ -45,13 +45,13 @@ body {
 	padding: 8;
 }
 
-.app-footer > .icon,
-.app-footer > .label {
-	color: #6B7280;
+.app-footer .icon,
+.app-footer .label {
+	color: var(--muted-foreground);
 }
 
-.app-footer > .selected {
-	color: #345EC7;
+.app-footer .selected {
+	color: var(--accent);
 }
 
 .chrome-footer {
@@ -61,23 +61,23 @@ body {
 	padding-bottom: 8;
 }
 
-.chrome-footer > .icon {
-	color: #6B7280;
+.chrome-footer .icon {
+	color: var(--muted-foreground);
 }
 
-.chrome-footer > .input,
-.auth-screen > .input,
-.command-bar > .input {
-	background-color: #FFFFFF;
-	color: #0B0F1A;
+.chrome-footer .input,
+.auth-screen .input,
+.command-bar .input {
+	background-color: var(--background);
+	color: var(--foreground);
 	padding-left: 16;
 	padding-right: 16;
 	padding-top: 10;
 	padding-bottom: 10;
 }
 
-.empty-route > .copy {
-	color: #6B7280;
+.empty-route .copy {
+	color: var(--muted-foreground);
 }
 
 .adventures-list {
@@ -86,27 +86,27 @@ body {
 }
 
 .game-card {
-	background-color: #FFFFFF;
-	color: #0B0F1A;
-	border-color: #E3E8F0;
+	background-color: var(--background);
+	color: var(--foreground);
+	border-color: var(--border);
 	border-width: 1;
 	padding: 8;
 }
 
-.game-card > .title {
-	color: #0B0F1A;
+.game-card .title {
+	color: var(--foreground);
 	font-size: 16;
 	line-height: 24;
 }
 
-.game-card > .description {
-	color: #6B7280;
+.game-card .description {
+	color: var(--muted-foreground);
 	font-size: 14;
 	line-height: 20;
 }
 
-.game-card > .badge {
-	color: #345EC7;
+.game-card .badge {
+	color: var(--accent);
 	font-size: 12;
 	line-height: 16;
 }
@@ -116,72 +116,72 @@ body {
 	padding: 16;
 }
 
-.saved-games-screen > .heading {
-	color: #0B0F1A;
+.saved-games-screen .heading {
+	color: var(--foreground);
 	font-size: 20;
 	line-height: 28;
 }
 
-.saved-games-screen > .empty {
-	color: #6B7280;
+.saved-games-screen .empty {
+	color: var(--muted-foreground);
 }
 
 .saved-game-row {
-	background-color: #FFFFFF;
-	color: #0B0F1A;
-	border-color: #E3E8F0;
+	background-color: var(--background);
+	color: var(--foreground);
+	border-color: var(--border);
 	border-width: 1;
 	padding: 12;
 }
 
-.saved-game-row > .title {
-	color: #0B0F1A;
+.saved-game-row .title {
+	color: var(--foreground);
 	font-size: 16;
 	line-height: 24;
 }
 
-.saved-game-row > .description,
-.saved-game-row > .delete {
-	color: #6B7280;
+.saved-game-row .description,
+.saved-game-row .delete {
+	color: var(--muted-foreground);
 }
 
-.saved-game-row > .description {
+.saved-game-row .description {
 	font-size: 14;
 	line-height: 20;
 }
 
-.saved-game-row > .delete:hover {
-	color: #D63939;
+.saved-game-row .delete:hover {
+	color: var(--danger);
 }
 
 .auth-screen {
 	padding: 32;
 }
 
-.auth-screen > .title {
-	color: #0B0F1A;
+.auth-screen .title {
+	color: var(--foreground);
 	font-size: 30;
 	line-height: 36;
 }
 
-.auth-screen > .subtitle {
-	color: #6B7280;
+.auth-screen .subtitle {
+	color: var(--muted-foreground);
 	font-size: 14;
 	line-height: 20;
 }
 
-.auth-screen > .primary {
-	background-color: #345EC7;
-	color: #FFFFFF;
+.auth-screen .primary {
+	background-color: var(--accent);
+	color: var(--accent-foreground);
 	padding-left: 16;
 	padding-right: 16;
 	padding-top: 10;
 	padding-bottom: 10;
 }
 
-.auth-screen > .link {
+.auth-screen .link {
 	background-color: transparent;
-	color: #345EC7;
+	color: var(--accent);
 	padding-left: 16;
 	padding-right: 16;
 	padding-top: 10;
@@ -195,10 +195,10 @@ body {
 	justify-content: center;
 }
 
-.popup > .panel {
-	background-color: #FFFFFF;
-	color: #0B0F1A;
-	border-color: #E3E8F0;
+.popup .panel {
+	background-color: var(--background);
+	color: var(--foreground);
+	border-color: var(--border);
 	border-width: 1;
 	border-radius: 16;
 	padding: 24;
@@ -206,29 +206,29 @@ body {
 	gap: 16;
 }
 
-.popup > .title {
-	color: #0B0F1A;
+.popup .title {
+	color: var(--foreground);
 	font-size: 20;
 	line-height: 28;
 	font-weight: bold;
 	text-align: center;
 }
 
-.popup > .text {
-	color: #6B7280;
+.popup .text {
+	color: var(--muted-foreground);
 	font-size: 14;
 	line-height: 20;
 }
 
-.popup > .actions {
+.popup .actions {
 	margin-top: 4;
 	direction: horizontal;
 	gap: 12;
 	justify-content: center;
 }
 
-.popup > .button {
-	color: #0B0F1A;
+.popup Button {
+	color: var(--foreground);
 	padding-left: 32;
 	padding-right: 32;
 	padding-top: 10;
@@ -237,32 +237,32 @@ body {
 	font-weight: bold;
 }
 
-.popup > .primary {
-	background-color: #345EC7;
-	color: #FFFFFF;
+Button.primary {
+	background-color: var(--accent);
+	color: var(--accent-foreground);
 }
 
-.popup > .secondary {
-	background-color: #E3E8F0;
+Button.secondary {
+	background-color: var(--border);
 }
 
 .adventure-header {
-	color: #FFFFFF;
+	color: var(--accent-foreground);
 }
 
-.adventure-header > .back-icon,
-.adventure-header > .title {
-	color: #FFFFFF;
+.adventure-header .back-icon,
+.adventure-header .title {
+	color: var(--accent-foreground);
 }
 
-.adventure-empty > .message {
-	color: #6B7280;
+.adventure-empty .message {
+	color: var(--muted-foreground);
 }
 
-.adventure-empty > .button {
-	background-color: #E3E8F0;
-	color: #0B0F1A;
-	border-color: #E3E8F0;
+.adventure-empty .button {
+	background-color: var(--border);
+	color: var(--foreground);
+	border-color: var(--border);
 	border-width: 1;
 	padding-left: 16;
 	padding-right: 16;
@@ -270,8 +270,8 @@ body {
 	padding-bottom: 10;
 }
 
-.adventure-empty > .label {
-	color: #0B0F1A;
+.adventure-empty .label {
+	color: var(--foreground);
 }
 
 .command-bar {
@@ -281,15 +281,15 @@ body {
 	padding-bottom: 8;
 }
 
-.command-bar > .input {
+.command-bar .input {
 	height: 48;
 	text-overflow: Clip;
 }
 
-.action-bar > .chip {
-	background-color: #FFFFFF;
-	color: #0B0F1A;
-	border-color: #E3E8F0;
+.action-bar .chip {
+	background-color: var(--background);
+	color: var(--foreground);
+	border-color: var(--border);
 	border-width: 1;
 	padding-left: 16;
 	padding-right: 16;
@@ -297,14 +297,14 @@ body {
 	padding-bottom: 8;
 }
 
-.transcript > .log {
+.transcript .log {
 	padding-top: 16;
 	padding-bottom: 16;
 }
 
-.transcript > .outgoing {
-	background-color: #E3E8F0;
-	color: #0B0F1A;
+.transcript .outgoing {
+	background-color: var(--border);
+	color: var(--foreground);
 	margin-left: 16;
 	margin-right: 16;
 	margin-top: 4;
@@ -317,23 +317,23 @@ body {
 	line-height: 24;
 }
 
-.transcript > .incoming {
-	color: #0B0F1A;
+.transcript .incoming {
+	color: var(--foreground);
 	padding: 8;
 	font-size: 16;
 	line-height: 24;
 }
 
 .error-message {
-	color: #D63939;
+	color: var(--danger);
 	margin-top: 64;
 	font-size: 14;
 	line-height: 20;
 }
 
-.legacy-auth > .header {
-	background-color: #0B0F1A;
-	color: #FFB620;
+.legacy-auth .header {
+	background-color: var(--foreground);
+	color: var(--warning);
 	padding: 8;
 	font-size: 12;
 	line-height: 16;
@@ -344,54 +344,54 @@ body {
 	padding-right: 24;
 }
 
-.legacy-auth-form > .title {
-	color: #0B0F1A;
+.legacy-auth-form .title {
+	color: var(--foreground);
 	font-size: 20;
 	line-height: 28;
 }
 
-.legacy-auth-form > .description,
-.legacy-auth-form > .label,
-.legacy-auth-form > .small-link {
-	color: #6B7280;
+.legacy-auth-form .description,
+.legacy-auth-form .label,
+.legacy-auth-form .small-link {
+	color: var(--muted-foreground);
 	font-size: 14;
 	line-height: 20;
 }
 
-.legacy-auth-form > .input {
-	background-color: #FFFFFF;
-	color: #0B0F1A;
-	border-color: #E3E8F0;
+.legacy-auth-form .input {
+	background-color: var(--background);
+	color: var(--foreground);
+	border-color: var(--border);
 	border-width: 1;
 	padding: 8;
 }
 
-.legacy-auth-form > .primary {
-	background-color: #345EC7;
-	color: #FFFFFF;
+.legacy-auth-form .primary {
+	background-color: var(--accent);
+	color: var(--accent-foreground);
 	padding: 10;
 	font-size: 20;
 	line-height: 28;
 }
 
-.legacy-auth-form > .link,
-.legacy-auth-form > .small-link {
-	color: #345EC7;
+.legacy-auth-form .link,
+.legacy-auth-form .small-link {
+	color: var(--accent);
 	background-color: transparent;
 }
 
-.legacy-auth-form > .link {
+.legacy-auth-form .link {
 	margin-top: 16;
 }
 
-.legacy-auth-form > .links {
+.legacy-auth-form .links {
 	margin-top: 8;
 }
 
 .chat-header,
 .chat-composer,
 .messages {
-	background-color: #E3E8F0;
+	background-color: var(--border);
 }
 
 .chat-header {
@@ -399,39 +399,39 @@ body {
 	padding-right: 8;
 }
 
-.chat-header > .back,
-.chat-header > .title,
-.chat-header > .action {
-	color: #6B7280;
+.chat-header .back,
+.chat-header .title,
+.chat-header .action {
+	color: var(--muted-foreground);
 }
 
-.chat-composer > .input {
-	background-color: #FFFFFF;
-	color: #0B0F1A;
-	border-color: #E3E8F0;
+.chat-composer .input {
+	background-color: var(--background);
+	color: var(--foreground);
+	border-color: var(--border);
 	border-width: 1;
 	padding: 8;
 }
 
-.messages > .bubble {
-	color: #FFFFFF;
+.messages .bubble {
+	color: var(--accent-foreground);
 	padding: 8;
 }
 
-.messages > .spaced {
+.messages .spaced {
 	margin-top: 8;
 }
 
-.messages > .tight {
+.messages .tight {
 	margin-top: 4;
 }
 
-.messages > .incoming {
-	background-color: #0369A1;
+.messages .incoming {
+	background-color: var(--message-incoming);
 	margin-right: 32;
 }
 
-.messages > .outgoing {
-	background-color: #C2410C;
+.messages .outgoing {
+	background-color: var(--message-outgoing);
 	margin-left: 32;
 }

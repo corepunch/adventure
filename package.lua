@@ -20,3 +20,16 @@ SystemMessages = {
   { Message = "RequestReload",           Command = "window:refresh()" },
 }
 FontLibrary = { Name = "fonts", IsExternal = true }
+ThemeLibrary = {
+	{ Key = "background", Value = "#FFFFFF" },
+	{ Key = "foreground", Value = "#0B0F1A" },
+	{ Key = "accent", Value = "#345EC7" },
+	{ Key = "accent-foreground", Value = "#FFFFFF" },
+	{ Key = "accent-background", Value = "#C5CDDC" },
+	{ Key = "muted-foreground", Value = "#6B7280" },
+	{ Key = "border", Value = "#E3E8F0" },
+	{ Key = "danger", Value = "#D63939" },
+	{ Key = "warning", Value = "#FFB620" },
+	{ Key = "message-incoming", Value = "#0369A1" },
+	{ Key = "message-outgoing", Value = "#C2410C" },
+}
