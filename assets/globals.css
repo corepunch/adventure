@@ -190,6 +190,9 @@ body {
 
 .popup {
 	padding: 16;
+	align-self: stretch;
+	align-items: center;
+	justify-content: center;
 }
 
 .popup > .panel {
@@ -197,13 +200,18 @@ body {
 	color: #0B0F1A;
 	border-color: #E3E8F0;
 	border-width: 1;
+	border-radius: 16;
 	padding: 24;
+	align-self: stretch;
+	gap: 16;
 }
 
 .popup > .title {
 	color: #0B0F1A;
 	font-size: 20;
 	line-height: 28;
+	font-weight: bold;
+	text-align: center;
 }
 
 .popup > .text {
@@ -214,6 +222,9 @@ body {
 
 .popup > .actions {
 	margin-top: 4;
+	direction: horizontal;
+	gap: 12;
+	justify-content: center;
 }
 
 .popup > .button {
@@ -222,6 +233,8 @@ body {
 	padding-right: 32;
 	padding-top: 10;
 	padding-bottom: 10;
+	border-radius: 12;
+	font-weight: bold;
 }
 
 .popup > .primary {
