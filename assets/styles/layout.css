@@ -1,0 +1,89 @@
+.app-status-bar,
+.app-header,
+.adventure-header {
+	background-color: var(--accent);
+}
+
+.app-home-indicator,
+.app-footer,
+.chrome-footer,
+.command-bar,
+.action-bar {
+	background-color: var(--accent-background);
+}
+
+.app-header {
+	padding: 12 20;
+	justify-content: center;
+}
+
+.app-header .title {
+	color: var(--accent-foreground);
+	font-size: 24;
+	line-height: 32;
+	font-weight: bold;
+	text-wrap: nowrap;
+	text-align: center;
+	text-overflow: Ellipsis;
+}
+
+.app-footer {
+	padding: 8;
+}
+
+.app-footer .icon,
+.app-footer .label {
+	color: var(--muted-foreground);
+  margin: 0 auto;
+}
+
+.app-footer .selected {
+	color: var(--accent);
+}
+
+.app-footer .label {
+	font-size: 12;
+	line-height: 16;
+}
+
+.app-footer .label.selected {
+	font-weight: bold;
+}
+
+.app-footer .tab {
+	width: 100%;
+	direction: vertical;
+	align-items: center;
+	justify-content: center;
+	gap: 4;
+}
+
+.chrome-footer {
+	padding: 8 16;
+	direction: horizontal;
+	gap: 8;
+	align-items: center;
+}
+
+.chrome-footer .icon {
+	color: var(--muted-foreground);
+}
+
+.chrome-footer .input,
+.auth-screen .input,
+.command-bar .input {
+	border-radius: 8;
+	padding: 10 16;
+}
+
+.chrome-footer .input {
+	width: 100%;
+}
+
+.empty-route {
+	padding: 24;
+	gap: 8;
+}
+
+.empty-route .copy {
+}

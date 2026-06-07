@@ -2,7 +2,18 @@
 
 ORCA stylesheets parse a CSS-like subset and map supported CSS declaration names to ORCA properties before value parsing. This table is extracted from `plugins/UIKit/Css.c` (`k_css_prop_map`).
 
-Values use ORCA property parsers. Numeric values are bare numbers; browser units such as `px`, `rem`, `vh`, and `%` are not converted. Unsupported properties are ignored when the stylesheet is converted into `StyleRule` objects.
+Values use ORCA property parsers. Numeric values are bare numbers; browser units such as `px`, `rem`, `vh`, and `%` are not converted, except for the special `width: 100%` stretch shorthand below. Unsupported properties are ignored when the stylesheet is converted into `StyleRule` objects.
+
+CSS edge shorthands use CSS ordering before being passed to ORCA's WPF-like `Thickness` parser. For example, `padding: 10 32;` means top/bottom `10` and left/right `32`; `margin: 1 2 3 4;` means top `1`, right `2`, bottom `3`, left `4`.
+
+For layout alignment, prefer CSS-native sizing and auto margins:
+
+- `width: auto` maps to `Node.Width = NaN`, which is also the default and stretches in finite layout space.
+- `width: 100%` also maps to `Node.Width = NaN` as a compatibility stretch shorthand.
+- `margin-left: auto; margin-right: auto;` centers an explicit-width node horizontally.
+- `margin-left: auto;` aligns an explicit-width node to the trailing/right edge.
+- `margin-top: auto; margin-bottom: auto;` centers an explicit-height node vertically.
+- `margin-top: auto;` aligns an explicit-height node to the trailing/bottom edge.
 
 | CSS property | ORCA property | Value type |
 |--------------|---------------|------------|
@@ -13,11 +24,6 @@ Values use ORCA property parsers. Numeric values are bare numbers; browser units
 | `height` | `Node.Height` | float |
 | `min-width` | `Node.MinWidth` | float |
 | `min-height` | `Node.MinHeight` | float |
-| `horizontal-align` | `Node.HorizontalAlignment` | enum: HorizontalAlignment |
-| `horizontal-alignment` | `Node.HorizontalAlignment` | enum: HorizontalAlignment |
-| `vertical-align` | `Node.VerticalAlignment` | enum: VerticalAlignment |
-| `vertical-alignment` | `Node.VerticalAlignment` | enum: VerticalAlignment |
-| `align-self` | `Node.HorizontalAlignment` | enum: HorizontalAlignment |
 | `margin` | `Node.Margin` | Thickness |
 | `margin-top` | `Node.MarginTop` | float |
 | `margin-right` | `Node.MarginRight` | float |
@@ -63,7 +69,6 @@ Values use ORCA property parsers. Numeric values are bare numbers; browser units
 | `ring-color` | `Node2D.RingColor` | color |
 | `ring-offset` | `Node2D.RingOffset` | float |
 | `ring-width` | `Node2D.RingWidth` | float |
-| `clip-children` | `Node2D.ClipChildren` | bool |
 | `content-stretch` | `Node2D.ContentStretch` | bool |
 | `ignore-hit-test` | `Node2D.IgnoreHitTest` | bool; `pointer-events: none` maps to `true`, `auto` maps to `false` |
 | `pointer-events` | `Node2D.IgnoreHitTest` | bool; `pointer-events: none` maps to `true`, `auto` maps to `false` |
@@ -73,7 +78,7 @@ Values use ORCA property parsers. Numeric values are bare numbers; browser units
 | `justify-content` | `StackView.JustifyContent` | enum: JustifyContent |
 | `flex-direction` | `StackView.Direction` | enum: Direction |
 | `direction` | `StackView.Direction` | enum: Direction |
-| `gap` | `StackView.Spacing` | float |
+| `gap` | `StackView.Spacing`, `Grid.Spacing` | float |
 | `spacing` | `StackView.Spacing` | float |
 | `reversed` | `StackView.Reversed` | bool |
 | `font` | `TextRun.Font` | FontShorthand |
@@ -95,13 +100,10 @@ Values use ORCA property parsers. Numeric values are bare numbers; browser units
 | `word-wrap` | `TextBlockConcept.WordWrap` | bool |
 | `overflow-wrap` | `TextBlockConcept.WordWrap` | bool |
 | `text-wrap` | `TextBlockConcept.TextWrapping` | enum: TextWrapping |
-| `text-wrapping` | `TextBlockConcept.TextWrapping` | enum: TextWrapping |
 | `text-overflow` | `TextBlockConcept.TextOverflow` | enum: TextOverflow |
 | `text-align` | `TextBlockConcept.TextHorizontalAlignment` | enum: TextHorizontalAlignment |
 | `text-horizontal-align` | `TextBlockConcept.TextHorizontalAlignment` | enum: TextHorizontalAlignment |
-| `text-horizontal-alignment` | `TextBlockConcept.TextHorizontalAlignment` | enum: TextHorizontalAlignment |
 | `text-vertical-align` | `TextBlockConcept.TextVerticalAlignment` | enum: TextVerticalAlignment |
-| `text-vertical-alignment` | `TextBlockConcept.TextVerticalAlignment` | enum: TextVerticalAlignment |
 | `placeholder-color` | `TextBlockConcept.PlaceholderColor` | color |
 
 ## Special Cases
@@ -110,4 +112,7 @@ Values use ORCA property parsers. Numeric values are bare numbers; browser units
 - Enum values are matched case-insensitively and may use CSS-style separators; for example `text-overflow: ellipsis;` maps to `TextOverflow = "Ellipsis"`.
 - `font-family` accepts a comma-separated CSS family list. Registered family names and generic aliases such as `serif`, `sans-serif`, and `monospace` are resolved before falling back to explicit object paths.
 - `visibility` is normalized before parsing: `visible` becomes `true`; `hidden` and `collapse` become `false`.
+- `width: auto` and `width: 100%` normalize to `NaN`, which stretches in finite layout space.
+- `margin-* : auto` normalizes to `NaN` and is used for alignment.
 - `pointer-events` maps to `Node2D.IgnoreHitTest`: `none` becomes `true`; `auto` becomes `false`.
+- Child clipping behavior is controlled through `overflow`, `overflow-x`, and `overflow-y`.

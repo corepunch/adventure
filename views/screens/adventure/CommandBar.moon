@@ -1,5 +1,4 @@
 import StackView, Input from require "orca.UIKit"
-core = require "orca.core"
 
 AdventureCommandBar = (font, on_submit) ->
 	submit = (sender) ->
@@ -44,18 +43,9 @@ AdventureCommandBar = (font, on_submit) ->
 
 	StackView {
 		class: "command-bar"
-		AlignItems: "Center"
 	}, ->
 		Input
 			class: "input"
-			HorizontalAlignment: "Stretch"
-			BorderRadius: core.CornerRadius 8
-			FontSize: 16
-			LineHeight: 24
-			TextWrapping: "NoWrap"
-			TextOverflow: "Clip"
-			OverflowX: "Hidden"
-			ClipChildren: true
 			fontFamily: font
 			PlaceholderText: "Enter command..."
 			Name: "command"

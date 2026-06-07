@@ -62,19 +62,25 @@ Multiple pseudo-states can be chained: `button:hover:focus` requires both hover 
 ### Setting classes from XML
 
 ```xml
+<Button StyleClass="button:hover primary/80" />
 <Button class="button:hover primary/80" />
 ```
 
-The `class` XML attribute is parsed by `StyleController.AddClasses()` at load time.
+The `StyleClass` XML attribute is parsed by `StyleController.AddClasses()` at load time.
+The lowercase `class` form is also accepted for CSS/Tailwind-style authoring and
+compatibility with existing screens.
 Tokens are space-separated; each token is parsed into a `style_class` node.
 
 ### Setting classes from Lua
 
 ```lua
 -- At object creation (via the property table):
-local btn = UIKit.Button { class = "primary:hover" }
+local btn = UIKit.Button { StyleClass = "primary:hover" }
 
 -- At runtime (assign a space-separated class string):
+btn.StyleClass = "selected"
+
+-- The CSS-like alias remains supported:
 btn.class = "selected"
 ```
 
@@ -92,6 +98,8 @@ OBJ_ParseClassAttribute(struct Object *obj, const char* classAttr);
 A **stylesheet rule** maps a selector and a property name to a string value.
 Selectors can match style classes, object names, ORCA class names, or a direct parent/child relationship.
 The optional pseudo-states on the selector gate when the rule fires.
+
+When working on ORCA apps or app styles, use this document as the style-system reference before adding or moving visual properties.
 
 ### Rule structure
 
@@ -154,6 +162,35 @@ screen.StyleSheet = ui.loadObjectFromCss("assets/app.css")
 screen:ThemeChanged(StyleController_ThemeChangedEventArgs{ recursive = true })
 ```
 
+Stylesheet files can load shared substyles with `@import`. Relative imports are resolved from the importing stylesheet's directory and are expanded in place, so rules after the import can override imported declarations.
+
+```css
+@import "shared/cards.css";
+
+.feature-card {
+    padding: 24;
+}
+```
+
+For larger apps, keep the loaded stylesheet as a small manifest and split styles by responsibility:
+
+```text
+Styles/
+  app.css
+  base.css
+  layout.css
+  typography.css
+  components/
+    button.css
+    modal.css
+    sidebar.css
+  pages/
+    home.css
+    profile.css
+```
+
+Use `components/` for reusable controls and UI roles. Use `pages/` for screen-level composition and page-specific overrides, especially when a top-level navigation bar will switch between screens. Keep files coarse enough to be navigable; avoid turning every class into its own file.
+
 #### Supported CSS syntax
 
 The parser is intentionally CSS-like rather than a full browser CSS implementation.
@@ -165,21 +202,38 @@ It supports:
 | Class selectors | `.button { ... }` | Matches objects whose `class` contains `button` |
 | ID selectors | `#HeroImage { ... }` | Matches object `Name` |
 | Type selectors | `ImageView { ... }`, `Label { ... }` | Matches ORCA class names, similar to HTML element selectors |
-| Direct parent selectors | `StackView > Label { ... }` | Matches only immediate children for now |
-| `body` selector | `body { opacity: 1; }` | Applies to a root object that owns the stylesheet |
+| Compound selectors | `Button.primary { ... }`, `#Save.primary { ... }` | Matches multiple conditions on the same object |
+| Descendant selectors | `.popup .panel { ... }`, `StackView Label { ... }` | Matches when the left selector appears anywhere in the target's ancestors |
+| Direct parent selectors | `StackView > Label { ... }` | Matches only immediate children |
+| `body` selector | `body { width: 800; }` | Applies to a root object that owns the stylesheet |
 | Comma selector lists | `.a, .b { width: 100; }` | Each selector gets the same declaration block |
-| Pseudo-states | `.button:hover { opacity: 0.8; }`, `#Save:active { ... }`, `Label:active { ... }` | Supported states are `hover`, `focus`, `active`, and `dark`; for `>` selectors, put pseudo-states on the child selector |
+| Pseudo-states | `.button:hover { opacity: 0.8; }`, `#Save:active { ... }`, `Label:active { ... }` | Supported states are `hover`, `focus`, `active`, and `dark`; for combinator selectors, put pseudo-states on the rightmost target selector |
 | Declarations | `width: 120;` | Declarations are `property: value;` pairs |
 | Repeated selectors | `.a { width: 1; } .a { height: 2; }` | Declarations are merged into the same rule |
+| `@import` | `@import "shared.css";` | File loader only; relative paths resolve from the importing stylesheet |
 | `@apply` | `.child { @apply: .base; }` | Copies declarations from one or more selectors |
 | Transitive `@apply` | `.a { @apply: .b; } .b { @apply: .c; }` | Resolution runs for up to 10 passes |
 
-The parser does not support descendant selectors, arbitrary child combinators beyond the direct `Parent > Child` form, sibling selectors, attribute selectors, media queries, keyframes, custom properties, nested CSS, `!important`, browser units, or automatic CSS shorthand expansion beyond the ORCA property parsers listed below.
+The parser does not support sibling selectors, attribute selectors, media queries, import conditions, keyframes, custom properties, nested CSS, `!important`, browser units, or automatic CSS shorthand expansion beyond the ORCA property parsers listed below.
+
+#### Layout sizing and alignment
+
+Use width/height and auto margins as the layout alignment model:
+
+- Omit `width`, or set `width: auto`, to keep `Node.Width = NaN`, which stretches in finite layout space.
+- `width: 100%` is accepted as a compatibility stretch shorthand and also maps to `Node.Width = NaN`.
+- Center an explicit-width node with `margin-left: auto; margin-right: auto;`.
+- Align an explicit-width node to the right/trailing edge with `margin-left: auto;`.
+- Center an explicit-height node with `margin-top: auto; margin-bottom: auto;`.
+- Align an explicit-height node to the bottom/trailing edge with `margin-top: auto;`.
+
+Prefer these CSS-native rules over legacy `HorizontalAlignment`/`VerticalAlignment` properties. Those alignment properties are compatibility helpers that translate back into size and auto-margin values.
 
 #### Case and duplicate rules
 
 - CSS property names are case-insensitive: `opacity`, `Opacity`, and `OPACITY` all map to `Node.Opacity`.
 - Enum values are case-insensitive: `text-overflow: ellipsis;` maps to `TextOverflow = "Ellipsis"`.
+- Prefer lowercase enum values in CSS declarations because they read more like CSS: use `direction: vertical;`, `align-items: center;`, `overflow-y: scroll;`, and `text-wrap: nowrap;` rather than ORCA's native enum casing.
 - Selector names are case-sensitive: `.Button` and `.button` are different classes.
 - Type selector names are case-sensitive and should match ORCA class names exactly, for example `ImageView` or `Label`.
 - ID selector names are case-sensitive and should match the object's `Name` exactly.
@@ -187,6 +241,80 @@ The parser does not support descendant selectors, arbitrary child combinators be
 - `@apply` is case-sensitive and must be written exactly as `@apply`.
 - Repeating the same declaration key in one selector uses the last value, matched case-insensitively.
 - Unsupported CSS properties are ignored.
+
+#### Selector conventions for app styles
+
+- Prefer reusable class selectors for visual styling, similar to application CSS on HTML pages: `.card`, `.section-heading`, `.toolbar`, `.button-primary`.
+- Keep object `Name` values for identity, bindings, tests, and lookups. Do not make styling depend on `#Name` selectors when a reusable class can describe the role.
+- Use ID selectors only for exceptional one-off overrides that are genuinely tied to a single object identity.
+- Prefer classic semantic class names for app-owned styles. Avoid defining one-off utility classes such as `.gap-12`, `.text-14`, or `.w-40` inside an app stylesheet; use the existing utility systems when a utility approach is explicitly desired.
+- Reuse the same component class for repeated visual roles, especially card-like elements. If several cards differ only by incidental colors or spacing, consolidate them behind one class and reserve variants for meaningful states or hierarchy.
+- Combining semantic classes is fine when each class describes a reusable role or variant, for example `StyleClass="card feature-card"` or `StyleClass="button button-primary"`.
+
+#### Keeping app CSS compact
+
+Moving visual properties from XML into CSS should reduce repetition, not create a one-rule-per-object stylesheet. Before adding a new class, check whether the property belongs to an existing semantic base class or grouped selector.
+
+- Start with a few reusable bases for common visual roles, for example `.section`, `.panel`, `.card`, `.stack-card`, `.grid`, `.button`, and `.section-copy`.
+- Compose semantic classes in XML instead of cloning declarations: `class="card stack-card quote-card"` is preferable to repeating `background-color`, `direction`, `gap`, and `padding` in every card-specific rule.
+- Group selectors when several named roles share the same declaration and the grouping still reads as design-system intent:
+
+```css
+.navbar,
+.command-link,
+.tab-panel-header,
+.signal-card {
+    direction: horizontal;
+    align-items: center;
+}
+```
+
+- Keep instance-specific data in XML when it is content or art direction rather than layout structure. Per-card colors, icon backgrounds, image sources, and titles can remain XML attributes such as `Card.PrimaryColor="$accent-green"` while the prefab keeps the shared class.
+- Preserve intentional visual variety. Sharing classes should not flatten the type scale, accent palette, or hierarchy. If the design uses different font sizes or colors to make the page scan well, keep those differences as named role rules or XML data.
+- Prefer semantic bases over local utility classes. Use `.stack-card` or `.section-copy` when it describes an app role; avoid recreating utilities such as `.gap-12`, `.text-muted`, or `.w-140` inside app CSS.
+- Watch stylesheet size during a style move. If the CSS is about as long as the XML it replaced, do another reuse pass before stopping.
+
+#### Readable CSS playbook (app styles)
+
+Use this checklist when writing or reviewing app-owned stylesheets:
+
+- Prefer semantic, component-oriented class names: `.hero`, `.section`, `.card`, `.tab-panel`, `.quote-card`.
+- Keep most rules short and scannable. As a guideline, aim for roughly 3-6 declarations per class; tiny one-property rules are fine for spacers and size tokens.
+- Keep selector lists small. Prefer 2-3 related selectors per grouped rule. If a list grows beyond that, split it by component role.
+- Use parent-scoped selectors for contextual variation instead of cloning card variants, for example `.workflow-section .card { ... }` and `.testimonials-section .card { ... }`.
+- Compose classes in XML from reusable roles, for example `class="card stack-card quote-card"`, instead of creating one-off classes per instance.
+- Control clipping through `overflow`, `overflow-x`, and `overflow-y`. Do not use `clip-children` in app CSS.
+- Keep content-specific values in XML/prefab data (titles, image sources, accent colors) and keep structural visual rules in CSS.
+- Avoid ID selectors for normal styling. Reserve `#Name` selectors for true one-off overrides tied to identity.
+- Avoid utility-like class proliferation inside app CSS (`.gap-12`, `.w-140`, `.text-14`) unless the app intentionally adopts a utility workflow.
+
+Recommended top-to-bottom order in app stylesheets:
+
+1. Surface/base tokens (`.panel`, `.card`, `.surface-section`)
+2. Layout primitives (`.grid`, `.stack-card`)
+3. Main composition (`.app-body`, `.section`, `.tab-panel`)
+4. Parent-scoped reuse (`.feature-section .card`, `.workflow-section .card`)
+5. Component specifics (icons, cards, controls)
+6. Typography/text roles
+7. Small utilities (spacers, indent helpers)
+
+Good (semantic + contextual):
+
+```css
+.card { background-color: var(--card-background); }
+.stack-card { direction: vertical; }
+
+.workflow-section .card { padding: 24; }
+.workflow-section .stack-card { gap: 12; }
+```
+
+Avoid (utility-like explosion in app CSS):
+
+```css
+.gap-12 { gap: 12; }
+.p-24 { padding: 24; }
+.text-14 { font-size: 14; }
+```
 
 #### `@apply` behavior
 
@@ -325,7 +453,7 @@ When `StyleController` receives `Object.ThemeChanged` for an object:
 ### When styles are applied automatically
 
 - On `Object.ThemeChanged` (non-recursive) — sent automatically by the engine when hover state changes (`CORE_UpdateHover`) or focus changes (`OBJ_SetFocus`). `StyleController` handles this message directly; no intermediate Node handler is needed.
-- On `Object.PropertyChanged` for the `class` property — when Lua sets `node.class = "…"`.
+- On `Object.PropertyChanged` for style class aliases — when Lua sets `node.StyleClass = "…"` or `node.class = "…"`.
 - Explicitly by application code after state changes.
 
 ---
@@ -362,7 +490,7 @@ screen:addStyleRule(".card:dark", {
 ```
 
 ```xml
-<Node2D class="card" />
+<Node2D StyleClass="card" />
 ```
 
 When the user switches to dark mode, `Object.ThemeChanged` is broadcast, `StyleController` re-runs style application, and the `:dark` rule takes precedence.
@@ -375,7 +503,7 @@ Color properties can be dimmed using the `/N` opacity syntax on the class token:
 
 ```xml
 <!-- "primary" class at 70% opacity -->
-<Node2D class="primary/70" />
+<Node2D StyleClass="primary/70" />
 ```
 
 After the color value is resolved, the alpha channel is overwritten with `N / 100.0`.
@@ -404,11 +532,12 @@ struct style_rule {
     uint32_t flags;       // pseudo-state gate mask (same bit layout as style_class.flags)
     const char* ClassName;   // selector without pseudo-state qualifiers
     const char* PseudoClass; // pseudo-state qualifiers, e.g. "hover" or "active"
+    style_selector* selector; // compiled selector parts cached from ClassName
 };
 ```
 
 The stylesheet loader stores property overrides as attached `Property` objects on the `StyleRule`.
-During resolution, `ClassName` is matched as a selector and matching overrides are copied to the target object.
+During resolution, the compiled selector is matched right-to-left and matching overrides are copied to the target object.
 
 ---
 
@@ -445,7 +574,7 @@ screen:addStyleRule(".btn:active", {
 
 -- Create a button and assign the "btn" class
 local myBtn = screen + ui.Button {
-    class = "btn",
+    StyleClass = "btn",
     Text  = "Click me",
     Width = 120,
     Height = 36,

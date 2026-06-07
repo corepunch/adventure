@@ -1,0 +1,49 @@
+/* Shared section headings */
+.saved-games-screen .heading,
+.popup .title,
+.legacy-auth-form .title {
+	color: var(--foreground);
+	font-size: 20;
+	line-height: 28;
+	font-weight: bold;
+}
+
+/* Shared strong body titles */
+.game-card .title,
+.saved-game-row .title,
+.adventure-empty .label {
+	color: var(--foreground);
+	font-size: 16;
+	line-height: 24;
+	font-weight: bold;
+}
+
+/* Shared muted supporting copy */
+.game-card .description,
+.saved-game-row .description,
+.popup .text,
+.auth-screen .subtitle,
+.legacy-auth-form .description,
+.legacy-auth-form .label,
+.legacy-auth-form .small-link {
+	color: var(--muted-foreground);
+	font-size: 14;
+	line-height: 20;
+}
+
+/* Shared muted medium copy */
+.saved-games-screen .empty,
+.empty-route .copy {
+	color: var(--muted-foreground);
+	font-size: 16;
+	line-height: 24;
+}
+
+/* Shared transcript/action text sizing */
+.command-bar .input,
+.action-bar .chip,
+.transcript .incoming,
+.transcript .outgoing {
+	font-size: 16;
+	line-height: 24;
+}

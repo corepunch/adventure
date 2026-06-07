@@ -40,4 +40,4 @@ class Adventure extends require "orca.core.widget"
 			AdventureCommandBar font, run_command
 
 		@content_for "footer", footer
-		transcript.render!
+		@content_for "inner", transcript.render!

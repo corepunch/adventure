@@ -1,0 +1,39 @@
+/* Shared surface and control fills */
+.game-card,
+.saved-game-row,
+.popup .panel {
+	background-color: var(--background);
+	color: var(--foreground);
+	border: 1 solid var(--border);
+}
+
+.chrome-footer .input,
+.auth-screen .input,
+.command-bar .input,
+.chat-composer .input,
+.legacy-auth-form .input {
+	background-color: var(--background);
+	color: var(--foreground);
+	border: 1 solid var(--border);
+}
+
+/* Shared primary and secondary actions */
+Button.primary,
+.auth-screen .primary,
+.legacy-auth-form .primary {
+	background-color: var(--accent);
+	color: var(--accent-foreground);
+}
+
+Button.secondary,
+.adventure-empty .button,
+.transcript .outgoing,
+.chat-header,
+.chat-composer,
+.messages {
+	background-color: var(--border);
+}
+
+Button.secondary {
+	color: var(--foreground);
+}

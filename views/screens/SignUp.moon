@@ -1,5 +1,4 @@
 import StackView, TextBlock, Input, Button from require "orca.UIKit"
-core = require "orca.core"
 
 import Account, Users from require "model"
 import navigate from require "chronicle/views/helpers"
@@ -17,42 +16,32 @@ class SignUp extends require "orca.core.widget"
 
 		StackView {
 			class: "auth-screen"
-			Direction: "Vertical"
-			Spacing: 16
-			VerticalAlignment: "Stretch"
-			JustifyContent: "Center"
 		}, =>
-			TextBlock { class: "title", FontWeight: "Bold" }, "Create an account"
+			TextBlock { class: "title" }, "Create an account"
 			TextBlock class: "subtitle", "Enter your details below"
 
 			name_input = Input
 				class: "input"
-				BorderRadius: core.CornerRadius 8
 				PlaceholderText: "Full name"
 				Name: "name"
 
 			user_id_input = Input
 				class: "input"
-				BorderRadius: core.CornerRadius 8
 				PlaceholderText: "Username"
 				Name: "userId"
 
 			email_input = Input
 				class: "input"
-				BorderRadius: core.CornerRadius 8
 				PlaceholderText: "Email"
 				Name: "email"
 
 			password_input = Input
 				class: "input"
-				BorderRadius: core.CornerRadius 8
 				PlaceholderText: "Password"
 				Name: "password"
 
 			Button {
 				class: "primary"
-				BorderRadius: core.CornerRadius 8
-				FontWeight: "Bold"
 				Click: ->
 					params = {
 						name:     name_input.Text

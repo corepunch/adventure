@@ -1,5 +1,4 @@
 import StackView, TextBlock, Input, Button from require "orca.UIKit"
-core = require "orca.core"
 
 import Account from require "model"
 import navigate from require "chronicle/views/helpers"
@@ -15,30 +14,22 @@ class SignIn extends require "orca.core.widget"
 
 		StackView {
 			class: "auth-screen"
-			Direction: "Vertical"
-			Spacing: 16
-			VerticalAlignment: "Stretch"
-			JustifyContent: "Center"
 		}, =>
-			TextBlock { class: "title", FontWeight: "Bold" }, "Welcome back"
+			TextBlock { class: "title" }, "Welcome back"
 			TextBlock class: "subtitle", "Sign in to your account"
 
 			email_input = Input
 				class: "input"
-				BorderRadius: core.CornerRadius 8
 				PlaceholderText: "Email"
 				Name: "email"
 
 			password_input = Input
 				class: "input"
-				BorderRadius: core.CornerRadius 8
 				PlaceholderText: "Password"
 				Name: "password"
 
 			Button {
 				class: "primary"
-				BorderRadius: core.CornerRadius 8
-				FontWeight: "Bold"
 				Click: ->
 					params = { email: email_input.Text, password: password_input.Text }
 					ok = pcall Account.signin, Account, params

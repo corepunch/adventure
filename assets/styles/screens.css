@@ -1,0 +1,145 @@
+.adventures-list {
+	padding: 12 0;
+	direction: vertical;
+	gap: 12;
+	overflow-y: scroll;
+}
+
+.saved-games-screen,
+.adventure-empty {
+	padding: 16;
+}
+
+.saved-games-screen {
+	direction: vertical;
+	gap: 16;
+	overflow-y: scroll;
+}
+
+.saved-games-screen .heading {
+}
+
+.saved-games-screen .empty {
+	padding: 16;
+}
+
+.auth-screen {
+	padding: 32;
+	direction: vertical;
+	gap: 16;
+	justify-content: center;
+}
+
+.auth-screen .title {
+	color: var(--foreground);
+	font-size: 30;
+	line-height: 36;
+	font-weight: bold;
+}
+
+.auth-screen .subtitle {
+}
+
+.auth-screen .primary {
+	border-radius: 8;
+	font-weight: bold;
+	padding: 10 16;
+}
+
+.auth-screen .link {
+	background-color: transparent;
+	color: var(--accent);
+	padding: 10 16;
+}
+
+.adventure-header {
+	color: var(--accent-foreground);
+	overflow-x: hidden;
+}
+
+.adventure-header .back-icon,
+.adventure-header .title {
+	color: var(--accent-foreground);
+}
+
+.adventure-header .title {
+	font-size: 18;
+	line-height: 28;
+	font-weight: bold;
+	text-wrap: nowrap;
+	text-overflow: ellipsis;
+}
+
+.adventure-empty .message {
+	color: var(--muted-foreground);
+	text-align: center;
+}
+
+.adventure-empty .button {
+	color: var(--foreground);
+	border: 1 solid var(--border);
+	border-radius: 12;
+	align-items: center;
+	padding: 10 16;
+}
+
+.adventure-empty .label {
+}
+
+.command-bar {
+	padding: 8 16;
+	align-items: center;
+}
+
+.command-bar .input {
+	height: 48;
+	width: 100%;
+	border-radius: 8;
+	text-wrap: nowrap;
+	text-overflow: Clip;
+	overflow-x: hidden;
+}
+
+.action-bar {
+	direction: horizontal;
+	gap: 8;
+	align-items: center;
+	padding: 8;
+	overflow-x: scroll;
+}
+
+.action-bar .chip {
+	background-color: var(--background);
+	color: var(--foreground);
+	border: 1 solid var(--border);
+	border-radius: 12;
+	text-wrap: nowrap;
+	padding: 8 16;
+}
+
+.transcript {
+	width: 100%;
+}
+
+.transcript .log {
+	direction: vertical;
+	padding: 16 0;
+	overflow-y: scroll;
+}
+
+.transcript .outgoing {
+	color: var(--foreground);
+	border-radius: 12;
+	margin: 4 16 4 auto;
+	padding: 8 16;
+}
+
+.transcript .incoming {
+	color: var(--foreground);
+	padding: 8;
+}
+
+.transcript .background {
+	width: 100%;
+	opacity: 0.75;
+}

@@ -1,5 +1,4 @@
 import Node2D, StackView, TextBlock, ImageView from require "orca.UIKit"
-core = require "orca.core"
 
 AdventureTranscript = (session, font, background_source) ->
 	console_view = nil
@@ -7,8 +6,6 @@ AdventureTranscript = (session, font, background_source) ->
 	outgoing = (line) ->
 		TextBlock {
 			class: "outgoing"
-			HorizontalAlignment: "Right"
-			BorderRadius: core.CornerRadius 12
 			FontFamily: font
 		}, line
 
@@ -24,10 +21,6 @@ AdventureTranscript = (session, font, background_source) ->
 	render = ->
 		console_view = StackView {
 			class: "log"
-			Direction: "Vertical"
-			OverflowY: "Scroll"
-			ClipChildren: true
-			VerticalAlignment: "Stretch"
 			onScrollHeightChanged: => @SetScrollTop @ScrollHeight
 		}, ->
 			for _, entry in ipairs session.entries! do
@@ -39,11 +32,9 @@ AdventureTranscript = (session, font, background_source) ->
 		Node2D { class: "transcript", VerticalAlignment: "Stretch" }, =>
 			ImageView {
 				class: "background"
-				HorizontalAlignment: "Stretch"
-				VerticalAlignment: "Stretch"
 				Source: background_source
+				VerticalAlignment: "Stretch"
 				Stretch: "UniformToFill"
-				Opacity: 0.75
 				IgnoreHitTest: true
 			}
 			@addChild console_view

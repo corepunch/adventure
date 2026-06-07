@@ -1,0 +1,95 @@
+.game-card {
+	border-radius: 8;
+	padding: 8;
+}
+
+.game-card .cover {
+	border-radius: 8;
+}
+
+.game-card .copy {
+	direction: vertical;
+	width: 100%;
+	gap: 4;
+}
+
+.game-card .title {
+}
+
+.game-card .description {
+}
+
+.game-card .badge {
+	color: var(--accent);
+	font-size: 12;
+	line-height: 16;
+}
+
+.saved-game-row {
+	border-radius: 12;
+	direction: horizontal;
+	align-items: center;
+	gap: 12;
+	padding: 12;
+}
+
+.saved-game-row .copy {
+	direction: vertical;
+	width: 100%;
+	gap: 4;
+}
+
+.saved-game-row .title {
+}
+
+.saved-game-row .description,
+.saved-game-row .delete {
+	color: var(--muted-foreground);
+}
+
+.saved-game-row .description {
+}
+
+.saved-game-row .delete:hover {
+	color: var(--danger);
+}
+
+.popup {
+	padding: 16;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+}
+
+.popup .panel {
+	border-radius: 16;
+	padding: 24;
+	width: 100%;
+	gap: 16;
+}
+
+.popup .title {
+	text-align: center;
+}
+
+.popup .text {
+}
+
+.popup .actions {
+	margin-top: 4;
+	direction: horizontal;
+	gap: 12;
+	justify-content: center;
+}
+
+.popup Button {
+	padding: 10 32;
+	border-radius: 12;
+	font-weight: bold;
+}
+
+Button.primary {
+}
+
+Button.secondary {
+}

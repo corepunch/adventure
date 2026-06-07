@@ -1,5 +1,4 @@
 import Screen, Grid, UniformGrid, StackView, TextBlock, ImageView, Input, Node2D from require "orca.UIKit"
-core = require "orca.core"
 UIKit = require "orca.UIKit"
 Widget = require "orca.core.widget"
 
@@ -11,50 +10,25 @@ NAV_ITEMS = {
 }
 
 make_header = (title) ->
-	StackView { class: "app-header", JustifyContent: "Center" }, ->
+	StackView { class: "app-header" }, ->
 		TextBlock {
 			class: "title"
-			FontWeight: "Bold"
-			HorizontalAlignment: "Center"
-			TextWrapping: "NoWrap"
 		}, title
 
 make_footer = (active_route, navigate) ->
 	UniformGrid class: "app-footer", ->
 		for item in *NAV_ITEMS
 			selected = active_route == item.route
-			icon_class = selected and "icon selected" or "icon"
-			label_class = selected and "label selected" or "label"
-			weight = selected and "Bold" or "Normal"
-			StackView {
-				class: "tab"
-				HorizontalAlignment: "Stretch"
-				VerticalAlignment: "Stretch"
-				Direction: "Vertical"
-				AlignItems: "Center"
-				JustifyContent: "Center"
-				Spacing: 4
-				LeftButtonUp: -> navigate item.route
-			}, ->
+			StackView class: "tab", LeftButtonUp: (-> navigate item.route), ->
 				ImageView {
-					class: icon_class
-					HorizontalAlignment: "Center"
-					VerticalAlignment: "Center"
+					class: selected and "icon selected" or "icon"
 					Source: "#{item.icon}?width=48&type=mask"
 				}
-				TextBlock {
-					class: label_class
-					FontSize: 12
-					LineHeight: 16
-					FontWeight: weight
-				}, item.label
+				TextBlock class: selected and "label selected" or "label", item.label
 
 make_chrome_footer = (chrome) ->
 	StackView {
 		class: "chrome-footer"
-		Direction: "Horizontal"
-		Spacing: 8
-		AlignItems: "Center"
 	}, ->
 		ImageView
 			class: "icon"
@@ -62,15 +36,13 @@ make_chrome_footer = (chrome) ->
 			LeftButtonUp: chrome.on_back
 		Input
 			class: "input"
-			HorizontalAlignment: "Stretch"
-			BorderRadius: core.CornerRadius 8
 			PlaceholderText: chrome.placeholder or "Enter command..."
 			Name: chrome.name or "command"
 			Submit: chrome.on_submit
 
 make_placeholder = ->
-	StackView { class: "empty-route", Padding: core.Thickness 24, Spacing: 8 }, ->
-		TextBlock { class: "copy", FontSize: 16, LineHeight: 24 }, "No content for this route"
+	StackView { class: "empty-route" }, ->
+		TextBlock { class: "copy" }, "No content for this route"
 
 class Default extends Widget
 	content: =>

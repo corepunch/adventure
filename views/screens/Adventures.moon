@@ -1,5 +1,4 @@
 import StackView, TextBlock, ImageView, Grid from require "orca.UIKit"
-core = require "orca.core"
 import Games, Sessions from require "model"
 import navigate from require "chronicle/views/helpers"
 Popup = require "chronicle/views/popups/Popup"
@@ -10,11 +9,6 @@ class Adventures extends require "orca.core.widget"
 	content: =>
 		StackView {
 			class: "adventures-list"
-			Direction: "Vertical"
-			Spacing: 12
-			OverflowY: "Scroll"
-			ClipChildren: true
-			VerticalAlignment: "Stretch"
 		}, ->
 			for game in *Games\catalog! do
 				session = Sessions\find_by_game_id game.id
@@ -22,7 +16,6 @@ class Adventures extends require "orca.core.widget"
 					class: "game-card"
 					Columns: "64px auto"
 					Spacing: 8
-					BorderRadius: core.CornerRadius 8
 					LeftButtonUp: ->
 						ok = @showModal Popup
 							title: "Continue saved game?"
@@ -33,16 +26,12 @@ class Adventures extends require "orca.core.widget"
 				}, ->
 					ImageView {
 						class: "cover"
-						BorderRadius: core.CornerRadius 8
 						Source: game\cover_source!
 					}
 					StackView {
 						class: "copy"
-						Direction: "Vertical"
-						HorizontalAlignment: "Stretch"
-						Spacing: 4
 					}, ->
-						TextBlock { class: "title", FontWeight: "Bold" }, game.title
+						TextBlock { class: "title" }, game.title
 						TextBlock class: "description", game.description
 						if session
 							TextBlock class: "badge", "Continue saved game"

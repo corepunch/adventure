@@ -1,17 +1,10 @@
 ui = require "orca.UIKit"
-core = require "orca.core"
 
 import Users, Chats, Messages from require "model"
 
 class MessagesView extends ui.StackView
 	new: (@params) => 
-		super ".messages",
-			ClipChildren: true
-			Direction: "Vertical"
-			Padding: core.Thickness 16
-			OverflowY: "Scroll"
-			VerticalAlignment: "Stretch"
-			HorizontalAlignment: "Stretch"
+		super ".messages"
 		@setTimer 2000
 
 	body: =>
