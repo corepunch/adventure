@@ -1,7 +1,7 @@
 import Grid, TextBlock, ImageView from require "orca.UIKit"
 
 AdventureHeader = (title, on_back) ->
-	Grid class: "adventure-header", Columns: "48px 1fr", =>
+	Grid class: "adventure-header", Columns: "32px 1fr", =>
 		ImageView {
 			class: "back-icon"
 			Source: "assets/icons/back.svg?width=32&type=mask"

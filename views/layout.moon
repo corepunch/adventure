@@ -5,8 +5,11 @@ Widget = require "orca.core.widget"
 stylesheet = UIKit.loadObjectFromCss "assets/globals.css"
 
 NAV_ITEMS = {
-	{ route: "/",           icon: "assets/icons/home.svg",     label: "Home"   }
-	{ route: "/games",      icon: "assets/icons/save.svg",     label: "Games"  }
+	{ route: "/",           icon: "assets/icons/home.svg",      label: "Home"   }
+	{ route: "/games",      icon: "assets/icons/save.svg",      label: "Games"  }
+	{ route: "/people",     icon: "assets/icons/people.svg",    label: "People"  }
+	{ route: "/edit",       icon: "assets/icons/edit.svg",      label: "Write"  }
+	{ route: "/settings",   icon: "assets/icons/wallpaper.svg", label: "Settings"  }
 }
 
 make_header = (title) ->
@@ -22,7 +25,7 @@ make_footer = (active_route, navigate) ->
 			StackView class: "tab", LeftButtonUp: (-> navigate item.route), ->
 				ImageView {
 					class: selected and "icon selected" or "icon"
-					Source: "#{item.icon}?width=48&type=mask"
+					Source: "#{item.icon}?width=40&type=mask"
 				}
 				TextBlock class: selected and "label selected" or "label", item.label
 

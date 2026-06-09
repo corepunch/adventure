@@ -55,11 +55,14 @@
 .adventure-header {
 	color: var(--accent-foreground);
 	overflow-x: hidden;
+	gap: 8;
+	padding: 0 8;
 }
 
 .adventure-header .back-icon,
 .adventure-header .title {
 	color: var(--accent-foreground);
+	margin: auto 0;
 }
 
 .adventure-header .title {
