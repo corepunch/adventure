@@ -1,6 +1,7 @@
 .game-card {
 	border-radius: 8;
 	padding: 8;
+  gap: 8;
 }
 
 .game-card .cover {
