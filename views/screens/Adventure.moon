@@ -10,7 +10,6 @@ AdventureCommandBar = require "chronicle/views/screens/adventure/CommandBar"
 AdventureTranscript = require "chronicle/views/screens/adventure/Transcript"
 AdventureEmptyState = require "chronicle/views/screens/adventure/EmptyState"
 
-font = "chronicle/fonts/Times New Roman"
 background_source = "assets/images/room-1.jpg"
 use_action_buttons = false--true
 
@@ -32,12 +31,12 @@ class Adventure extends require "orca.core.widget"
 		@content_for "header", AdventureHeader config.title, -> navigate "/"
 
 		session = AdventureSession game_id, requested_session_id, config
-		transcript = AdventureTranscript session, font, background_source
+		transcript = AdventureTranscript session, background_source
 		run_command = (command) -> transcript.append session.submit command
 		footer = if use_action_buttons
-			AdventureActionBar session, font, run_command
+			AdventureActionBar session, run_command
 		else
-			AdventureCommandBar font, run_command
+			AdventureCommandBar run_command
 
 		@content_for "footer", footer
 		@content_for "inner", transcript.render!

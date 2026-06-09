@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!-- <FontFamily Name="Junicode-Ansund.otf" Regular="chronicle/fonts/Junicode-Ansund-Regular.otf" /> -->
 <FontFamily 
-	Name="Times New Roman.ttf" 
+	Name="Times New Roman" 
 	Regular="chronicle/fonts/Times New Roman.ttf"
 	Bold="chronicle/fonts/Times New Roman Bold.ttf"
 	Italic="chronicle/fonts/Times New Roman Italic.ttf"

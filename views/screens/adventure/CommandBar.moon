@@ -1,6 +1,6 @@
 import StackView, Input from require "orca.UIKit"
 
-AdventureCommandBar = (font, on_submit) ->
+AdventureCommandBar = (on_submit) ->
 	submit = (sender) ->
 		text = sender.Text or ""
 		text = text\gsub "[\r\n]+$", ""
@@ -46,7 +46,6 @@ AdventureCommandBar = (font, on_submit) ->
 	}, ->
 		Input
 			class: "input"
-			fontFamily: font
 			PlaceholderText: "Enter command..."
 			Name: "command"
 			KeyDown: key_down

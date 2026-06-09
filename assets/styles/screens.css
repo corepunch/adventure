@@ -68,6 +68,7 @@
 	font-weight: bold;
 	text-wrap: nowrap;
 	text-overflow: ellipsis;
+	margin: auto 0;
 }
 
 .adventure-empty .message {
@@ -119,11 +120,14 @@
 
 .transcript {
 	width: 100%;
+	font-family: "Times New Roman", serif;
+	font-size: 18;
+	line-height: 24;
 }
 
 .transcript .log {
 	direction: vertical;
-	padding: 16 0;
+	padding: 8 0;
 	overflow-y: scroll;
 }
 

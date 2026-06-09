@@ -41,9 +41,5 @@
 
 /* Shared transcript/action text sizing */
 .command-bar .input,
-.action-bar .chip,
-.transcript .incoming,
-.transcript .outgoing {
-	font-size: 16;
-	line-height: 24;
+.action-bar .chip {
 }

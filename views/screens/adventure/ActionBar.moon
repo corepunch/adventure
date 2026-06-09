@@ -1,6 +1,6 @@
 import StackView, TextBlock from require "orca.UIKit"
 
-AdventureActionBar = (session, font, on_action) ->
+AdventureActionBar = (session, on_action) ->
 	view = nil
 
 	render_buttons = ->
@@ -8,7 +8,6 @@ AdventureActionBar = (session, font, on_action) ->
 			command = action.command
 			TextBlock {
 				class: "chip"
-				FontFamily: font
 				LeftButtonUp: ->
 					on_action command
 					view\rebuild render_buttons if view and view.rebuild
