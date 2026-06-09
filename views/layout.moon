@@ -5,18 +5,16 @@ Widget = require "orca.core.widget"
 stylesheet = UIKit.loadObjectFromCss "assets/globals.css"
 
 NAV_ITEMS = {
-	{ route: "/",           icon: "assets/icons/home.svg",      label: "Home"   }
-	{ route: "/games",      icon: "assets/icons/save.svg",      label: "Games"  }
-	{ route: "/people",     icon: "assets/icons/people.svg",    label: "People"  }
-	{ route: "/edit",       icon: "assets/icons/edit.svg",      label: "Write"  }
-	{ route: "/settings",   icon: "assets/icons/wallpaper.svg", label: "Settings"  }
+	{ route: "/",         icon: "assets/icons/home.svg",      label: "Home" }
+	{ route: "/games",    icon: "assets/icons/save.svg",      label: "Games" }
+	{ route: "/people",   icon: "assets/icons/people.svg",    label: "People" }
+	{ route: "/edit",     icon: "assets/icons/edit.svg",      label: "Write" }
+	{ route: "/settings", icon: "assets/icons/wallpaper.svg", label: "Settings" }
 }
 
 make_header = (title) ->
-	StackView { class: "app-header" }, ->
-		TextBlock {
-			class: "title"
-		}, title
+	StackView class: "app-header", ->
+		TextBlock class: "title", title
 
 make_footer = (active_route, navigate) ->
 	UniformGrid class: "app-footer", ->
@@ -30,9 +28,7 @@ make_footer = (active_route, navigate) ->
 				TextBlock class: selected and "label selected" or "label", item.label
 
 make_chrome_footer = (chrome) ->
-	StackView {
-		class: "chrome-footer"
-	}, ->
+	StackView class: "chrome-footer", ->
 		ImageView
 			class: "icon"
 			Source: "assets/icons/back.svg?width=24&type=mask"
@@ -44,8 +40,8 @@ make_chrome_footer = (chrome) ->
 			Submit: chrome.on_submit
 
 make_placeholder = ->
-	StackView { class: "empty-route" }, ->
-		TextBlock { class: "copy" }, "No content for this route"
+	StackView class: "empty-route", ->
+		TextBlock class: "copy", "No content for this route"
 
 class Default extends Widget
 	content: =>
