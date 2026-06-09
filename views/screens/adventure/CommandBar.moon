@@ -5,12 +5,10 @@ AdventureCommandBar = (on_submit) ->
 		Input
 			class: "input"
 			PlaceholderText: "Enter command..."
-			Submit: (sender) => 
-				text = sender.Text or ""
-				text = text\gsub "[\r\n]+$", ""
+			Submit: (sender, evt) => 
+				text = evt.Text\gsub "[\r\n]+$", ""
 				return if text == ""
-				sender.Text = ""
-				sender.Cursor = 0
+				sender\Clear!
 				on_submit text if on_submit
 				true
 
