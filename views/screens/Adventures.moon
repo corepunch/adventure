@@ -12,7 +12,6 @@ class Adventures extends require "orca.core.widget"
 				session = Sessions\find_by_game_id game.id
 				Grid {
 					class: "game-card"
-					Columns: "64px auto"
 					LeftButtonUp: ->
 						if not session
 							navigate @url_for game
