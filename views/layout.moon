@@ -1,8 +1,4 @@
-import Screen, Grid, UniformGrid, StackView, TextBlock, ImageView, Input, Node2D from require "orca.UIKit"
-UIKit = require "orca.UIKit"
-Widget = require "orca.core.widget"
-
-stylesheet = UIKit.loadObjectFromCss "assets/globals.css"
+ui = require "orca.UIKit"
 
 NAV_ITEMS = {
 	{ route: "/",         icon: "assets/icons/home.svg",      label: "Home" }
@@ -13,37 +9,37 @@ NAV_ITEMS = {
 }
 
 make_header = (title) ->
-	StackView class: "app-header", ->
-		TextBlock class: "title", title
+	ui.StackView class: "app-header", ->
+		ui.TextBlock class: "title", title
 
 make_footer = (active_route, navigate) ->
-	UniformGrid class: "app-footer", ->
+	ui.UniformGrid class: "app-footer", ->
 		for item in *NAV_ITEMS
 			selected = active_route == item.route
-			StackView class: "tab", LeftButtonUp: (-> navigate item.route), ->
-				ImageView {
+			ui.StackView class: "tab", LeftButtonUp: (-> navigate item.route), ->
+				ui.ImageView {
 					class: selected and "icon selected" or "icon"
 					Source: "#{item.icon}?width=40&type=mask"
 				}
-				TextBlock class: selected and "label selected" or "label", item.label
+				ui.TextBlock class: selected and "label selected" or "label", item.label
 
 make_chrome_footer = (chrome) ->
-	StackView class: "chrome-footer", ->
-		ImageView
+	ui.StackView class: "chrome-footer", ->
+		ui.ImageView
 			class: "icon"
 			Source: "assets/icons/back.svg?width=24&type=mask"
 			LeftButtonUp: chrome.on_back
-		Input
+		ui.Input
 			class: "input"
 			PlaceholderText: chrome.placeholder or "Enter command..."
 			Name: chrome.name or "command"
 			Submit: chrome.on_submit
 
 make_placeholder = ->
-	StackView class: "empty-route", ->
-		TextBlock class: "copy", "No content for this route"
+	ui.StackView class: "empty-route", ->
+		ui.TextBlock class: "copy", "No content for this route"
 
-class Default extends Widget
+class Default extends require "orca.core.widget"
 	content: =>
 		inner        = @content_for "inner"
 		no_chrome    = @content_for "no_chrome"
@@ -68,13 +64,13 @@ class Default extends Widget
 			@content_for("footer") or make_footer active_route, navigate
 
 		if no_chrome
-			return Screen { StyleSheet: stylesheet }, =>
+			return ui.Screen { StyleSheet: ui.loadObjectFromCss "assets/globals.css" }, =>
 				@addChild (inner or make_placeholder!)
 
-		Screen { StyleSheet: stylesheet }, ->
-			Grid Rows: "32px 52px 1fr 72px 24px", =>
-				Node2D class: "app-status-bar"
+		ui.Screen { StyleSheet: ui.loadObjectFromCss "assets/globals.css" }, ->
+			ui.Grid Rows: "32px 52px 1fr 72px 24px", =>
+				ui.Node2D class: "app-status-bar"
 				@addChild (header_slot or make_header title)
 				@addChild (inner or make_placeholder!)
 				@addChild footer
-				Node2D class: "app-home-indicator"
+				ui.Node2D class: "app-home-indicator"

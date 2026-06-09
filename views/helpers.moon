@@ -30,5 +30,6 @@ navigate = (route, data) ->
 				route = path
 		app.nav_data = data
 		app\navigate route
+	return true
 
 return { :navigate }

@@ -5,10 +5,7 @@ AdventureHeader = (title, on_back) ->
 		ImageView {
 			class: "back-icon"
 			Source: "assets/icons/back.svg?width=#{iconSize}&type=mask"
-			-- LeftButtonUp: on_back
-			LeftButtonUp: ->
-				on_back! if on_back
-				true
+			LeftButtonUp: on_back
 		}
 		TextBlock class: "title", title
 
