@@ -1,5 +1,5 @@
 Application = require "orca.core.application"
-
+import TextBlock, StackView, ImageView, Node2D from require "orca.UIKit"
 import Games from require "model"
 
 AdventureSession = require "chronicle/views/screens/adventure/Session"
@@ -34,4 +34,9 @@ class Adventure extends require "orca.core.widget"
 			AdventureCommandBar run_command
 
 		@content_for "footer", footer
-		@content_for "inner", transcript.render!
+		-- @content_for "inner", transcript.render!
+		@content_for "inner", StackView class: "transcript", -> 
+			transcript.render!
+			for _, item in ipairs { "Book", "Lamp", "Key" }
+				TextBlock class: "suggestion", item
+			-- TextBlock class: "disclaimer", "This is a work in progress. Save your game often, and expect things to break!"
