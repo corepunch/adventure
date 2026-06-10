@@ -68,6 +68,10 @@ MoonScript callback rules:
 - Use `=>` sparingly for cases where the callback must keep the surrounding object context across the function boundary.
 - In UI trees, `->` usually means “build children here”.
 - `=>` is only for places where the widget instance itself must stay bound as `self` inside the closure.
+- Do not add `layout = @` (or similar alias locals) unless there is a proven runtime need.
+- In ORCA UI builder callbacks (`->`), do not call `addChild` when constructing normal child nodes; nodes created in the host coroutine are parented automatically.
+- When local helper bindings are only used inside a UI builder callback, define them inside the `->` callback block instead of predeclaring them in the outer method body.
+- Prefer direct method/helper calls inside `->` callbacks (for example `@resolved_header!`) instead of pre-binding references like `resolved_header = @resolved_header`.
 
 Examples:
 
