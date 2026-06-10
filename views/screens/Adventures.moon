@@ -1,6 +1,5 @@
 import StackView, TextBlock, ImageView, Grid from require "orca.UIKit"
 import Games, Sessions from require "model"
-import navigate from require "chronicle/views/helpers"
 Popup = require "chronicle/views/popups/Popup"
 
 class Adventures extends require "orca.core.widget"
@@ -14,14 +13,14 @@ class Adventures extends require "orca.core.widget"
 					class: "game-card"
 					LeftButtonUp: ->
 						if not session
-							navigate @url_for game
+							@navigate @url_for game
 						else
 							ok = @showModal Popup
 								title: "Continue saved game?"
 								text: "There was a game running already. Do you want to continue it?"
 								yes_label: "Yes"
 								no_label: "No"
-							navigate @url_for session or game if ok == 1
+							@navigate @url_for session or game if ok == 1
 				}, ->
 					ImageView class: "cover", Source: game\cover_source!
 					StackView class: "copy", ->

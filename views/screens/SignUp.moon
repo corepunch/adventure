@@ -1,7 +1,6 @@
 import StackView, TextBlock, Input, Button from require "orca.UIKit"
 
 import Account, Users from require "model"
-import navigate from require "chronicle/views/helpers"
 
 class SignUp extends require "orca.core.widget"
 	title: "Sign Up"
@@ -53,10 +52,10 @@ class SignUp extends require "orca.core.widget"
 					if ok
 						pcall Account.signin, Account, params
 						pcall Users.create, Users, params.userId, { name: params.name }
-						navigate "/"
+						@navigate "/"
 			}, "Sign Up"
 
 			Button {
 				class: "link"
-				Click: -> navigate "/sign-in"
+				Click: -> @navigate "/sign-in"
 			}, "Already have an account? Sign in"

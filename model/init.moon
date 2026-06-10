@@ -12,7 +12,7 @@ class Game
 
 	url_params: (req, ...) =>
 		params = { game: @id }
-		"Adventure", nil, params, ...
+		"Adventure", params, nil, ...
 
 	cover_source: =>
 		"assets/games/#{@id}"
@@ -28,7 +28,7 @@ class Game
 class Session extends Game
 	url_params: (req, ...) =>
 		params = { game: @game_id, session: @id }
-		"Adventure", nil, params, ...
+		"Adventure", params, nil, ...
 
 	command_count: =>
 		@commands and #@commands or 0

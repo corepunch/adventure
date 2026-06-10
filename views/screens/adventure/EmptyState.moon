@@ -1,5 +1,4 @@
 import StackView, TextBlock from require "orca.UIKit"
-import navigate from require "chronicle/views/helpers"
 
 AdventureEmptyState = ->
 	StackView {
@@ -10,7 +9,7 @@ AdventureEmptyState = ->
 		}, "No game selected"
 		StackView {
 			class: "button"
-			LeftButtonUp: -> navigate "/"
+			LeftButtonUp: -> @navigate "/"
 		}, =>
 			TextBlock {
 				class: "label"

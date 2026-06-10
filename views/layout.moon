@@ -46,8 +46,7 @@ class Default extends require "orca.core.widget"
 		title_slot   = @content_for "title"
 		header_slot  = @content_for "header"
 		navigate     = @navigate
-		route_val    = @current_route
-		active_route = if type(route_val) == "function" then route_val! else route_val or "/"
+		active_route = @path or "/"
 		view         = @view
 		chrome       = view and view.chrome
 		title_value  = view and view.title

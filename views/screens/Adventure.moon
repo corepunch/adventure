@@ -1,7 +1,6 @@
 Application = require "orca.core.application"
 
 import Games from require "model"
-import navigate from require "chronicle/views/helpers"
 
 AdventureSession = require "chronicle/views/screens/adventure/Session"
 AdventureHeader = require "chronicle/views/screens/adventure/Header"
@@ -10,28 +9,24 @@ AdventureCommandBar = require "chronicle/views/screens/adventure/CommandBar"
 AdventureTranscript = require "chronicle/views/screens/adventure/Transcript"
 AdventureEmptyState = require "chronicle/views/screens/adventure/EmptyState"
 
-background_source = "assets/images/room-1.jpg"
+-- background_source = "assets/images/room-1.jpg"
 use_action_buttons = false--true
 
 class Adventure extends require "orca.core.widget"
 	title: "Adventure"
 
 	content: =>
-		app = Application.current false
-		data = app and app.nav_data
-		game_id = data and data.game
-		requested_session_id = data and data.session
-		config = game_id and Games\definition game_id
+		game = Games\definition @params.game
 
-		unless config
+		unless game
 			@content_for "title", "Adventure"
 			return AdventureEmptyState!
 
-		@content_for "title", config.title
-		@content_for "header", AdventureHeader config.title, -> navigate "/"
+		@content_for "title", game.title
+		@content_for "header", AdventureHeader game.title, -> @navigate "/"
 
-		session = AdventureSession game_id, requested_session_id, config
-		transcript = AdventureTranscript session, background_source
+		session = AdventureSession @params.game, @params.session, game
+		transcript = AdventureTranscript session--, background_source
 		run_command = (command) -> transcript.append session.submit command
 		footer = if use_action_buttons
 			AdventureActionBar session, run_command
