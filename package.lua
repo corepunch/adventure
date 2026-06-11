@@ -26,6 +26,7 @@ ThemeLibrary = {
 	{ Key = "accent", Value = "#345EC7" },
 	{ Key = "accent-foreground", Value = "#FFFFFF" },
 	{ Key = "accent-background", Value = "#C5CDDC" },
+	-- { Key = "accent-hover", Value = "#D67949" },
 	{ Key = "muted-foreground", Value = "#6B7280" },
 	{ Key = "border", Value = "#E3E8F0" },
 	{ Key = "danger", Value = "#D63939" },

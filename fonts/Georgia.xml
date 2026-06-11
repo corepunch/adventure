@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- <FontFamily Name="Junicode-Ansund.otf" Regular="chronicle/fonts/Junicode-Ansund-Regular.otf" /> -->
+<FontFamily 
+	Name="Georgia" 
+	Regular="chronicle/fonts/georgia.ttf"
+	Bold="chronicle/fonts/georgiab.ttf"
+	Italic="chronicle/fonts/georgiai.ttf"
+	BoldItalic="chronicle/fonts/georgiaz.ttf" />

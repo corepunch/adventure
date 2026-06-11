@@ -54,15 +54,14 @@
 
 .adventure-header {
 	color: var(--accent-foreground);
-	overflow-x: hidden;
 	gap: 8;
 	padding: 0 8;
+	align-items: center;
 }
 
 .adventure-header .back-icon,
 .adventure-header .title {
 	color: var(--accent-foreground);
-	margin: auto 0;
 }
 
 .adventure-header .title {
@@ -71,7 +70,6 @@
 	font-weight: bold;
 	text-wrap: nowrap;
 	text-overflow: ellipsis;
-	margin: auto 0;
 }
 
 .adventure-empty .message {
@@ -123,32 +121,35 @@
 
 .transcript {
 	width: 100%;
-	font-family: "Times New Roman", serif;
+	font-family: "Georgia", serif;
 	font-size: 18;
-	line-height: 24;
+	line-height: 20;
 	padding: 8 0;
 	overflow-y: scroll;
 }
 
 .transcript .suggestion {
-	color: var(--danger);
-	/* text-align: center; */
-	/* font-size: 14; */
+	color: var(--muted-foreground);
+	font-size: 16;
 	/* line-height: 20; */
-	text-decoration: underline;
 	padding: 4 8;
 }
 
+.transcript .suggestion:hover {
+	color: var(--accent);
+	text-decoration: underline;
+}
+
 .transcript .outgoing {
-	color: var(--foreground);
-	border-radius: 12;
-	margin: 4 16 4 auto;
+	color: var(--muted-foreground);
 	padding: 8 16;
+	font-size: 16;
 }
 
 .transcript .incoming {
 	color: var(--foreground);
 	padding: 8;
+	line-height: 24;
 }
 
 .transcript .background {

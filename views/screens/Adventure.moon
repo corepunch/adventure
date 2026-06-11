@@ -108,7 +108,10 @@ class Adventure extends require "orca.core.widget"
 
 		session = AdventureSession @params.game, @params.session, game
 		transcript = @make_transcript session
-		run_command = (command) -> transcript.append session.submit command
+		suggestions = nil
+		run_command = (command) -> 
+			transcript.append session.submit command
+			suggestions\rebuild! if suggestions
 
 		@content_for "footer", if use_action_buttons
 			@make_action_bar session, run_command
@@ -120,13 +123,14 @@ class Adventure extends require "orca.core.widget"
 				onScrollHeightChanged: => @SetScrollTop @ScrollHeight
 			}, ->
 				transcript.render!
-				for action in *session.actions! do
-					print "Action:", action.label, "->", action.command
-				-- for _, item in ipairs { "Open book", "Turn on lamp", "Pick up key" }
-					TextBlock { 
-						class: "suggestion", 
-						LeftButtonUp: -> run_command action.command 
-					}, action.label
+				suggestions = Grid Columns: "auto auto", ->
+					for action in *session.actions! do
+						-- print "Action:", action.label, "->", action.command
+					-- for _, item in ipairs { "Open book", "Turn on lamp", "Pick up key" }
+						TextBlock { 
+							class: "suggestion", 
+							LeftButtonUp: -> run_command action.command 
+						}, action.label
 
 	empty_state: =>
 		navigate_home = -> @navigate "/"
@@ -149,7 +153,7 @@ class Adventure extends require "orca.core.widget"
 	make_transcript: (session) =>
 		console_view = nil
 
-		outgoing = (line) -> TextBlock class: "outgoing", line
+		outgoing = (line) -> TextBlock class: "outgoing", "> #{line}"
 		incoming = (line) -> TextBlock class: "incoming", line
 
 		append = (entry) ->
