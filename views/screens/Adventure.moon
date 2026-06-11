@@ -37,6 +37,6 @@ class Adventure extends require "orca.core.widget"
 		-- @content_for "inner", transcript.render!
 		@content_for "inner", StackView class: "transcript", -> 
 			transcript.render!
-			for _, item in ipairs { "Book", "Lamp", "Key" }
+			for _, item in ipairs { "Open book", "Turn on lamp", "Pick up key" }
 				TextBlock class: "suggestion", item
 			-- TextBlock class: "disclaimer", "This is a work in progress. Save your game often, and expect things to break!"
