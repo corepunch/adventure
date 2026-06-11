@@ -65,14 +65,14 @@ AdventureSession = (game_id, requested_session_id, config) ->
 
 	actions = ->
 		action_items = {
-			{ label: "Look Around", command: "look" }
+			{ label: "Look around", command: "look" }
 			{ label: "Inventory", command: "inventory" }
 		}
 
 		for exit in *room_exits! do
 			dir = if exit[1] then tostring exit[1] else ""
 			table.insert action_items, {
-				label: dir\sub(1, 1)\upper! .. dir\sub(2)\lower!
+				label: "Walk #{dir\lower!}"
 				detail: if exit[2] then tostring exit[2] else ""
 				command: "walk #{dir\lower!}"
 			}
@@ -82,7 +82,7 @@ AdventureSession = (game_id, requested_session_id, config) ->
 				name, verbs, children = table.unpack item
 				for verb in *(verbs or {}) do
 					table.insert action_items, {
-						label: "#{verb\sub(1, 1)\upper!}#{verb\sub(2)\lower!} #{name}"
+						label: "#{verb\sub(1, 1)\upper!}#{verb\sub(2)\lower!} #{name\lower!}"
 						command: "#{verb\lower!} #{name}"
 					}
 				add_item_actions children or {}
@@ -115,10 +115,18 @@ class Adventure extends require "orca.core.widget"
 		else
 			@make_command_bar run_command
 
-		@content_for "inner", StackView class: "transcript", ->
-			transcript.render!
-			for _, item in ipairs { "Open book", "Turn on lamp", "Pick up key" }
-				TextBlock class: "suggestion", item
+		@content_for "inner", StackView {
+				class: "transcript"
+				onScrollHeightChanged: => @SetScrollTop @ScrollHeight
+			}, ->
+				transcript.render!
+				for action in *session.actions! do
+					print "Action:", action.label, "->", action.command
+				-- for _, item in ipairs { "Open book", "Turn on lamp", "Pick up key" }
+					TextBlock { 
+						class: "suggestion", 
+						LeftButtonUp: -> run_command action.command 
+					}, action.label
 
 	empty_state: =>
 		navigate_home = -> @navigate "/"
@@ -153,15 +161,14 @@ class Adventure extends require "orca.core.widget"
 		render = ->
 			console_view = StackView {
 				class: "log"
-				onScrollHeightChanged: => @SetScrollTop @ScrollHeight
 			}, ->
 				for _, entry in ipairs session.entries! do
 					outgoing entry.cmd if entry.cmd
 					for line in entry.output\gmatch "[^\n]+" do
 						incoming line
 
-			Node2D class: "transcript", =>
-				@addChild console_view
+			-- Node2D class: "transcript", =>
+			-- 	@addChild console_view
 
 		{ :append, :render }
 
@@ -182,11 +189,10 @@ class Adventure extends require "orca.core.widget"
 		view = nil
 		render_buttons = ->
 			for action in *session.actions! do
-				command = action.command
 				TextBlock {
 					class: "chip"
 					LeftButtonUp: ->
-						on_action command
+						on_action action.command
 						view\rebuild render_buttons if view and view.rebuild
 						true
 				}, action.label

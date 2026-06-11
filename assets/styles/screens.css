@@ -126,6 +126,8 @@
 	font-family: "Times New Roman", serif;
 	font-size: 18;
 	line-height: 24;
+	padding: 8 0;
+	overflow-y: scroll;
 }
 
 .transcript .suggestion {
@@ -135,12 +137,6 @@
 	/* line-height: 20; */
 	text-decoration: underline;
 	padding: 4 8;
-}
-
-.transcript .log {
-	direction: vertical;
-	padding: 8 0;
-	overflow-y: scroll;
 }
 
 .transcript .outgoing {
