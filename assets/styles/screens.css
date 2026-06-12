@@ -121,35 +121,44 @@
 
 .transcript {
 	width: 100%;
+	background-image: url("assets/images/background.jpg");
 	font-family: "Georgia", serif;
-	font-size: 18;
-	line-height: 20;
-	padding: 8 0;
+	padding: 24 24;
 	overflow-y: scroll;
 }
 
+.transcript .suggestion-icon {
+	width: 24;
+	height: 24;
+}
+
 .transcript .suggestion {
-	color: var(--very-muted-foreground);
+	color: var(--foreground);
 	font-size: 16;
 	/* line-height: 20; */
-	padding: 4 8;
+	padding-left: 4;
+	opacity: 0.75;
 }
 
 .transcript .suggestion:hover {
-	color: var(--accent);
+	color: var(--foreground);
 	text-decoration: underline;
+	opacity: 1.0;
 }
 
 .transcript .outgoing {
-	color: var(--muted-foreground);
-	padding: 8 16;
+	color: var(--foreground);
+	padding: 8 8;
 	font-size: 16;
+	opacity: 0.75;
 }
 
 .transcript .incoming {
 	color: var(--foreground);
-	padding: 8;
+	padding: 8 8;
 	line-height: 24;
+	font-size: 18;
+	line-height: 20;
 }
 
 .transcript .background {

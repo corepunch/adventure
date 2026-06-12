@@ -124,16 +124,23 @@ class Adventure extends require "orca.core.widget"
 					for action in *session.actions! do
 						-- print "Action:", action.label, "->", action.command
 					-- for _, item in ipairs { "Open book", "Turn on lamp", "Pick up key" }
-						TextBlock { 
-							class: "suggestion", 
-							LeftButtonUp: -> run_command action.command 
-						}, action.label
+						StackView Direction: "Horizontal", MarginLeft: 8, MarginTop: 8, AlignItems: "Center", ->
+							find_icon = require "chronicle/views/icons" or "map"
+							icon = find_icon action.label
+							ImageView {
+								class: "suggestion-icon"
+								Source: "assets/icons-color/#{icon}"
+							}
+							TextBlock { 
+								class: "suggestion", 
+								LeftButtonUp: -> run_command action.command 
+							}, action.label
 
 	empty_state: =>
 		navigate_home = -> @navigate "/"
 		StackView class: "adventure-empty", ->
 			TextBlock class: "message", "No game selected"
-			StackView { class: "button", LeftButtonUp: navigate_home }, ->
+			StackView class: "button", LeftButtonUp: navigate_home, ->
 				TextBlock class: "label", "Back to games"
 
 	make_header: (title) =>
@@ -174,7 +181,7 @@ class Adventure extends require "orca.core.widget"
 		{ :append, :render }
 
 	make_command_bar: (on_submit) =>
-		StackView class: "command-bar", ->
+		Node2D class: "command-bar", ->
 			Input {
 				class: "input"
 				PlaceholderText: "Enter command..."
@@ -200,3 +207,5 @@ class Adventure extends require "orca.core.widget"
 
 		view = StackView { class: "action-bar" }, -> render_buttons!
 		view
+
+
