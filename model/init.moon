@@ -207,9 +207,11 @@ class Sessions
 		return true
 
 	create: (gameId) =>
+		sessions = @readAll!
+		for _, s in pairs sessions do
+			if s.gameId == gameId then return s.id
 		seed = os.time!
 		math.randomseed seed
-		sessions = @readAll!
 		id = tostring(os.time!) .. "_" .. tostring(math.random 1000, 9999)
 		created = tostring(os.time!)
 		table.insert sessions, id: id, gameId: gameId, createdAt: created, seed: seed, commands: {}

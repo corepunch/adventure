@@ -30,10 +30,7 @@ AdventureSession = (game_id, requested_session_id, config) ->
 		assert server.load_zil_files config.modules, env
 		game = server.create_game env
 
-		session = if requested_session_id
-			Sessions\find requested_session_id
-		else
-			Sessions\find_by_game_id game_id
+		session = Sessions\find(requested_session_id) or Sessions\find_by_game_id(game_id)
 
 		if session
 			math.randomseed session.seed
