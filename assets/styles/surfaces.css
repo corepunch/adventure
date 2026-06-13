@@ -17,6 +17,16 @@
 	border: 1 solid var(--border);
 }
 
+.command-bar .input2 {
+	background-color: #ffffff00;
+	/* background-image: url("assets/images/text-input.png"); */
+	border-image-source: url("assets/images/text-input.png");
+	border-image-slice: 12;
+	border-image-repeat: stretch;
+	margin: 6 0;
+	padding: 0 12;
+}
+
 /* Shared primary and secondary actions */
 Button.primary,
 .auth-screen .primary,

@@ -161,6 +161,13 @@
 	line-height: 20;
 }
 
+.transcript .room-name {
+	font-size: 22;
+	/* font-weight: bold; */
+	padding-top: 18;
+	padding-bottom: 8;
+}
+
 .transcript .background {
 	width: 100%;
 	opacity: 0.75;

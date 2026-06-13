@@ -59,6 +59,7 @@ AdventureSession = (game_id, requested_session_id, config) ->
 
 	room_items = -> game\resume("room-items") or {}
 	room_exits = -> game\resume("room-exits") or {}
+	is_room_name = (text) -> game\resume("room-name?:#{text}") == true
 
 	actions = ->
 		action_items = {
@@ -88,7 +89,7 @@ AdventureSession = (game_id, requested_session_id, config) ->
 		action_items
 
 	start!
-	{ :entries, :submit, :room_items, :room_exits, :actions }
+	{ :entries, :submit, :room_items, :room_exits, :is_room_name, :actions }
 
 class Adventure extends require "orca.core.widget"
 	title: "Adventure"
@@ -158,7 +159,9 @@ class Adventure extends require "orca.core.widget"
 		console_view = nil
 
 		outgoing = (line) -> TextBlock class: "outgoing", "> #{line}"
-		incoming = (line) -> TextBlock class: "incoming", line
+		incoming = (line) ->
+			class_name = if session.is_room_name line then "incoming room-name" else "incoming"
+			TextBlock class: class_name, line
 
 		append = (entry) ->
 			return unless entry and console_view
@@ -183,7 +186,7 @@ class Adventure extends require "orca.core.widget"
 	make_command_bar: (on_submit) =>
 		Node2D class: "command-bar", ->
 			Input {
-				class: "input"
+				class: "input2"
 				PlaceholderText: "Enter command..."
 				Submit: (sender, evt) =>
 					text = evt.Text\gsub "[\r\n]+$", ""
@@ -207,5 +210,4 @@ class Adventure extends require "orca.core.widget"
 
 		view = StackView { class: "action-bar" }, -> render_buttons!
 		view
-
 
