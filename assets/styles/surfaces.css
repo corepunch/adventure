@@ -9,12 +9,15 @@
 
 .chrome-footer .input,
 .auth-screen .input,
-.command-bar .input,
 .chat-composer .input,
 .legacy-auth-form .input {
 	background-color: var(--background);
 	color: var(--foreground);
 	border: 1 solid var(--border);
+}
+
+.command-bar {
+	background-image: url("assets/images/panel.jpg");
 }
 
 .command-bar .input2 {
@@ -23,6 +26,7 @@
 	border-image-source: url("assets/images/text-input.png");
 	border-image-slice: 12;
 	border-image-repeat: stretch;
+	border-width: 0;
 	margin: 6 0;
 	padding: 0 12;
 }
