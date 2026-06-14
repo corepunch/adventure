@@ -3,35 +3,136 @@ body {
 	color: var(--foreground);
 }
 
-.adventures-list,
-.saved-games-screen,
-.auth-screen,
-.adventure-empty,
-.transcript,
-.empty-route {
+/* App Shell */
+.app-status-bar {
+	background-color: var(--accent);
+}
+
+.app-header {
+	background-color: var(--accent);
+	padding: 12 20;
+	justify-content: center;
+}
+
+.app-header .title {
+	color: var(--accent-foreground);
+	font-size: 24;
+	line-height: 32;
+	font-weight: bold;
+	text-wrap: nowrap;
+	text-align: center;
+	text-overflow: Ellipsis;
+}
+
+.app-home-indicator {
+	background-color: var(--accent-background);
+}
+
+.app-footer {
+	background-color: var(--accent-background);
+	padding: 8;
+}
+
+.app-footer .tab {
+	width: 100%;
+	direction: vertical;
+	align-items: center;
+	justify-content: center;
+	gap: 4;
+}
+
+.app-footer .icon,
+.app-footer .label {
+	color: var(--muted-foreground);
+	margin: 0 auto;
+}
+
+.app-footer .label {
+	font-size: 12;
+	line-height: 16;
+}
+
+.app-footer .selected {
+	color: var(--accent);
+}
+
+.app-footer .label.selected {
+	font-weight: bold;
+}
+
+/* Navigation & Common */
+.chrome-footer {
+	background-color: var(--accent-background);
+	padding: 8 16;
+	direction: horizontal;
+	gap: 8;
+	align-items: center;
+}
+
+.chrome-footer .icon {
+	color: var(--muted-foreground);
+}
+
+.chrome-footer .input {
 	background-color: var(--background);
 	color: var(--foreground);
-}
-
-.error-message {
-	color: var(--danger);
-	margin-top: 64;
-	font-size: 14;
-	line-height: 20;
-}
-.chat-header,
-.chat-composer,
-.messages {
-}
-
-.messages {
-	direction: vertical;
-	padding: 16;
-	overflow-y: scroll;
+	border: 1 solid var(--border);
+	border-radius: 8;
+	padding: 10 16;
 	width: 100%;
 }
 
+.command-bar {
+	background-color: var(--accent-background);
+	background-image: url("assets/images/panel.jpg");
+	padding: 8 16;
+	align-items: center;
+}
+
+.command-bar .input {
+	background-color: var(--background);
+	color: var(--foreground);
+	border: 1 solid var(--border);
+	border-radius: 8;
+	padding: 10 16;
+	height: 48;
+	width: 100%;
+	text-wrap: nowrap;
+	text-overflow: Clip;
+	overflow-x: hidden;
+}
+
+.command-bar .input2 {
+	background-color: #ffffff00;
+	border-image-source: url("assets/images/text-input.png");
+	border-image-slice: 12;
+	border-image-repeat: stretch;
+	border-width: 0;
+	margin: 6 0;
+	padding: 0 12;
+}
+
+.action-bar {
+	background-color: var(--accent-background);
+	direction: horizontal;
+	gap: 8;
+	align-items: center;
+	padding: 8;
+	overflow-x: scroll;
+}
+
+.action-bar .chip {
+	background-color: var(--background);
+	color: var(--foreground);
+	border: 1 solid var(--border);
+	border-radius: 12;
+	text-wrap: nowrap;
+	padding: 8 16;
+}
+
+/* Chat/Messages */
 .chat-header {
+	background-color: var(--border);
 	padding: 0 8;
 }
 
@@ -41,8 +142,23 @@ body {
 	color: var(--muted-foreground);
 }
 
+.chat-composer {
+	background-color: var(--border);
+}
+
 .chat-composer .input {
+	background-color: var(--background);
+	color: var(--foreground);
+	border: 1 solid var(--border);
 	padding: 8;
+}
+
+.messages {
+	background-color: var(--border);
+	direction: vertical;
+	padding: 16;
+	overflow-y: scroll;
+	width: 100%;
 }
 
 .messages .bubble {
@@ -67,11 +183,16 @@ body {
 	background-color: var(--message-outgoing);
 	margin-left: 32;
 }
+
+/* Game Card */
 .game-card {
+	background-color: var(--background);
+	color: var(--foreground);
+	border: 1 solid var(--border);
 	border-radius: 8;
 	padding: 8;
-  gap: 8;
-  grid-template-columns: 64px auto;
+	gap: 8;
+	grid-template-columns: 64px auto;
 }
 
 .game-card .cover {
@@ -85,9 +206,16 @@ body {
 }
 
 .game-card .title {
+	color: var(--foreground);
+	font-size: 16;
+	line-height: 24;
+	font-weight: bold;
 }
 
 .game-card .description {
+	color: var(--muted-foreground);
+	font-size: 14;
+	line-height: 20;
 }
 
 .game-card .badge {
@@ -96,7 +224,11 @@ body {
 	line-height: 16;
 }
 
+/* Saved Game Row */
 .saved-game-row {
+	background-color: var(--background);
+	color: var(--foreground);
+	border: 1 solid var(--border);
 	border-radius: 12;
 	direction: horizontal;
 	align-items: center;
@@ -111,20 +243,27 @@ body {
 }
 
 .saved-game-row .title {
-}
-
-.saved-game-row .description,
-.saved-game-row .delete {
-	color: var(--muted-foreground);
+	color: var(--foreground);
+	font-size: 16;
+	line-height: 24;
+	font-weight: bold;
 }
 
 .saved-game-row .description {
+	color: var(--muted-foreground);
+	font-size: 14;
+	line-height: 20;
+}
+
+.saved-game-row .delete {
+	color: var(--muted-foreground);
 }
 
 .saved-game-row .delete:hover {
 	color: var(--danger);
 }
 
+/* Popup */
 .popup {
 	padding: 16;
 	width: 100%;
@@ -133,6 +272,9 @@ body {
 }
 
 .popup .panel {
+	background-color: var(--background);
+	color: var(--foreground);
+	border: 1 solid var(--border);
 	border-radius: 16;
 	padding: 24;
 	width: 100%;
@@ -140,10 +282,17 @@ body {
 }
 
 .popup .title {
+	color: var(--foreground);
+	font-size: 20;
+	line-height: 28;
+	font-weight: bold;
 	text-align: center;
 }
 
 .popup .text {
+	color: var(--muted-foreground);
+	font-size: 14;
+	line-height: 20;
 }
 
 .popup .actions {
@@ -159,169 +308,21 @@ body {
 	font-weight: bold;
 }
 
+/* Buttons */
 Button.primary {
+	background-color: var(--accent);
+	color: var(--accent-foreground);
 }
 
 Button.secondary {
-}
-.app-status-bar,
-.app-header,
-.adventure-header {
-	background-color: var(--accent);
+	background-color: var(--border);
+	color: var(--foreground);
 }
 
-.app-home-indicator,
-.app-footer,
-.chrome-footer,
-.command-bar,
-.action-bar {
-	background-color: var(--accent-background);
-}
-
-.app-header {
-	padding: 12 20;
-	justify-content: center;
-}
-
-.app-header .title {
-	color: var(--accent-foreground);
-	font-size: 24;
-	line-height: 32;
-	font-weight: bold;
-	text-wrap: nowrap;
-	text-align: center;
-	text-overflow: Ellipsis;
-}
-
-.app-footer {
-	padding: 8;
-}
-
-.app-footer .icon,
-.app-footer .label {
-	color: var(--muted-foreground);
-  margin: 0 auto;
-}
-
-.app-footer .selected {
-	color: var(--accent);
-}
-
-.app-footer .label {
-	font-size: 12;
-	line-height: 16;
-}
-
-.app-footer .label.selected {
-	font-weight: bold;
-}
-
-.app-footer .tab {
-	width: 100%;
-	direction: vertical;
-	align-items: center;
-	justify-content: center;
-	gap: 4;
-}
-
-.chrome-footer {
-	padding: 8 16;
-	direction: horizontal;
-	gap: 8;
-	align-items: center;
-}
-
-.chrome-footer .icon {
-	color: var(--muted-foreground);
-}
-
-.chrome-footer .input,
-.auth-screen .input,
-.command-bar .input {
-	border-radius: 8;
-	padding: 10 16;
-}
-
-.chrome-footer .input {
-	width: 100%;
-}
-
-.empty-route {
-	padding: 24;
-	gap: 8;
-}
-
-.empty-route .copy {
-}
-.legacy-auth .header {
-	background-color: var(--foreground);
-	color: var(--warning);
-	padding: 8;
-	font-size: 12;
-	line-height: 16;
-}
-
-.legacy-auth-form {
-	padding: 0 24;
-}
-
-.legacy-auth-form .title {
-}
-
-.legacy-auth-form .description,
-.legacy-auth-form .label,
-.legacy-auth-form .small-link {
-}
-
-.legacy-auth-form .input {
-	padding: 8;
-}
-
-.legacy-auth-form .primary {
-	padding: 10;
-	font-size: 20;
-	line-height: 28;
-}
-
-.legacy-auth-form .link,
-.legacy-auth-form .small-link {
-	color: var(--accent);
-	background-color: transparent;
-}
-
-.legacy-auth-form .link {
-	margin-top: 16;
-}
-
-.legacy-auth-form .links {
-	margin-top: 8;
-}
-.adventures-list {
-	padding: 12 0;
-	direction: vertical;
-	gap: 12;
-	overflow-y: scroll;
-}
-
-.saved-games-screen,
-.adventure-empty {
-	padding: 16;
-}
-
-.saved-games-screen {
-	direction: vertical;
-	gap: 16;
-	overflow-y: scroll;
-}
-
-.saved-games-screen .heading {
-}
-
-.saved-games-screen .empty {
-	padding: 16;
-}
-
+/* Auth Screen */
 .auth-screen {
+	background-color: var(--background);
+	color: var(--foreground);
 	padding: 32;
 	direction: vertical;
 	gap: 16;
@@ -336,9 +337,14 @@ Button.secondary {
 }
 
 .auth-screen .subtitle {
+	color: var(--muted-foreground);
+	font-size: 14;
+	line-height: 20;
 }
 
 .auth-screen .primary {
+	background-color: var(--accent);
+	color: var(--accent-foreground);
 	border-radius: 8;
 	font-weight: bold;
 	padding: 10 16;
@@ -350,7 +356,79 @@ Button.secondary {
 	padding: 10 16;
 }
 
+.auth-screen .input {
+	background-color: var(--background);
+	color: var(--foreground);
+	border: 1 solid var(--border);
+	border-radius: 8;
+	padding: 10 16;
+}
+
+/* Saved Games Screen */
+.saved-games-screen {
+	background-color: var(--background);
+	color: var(--foreground);
+	padding: 16;
+	direction: vertical;
+	gap: 16;
+	overflow-y: scroll;
+}
+
+.saved-games-screen .heading {
+	color: var(--foreground);
+	font-size: 20;
+	line-height: 28;
+	font-weight: bold;
+}
+
+.saved-games-screen .empty {
+	color: var(--muted-foreground);
+	font-size: 16;
+	line-height: 24;
+	padding: 16;
+}
+
+/* Adventures List */
+.adventures-list {
+	background-color: var(--background);
+	color: var(--foreground);
+	padding: 12 0;
+	direction: vertical;
+	gap: 12;
+	overflow-y: scroll;
+}
+
+/* Adventure Empty */
+.adventure-empty {
+	background-color: var(--background);
+	color: var(--foreground);
+	padding: 16;
+}
+
+.adventure-empty .message {
+	color: var(--muted-foreground);
+	text-align: center;
+}
+
+.adventure-empty .button {
+	background-color: var(--border);
+	color: var(--foreground);
+	border: 1 solid var(--border);
+	border-radius: 12;
+	align-items: center;
+	padding: 10 16;
+}
+
+.adventure-empty .label {
+	color: var(--foreground);
+	font-size: 16;
+	line-height: 24;
+	font-weight: bold;
+}
+
+/* Adventure Header */
 .adventure-header {
+	background-color: var(--accent);
 	color: var(--accent-foreground);
 	gap: 8;
 	padding: 0 8;
@@ -370,54 +448,10 @@ Button.secondary {
 	text-overflow: ellipsis;
 }
 
-.adventure-empty .message {
-	color: var(--muted-foreground);
-	text-align: center;
-}
-
-.adventure-empty .button {
-	color: var(--foreground);
-	border: 1 solid var(--border);
-	border-radius: 12;
-	align-items: center;
-	padding: 10 16;
-}
-
-.adventure-empty .label {
-}
-
-.command-bar {
-	padding: 8 16;
-	align-items: center;
-}
-
-.command-bar .input {
-	height: 48;
-	width: 100%;
-	border-radius: 8;
-	text-wrap: nowrap;
-	text-overflow: Clip;
-	overflow-x: hidden;
-}
-
-.action-bar {
-	direction: horizontal;
-	gap: 8;
-	align-items: center;
-	padding: 8;
-	overflow-x: scroll;
-}
-
-.action-bar .chip {
+/* Transcript */
+.transcript {
 	background-color: var(--background);
 	color: var(--foreground);
-	border: 1 solid var(--border);
-	border-radius: 12;
-	text-wrap: nowrap;
-	padding: 8 16;
-}
-
-.transcript {
 	width: 100%;
 	background-image: url("assets/images/background.jpg");
 	font-family: "Georgia", serif;
@@ -433,7 +467,6 @@ Button.secondary {
 .transcript .suggestion {
 	color: var(--foreground);
 	font-size: 16;
-	/* line-height: 20; */
 	padding-left: 4;
 	opacity: 0.75;
 }
@@ -461,7 +494,6 @@ Button.secondary {
 
 .transcript .room-name {
 	font-size: 22;
-	/* font-weight: bold; */
 	padding-top: 18;
 	padding-bottom: 8;
 }
@@ -470,61 +502,34 @@ Button.secondary {
 	width: 100%;
 	opacity: 0.75;
 }
-/* Shared surface and control fills */
-.game-card,
-.saved-game-row,
-.popup .panel {
+
+/* Empty Route */
+.empty-route {
 	background-color: var(--background);
 	color: var(--foreground);
-	border: 1 solid var(--border);
+	padding: 24;
+	gap: 8;
 }
 
-.chrome-footer .input,
-.auth-screen .input,
-.chat-composer .input,
-.legacy-auth-form .input {
-	background-color: var(--background);
-	color: var(--foreground);
-	border: 1 solid var(--border);
+.empty-route .copy {
+	color: var(--muted-foreground);
+	font-size: 16;
+	line-height: 24;
 }
 
-.command-bar {
-	background-image: url("assets/images/panel.jpg");
+/* Legacy Auth */
+.legacy-auth .header {
+	background-color: var(--foreground);
+	color: var(--warning);
+	padding: 8;
+	font-size: 12;
+	line-height: 16;
 }
 
-.command-bar .input2 {
-	background-color: #ffffff00;
-	/* background-image: url("assets/images/text-input.png"); */
-	border-image-source: url("assets/images/text-input.png");
-	border-image-slice: 12;
-	border-image-repeat: stretch;
-	border-width: 0;
-	margin: 6 0;
-	padding: 0 12;
+.legacy-auth-form {
+	padding: 0 24;
 }
 
-/* Shared primary and secondary actions */
-Button.primary,
-.auth-screen .primary,
-.legacy-auth-form .primary {
-	background-color: var(--accent);
-	color: var(--accent-foreground);
-}
-
-Button.secondary,
-.adventure-empty .button,
-.chat-header,
-.chat-composer,
-.messages {
-	background-color: var(--border);
-}
-
-Button.secondary {
-	color: var(--foreground);
-}
-/* Shared section headings */
-.saved-games-screen .heading,
-.popup .title,
 .legacy-auth-form .title {
 	color: var(--foreground);
 	font-size: 20;
@@ -532,21 +537,6 @@ Button.secondary {
 	font-weight: bold;
 }
 
-/* Shared strong body titles */
-.game-card .title,
-.saved-game-row .title,
-.adventure-empty .label {
-	color: var(--foreground);
-	font-size: 16;
-	line-height: 24;
-	font-weight: bold;
-}
-
-/* Shared muted supporting copy */
-.game-card .description,
-.saved-game-row .description,
-.popup .text,
-.auth-screen .subtitle,
 .legacy-auth-form .description,
 .legacy-auth-form .label,
 .legacy-auth-form .small-link {
@@ -555,15 +545,38 @@ Button.secondary {
 	line-height: 20;
 }
 
-/* Shared muted medium copy */
-.saved-games-screen .empty,
-.empty-route .copy {
-	color: var(--muted-foreground);
-	font-size: 16;
-	line-height: 24;
+.legacy-auth-form .input {
+	background-color: var(--background);
+	color: var(--foreground);
+	border: 1 solid var(--border);
+	padding: 8;
 }
 
-/* Shared transcript/action text sizing */
-.command-bar .input,
-.action-bar .chip {
+.legacy-auth-form .primary {
+	background-color: var(--accent);
+	color: var(--accent-foreground);
+	padding: 10;
+	font-size: 20;
+	line-height: 28;
+}
+
+.legacy-auth-form .link,
+.legacy-auth-form .small-link {
+	color: var(--accent);
+	background-color: transparent;
+}
+
+.legacy-auth-form .link {
+	margin-top: 16;
+}
+
+.legacy-auth-form .links {
+	margin-top: 8;
+}
+
+.error-message {
+	color: var(--danger);
+	margin-top: 64;
+	font-size: 14;
+	line-height: 20;
 }
